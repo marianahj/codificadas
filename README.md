@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Community Project
 ---
 This README would normally document whatever steps are necessary to get the
@@ -131,3 +132,7 @@ Puma is the web server used for this application, so to start puma server with f
 
 This command will start puma server on localhost at port 5000,
 http://127.0.0.1:5000
+=======
+codificadas
+===========
+>>>>>>> 6c057a5262bf09db0bca2c4d37a2d2de4e773125
