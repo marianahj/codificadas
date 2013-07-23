@@ -67,22 +67,30 @@ body {
 }
 
 header {
-  height: 65px;
+  height: 150px;
   border-bottom: 1px solid $light-gray;
 
   .banner {
-    padding: ($padding / 2) 0;
+    padding: 26px 0;
     line-height: 3em;
   }
 
   .logo {
-    margin: 10px 0 0 0;
+    border: 1px solid black;
+    width:  200px;
+    height: 100px;
     position: absolute;
-    left: 45%;
+    float: left;
   }
 
   .welcome {
     padding: $padding $padding;
+
+    .btn-github {
+      position: absolute;
+      top: 102px;
+      right: 447px;
+    }
 
     .sign-out {
       background-color: #fbfbfb;
@@ -95,18 +103,9 @@ header {
     float: right;
 
     li {
-      float: left;
+      text-align: right;
+      line-height: 2em;
       color: $codificadas-blue;
-      margin-right: ($margin / 2);
-
-      &:after {
-        content: '|';
-        margin-left: ($margin / 2);
-      }
-
-      &:last-child:after {
-        content: '';
-      }
 
       a {
         color: $codificadas-blue;
@@ -114,6 +113,10 @@ header {
         font-weight: lighter;
         text-decoration: none;
         font-family: 'Share Tech Mono', sans-serif;
+      }
+
+      a:hover {
+        text-decoration: underline;
       }
     }
   }
@@ -123,10 +126,10 @@ header {
     color: $light-gray;
   }
 
-  #logo {
-    font-size: 24px;
-    padding-right: 10px;
-  }
+  //#logo {
+  //  font-size: 24px;
+  //  padding-right: 10px;
+  //}
 
   a {
     color: $codificadas-blue;
@@ -143,32 +146,32 @@ header {
 
 }
 
-.menu {
-  list-style-type: none;
-  margin: 0 0 0 $margin;
-
-  li {
-    float: left;
-    color: $red;
-    margin-right: ($margin / 2);
-
-    &:after {
-      content: '|';
-      margin-left: ($margin / 2);
-    }
-
-    &:last-child:after {
-      content: '';
-    }
-
-    a {
-      color: $light-red;
-      font-size: 1.2em;
-      font-weight: lighter;
-      text-decoration: none;
-    }
-  }
-}
+//.menu {
+//  list-style-type: none;
+//  margin: 0 0 0 $margin;
+//
+//  li {
+//    float: left;
+//    color: $red;
+//    margin-right: ($margin / 2);
+//
+//    &:after {
+//      content: '|';
+//      margin-left: ($margin / 2);
+//    }
+//
+//    &:last-child:after {
+//      content: '';
+//    }
+//
+//    a {
+//      color: $light-red;
+//      font-size: 1.2em;
+//      font-weight: lighter;
+//      text-decoration: none;
+//    }
+//  }
+//}
 
 footer {
   height: 75px;

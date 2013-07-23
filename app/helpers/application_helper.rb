@@ -2,7 +2,7 @@ module ApplicationHelper
   def display_login_link(&block)
     unless identity_signed_in?
       link_to t('.sign_in'), "/auth/github",
-        class: "sign-in github",
+        class: "btn-auth btn-github",
         style: "font-size: .8em;"
     else
       html = capture(&block) if block_given?
