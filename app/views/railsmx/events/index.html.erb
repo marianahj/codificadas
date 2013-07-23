@@ -1,0 +1,80 @@
+<% title t('.events') %>
+<div class="content">
+  <%= display_notice %>
+
+  <section class="left-section">
+    <sidebar>
+      <div class="blog">
+        <h4><%= t('.blog') %></h4>
+        <div class="sidebar-blog">
+          <%= !@current_posts.empty? ? (render partial: 'shared/post', collection: @current_posts) : t('.not_content') %>
+        </div>
+      </div>
+      <div class="social-links">
+        <h4><%= t('.social') %></h4>
+        <ul>
+          <div class="icons icon-twitter">
+            <i><%= link_to '@railsmx', 'http://twitter.com/railsmx', target: '_blank' %></i>
+          </div>
+          <div class="icons icon-google-plus">
+            <i><%= link_to 'RailsMX', 'https://plus.google.com/communities/113995479213399624141', target: '_blank' %></i>
+          </div>
+          <div class="icons icon-microphone">
+            <i><%= link_to 'Ruby en Español', 'http://rubyen.es', target: '_blank' %></i>
+          </div>
+          <div class="icons icon-group">
+            <i><%= link_to 'Codificadas MX', 'https://www.facebook.com/Codificadas', target: '_blank' %></i>
+          </div>
+        </ul>
+      </div>
+    </sidebar>
+  </section>
+
+  <section class="right-section">
+    <h1>
+      <%= t('.events') %>
+      <%= display_create_event_link %>
+    </h1>
+    <p><%= t('.text_current_events') %></p>
+
+    <div class="row current">
+      <% cache [current_identity, @current_events] do %>
+        <% if !@current_events.empty? %>
+          <%= render partial: 'event', collection: @current_events, locals: { event_count: @current_events.length } %>
+        <% else %>
+          <div class="advice">
+            <%= t('.not_upcoming_events') %>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+
+    <div class="row past-title">
+      <h2><%= t('.recent_events') %></h2>
+      <p><%= t('.text_past_events') %></p>
+    </div>
+
+    <div class="row past">
+      <% cache @past_events do %>
+        <% if !@past_events.empty? %>
+          <%= render partial: 'event', collection: @past_events, locals: { event_count: @past_events.length } %>
+        <% else %>
+          <div class="advice">
+            <%= t('.not_recent_events') %>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  </section>
+
+</div>
+
+<script>
+  document.addEventListener('page:change', function(){
+    new App.Utilities.Form
+  });
+
+  $(function(){
+    new App.Utilities.Form
+  });
+</script>

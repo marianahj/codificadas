@@ -1,0 +1,405 @@
+.events {
+  .content {
+    padding: $padding 0 0 0;
+
+    sidebar {
+      .blog { padding-top: ($padding * 2.75); }
+    }
+
+    .right-section {
+      padding: 0 $padding / 2 0 0;
+
+      p { text-align: justify; }
+
+      .row {
+        width: 100%;
+        margin-bottom: ($margin * 2);
+
+        #group {
+          width: 100%;
+          display: inline-block;
+        }
+
+        .first {
+          @extend .box-shadow;
+          width: 97%;
+          margin: ($margin / 2);
+          border: 1px solid $light-gray;
+          text-align: justify;
+          overflow: hidden;
+          word-wrap: break-word;
+
+          .datetime {
+            width: 20%;
+            float: left;
+            padding: ($padding * 3) $padding;
+            padding: (($padding * 3) + 5) ($padding) ($padding * 3) ($padding);
+            text-align: center;
+            margin-left: 0 !important;
+
+            .month {
+              font-size: 1.2em;
+              color: $black;
+            }
+
+            .day {
+              font-size: 4.0em;
+              font-weight: bold;
+              color: $red;
+              line-height: .9em;
+            }
+
+            .weekday {
+              color: $gray;
+              font-size: 1.1em;
+              line-height: 1.7em;
+            }
+
+            .time {
+              font-size: 1.1em;
+              font-weight: bold;
+              line-height: .9em;
+            }
+          }
+
+          .main-data {
+            width: 80%;
+            float: left;
+            padding: $padding $padding $padding 0;
+
+            .title {
+              color: $red;
+              font-family: "Helvetica";
+              font-weight: bold;
+              font-size: 2.5em;
+            }
+
+            .location {
+              text-align: left !important;
+              color: $gray;
+              font-size: 1.1em;
+              line-height: 1.1em;
+
+              .img {
+                width: 5%;
+                overflow: hidden;
+                float: left;
+              }
+
+              .info {
+                width: 95%;
+                float: left;
+
+                .place { font-weight: bold; }
+
+                .address {
+                  font-weight: lighter;
+                  font-size: 0.9em;
+                }
+
+                .organizer {
+                  color: $red;
+                  text-align: left;
+                  font-family: "Helvetica";
+                  font-weight: lighter;
+                  font-size: .9em;
+                  margin: ($margin / 2) 0;
+                }
+              }
+            }
+
+            .description {
+              margin-top: ($margin / 2);
+              color: $gray;
+              font-family: "Helvetica";
+              font-weight: lighter;
+
+              p { padding: 0; }
+            }
+          }
+        }
+
+        .second {
+          @extend .box-shadow;
+          width: 47.2%;
+          float: left;
+          margin: $margin / 2;
+          border: 1px solid $light-gray;
+          word-wrap: break-word;
+
+          .datetime {
+            width: 30%;
+            float: left;
+            padding: (($padding * 3) - 10) ($padding / 2) ($padding * 3) ($padding / 2);
+            text-align: center;
+            margin-left: 0 !important;
+
+            .month {
+              font-size: 1.0em;
+              color: $black;
+            }
+
+            .day {
+              font-size: 3.0em;
+              font-weight: bold;
+              color: $red;
+              line-height: .9em;
+            }
+
+            .weekday {
+              color: $gray;
+              font-size: 1.0em;
+              line-height: 1.7em;
+            }
+
+            .time {
+              font-size: 0.9em;
+              font-weight: bold;
+              line-height: .9em;
+            }
+          }
+
+          .main-data {
+            width: 70%;
+            float: left;
+            padding: $padding $padding $padding 0;
+
+            .title {
+              color: $red;
+              font-family: "Helvetica";
+              font-weight: bold;
+              font-size: 1.5em;
+            }
+
+            .location {
+              overflow: hidden;
+              text-align: left !important;
+              color: $gray;
+              font-size: 1em;
+              line-height: 1.1em;
+
+              .img {
+                width: 10%;
+                overflow: hidden;
+                float: left;
+              }
+
+              .info {
+                width: 90%;
+                float: left;
+
+                .place {
+                  font-size: 0.9em;
+                  font-weight: bold;
+                }
+
+                .address {
+                  font-size: 0.8em;
+                  font-weight: lighter;
+                }
+
+                .organizer {
+                  color: $red;
+                  text-align: left;
+                  font-family: "Helvetica";
+                  font-weight: lighter;
+                  font-size: .9em;
+                  margin: ($margin / 2) 0;
+                }
+              }
+            }
+
+            .description {
+              overflow: hidden;
+              color: $gray;
+              font-family: "Helvetica";
+              font-weight: lighter;
+              font-size: .9em;
+
+              p { padding: 0; }
+            }
+          }
+        }
+
+        .third {
+          @extend .second;
+
+          .datetime { padding: ($padding * 2) 0 $padding $padding !important; }
+
+          .main-data { padding-left: 20px !important; }
+        }
+
+        .advice { padding-left: $padding / 2; }
+      }
+
+      .past-title { margin-bottom: 0 !important; }
+
+      h1, h2, p { padding: 0 ($padding / 2); }
+    }
+
+    .btn {
+      float: right;
+      color: #fff;
+      margin-top: ($margin / 4);
+      font-size: 14px;
+    }
+
+    a {
+      color: $light-red;
+      text-decoration: none;
+      padding-right: 20px;
+    }
+
+    h2 {
+      margin-top: 0px;
+      margin-bottom: 0px;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      color: $red;
+      margin: 0;
+      padding: 0;
+    }
+
+    .edit {
+      display: none;
+      position: absolute;
+    }
+
+    .icon-edit { color: $red; }
+  }
+
+  .event {
+    .left-section {
+      sidebar {
+        padding-top: ($padding * 3) !important;
+
+        .blog { padding-top: $padding / 2 !important; }
+      }
+    }
+
+    .right-section {
+      padding-left: $padding / 2;
+
+      .description-data {
+        .title {
+          color: $red;
+          font-family: "Helvetica";
+          font-weight: bold;
+          font-size: 2.0em;
+        }
+
+        .description {
+          margin: $margin 0 0 0;
+          font-family: "Helvetica";
+          text-align: justify;
+
+          p {
+            margin-top: 0;
+            padding-left: 0;
+          }
+        }
+      }
+
+      .where-data {
+        h2 { padding-left: 0; }
+        .location-info {
+          margin-left: 0;
+          padding-right: 10px;
+
+          .place {
+            color: $gray;
+            font-weight: bold;
+            font-size: 0.9em;
+            line-height: 1.1em;
+
+            .image {
+              margin-bottom: $margin;
+              margin-top: 0;
+            }
+
+            .loc { overflow: hidden; }
+
+            .add {
+              overflow: hidden;
+              font-weight: lighter;
+            }
+          }
+
+          .organizer {
+            margin: ($margin / 2) 0 0 $margin + 5;
+            color: $red;
+            font-family: "Helvetica";
+            font-weight: lighter;
+          }
+
+          .contact {
+            margin-top: ($margin / 4);
+            padding-left: $padding + 5;
+            font-weight: lighter;
+          }
+
+          .datetime {
+            padding: ($padding * 2) ($padding * 4) $padding 0;
+            text-align: center;
+
+            .month {
+              font-size: 1.5em;
+              color: $black;
+            }
+
+            .day {
+              font-size: 4.0em;
+              font-weight: bold;
+              color: $red;
+              line-height: .9em;
+            }
+
+            .weekday {
+              color: $gray;
+              font-size: 1.2em;
+              line-height: 1.7em;
+            }
+
+            .time {
+              font-size: 1.2em;
+              font-weight: bold;
+              line-height: .9em;
+            }
+          }
+        }
+
+        #map {
+          @extend .box-shadow;
+          height: 350px;
+          margin-bottom: $margin;
+
+          border: 1px solid $light-gray;
+        }
+      }
+    }
+  }
+
+  .new-event, .edit-event {
+    sidebar {
+      padding-top: $padding * 2.75 !important;
+
+      .blog { padding-top: $padding / 2; }
+    }
+
+    .right-section {
+      p { text-align: justify; }
+
+      .building, .place, .date, .time { padding-right: $padding; }
+    }
+  }
+
+  .box-shadow {
+    -moz-box-shadow:    3px 3px 5px -2px $light-gray;
+    -webkit-box-shadow: 3px 3px 5px -2px $light-gray;
+    box-shadow:         3px 3px 5px -2px $light-gray;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+  }
+}

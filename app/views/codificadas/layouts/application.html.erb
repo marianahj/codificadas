@@ -1,0 +1,64 @@
+<!doctype html>
+<html>
+<head>
+  <link href='http://fonts.googleapis.com/css?family=Share+Tech+Mono' rel='stylesheet' type='text/css'>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+  <meta name="keywords" content="ruby, ruby on rails, ror, comunidad, eventos, mujeres, codificadas, tecnología">
+  <meta name="description" content="Comunidad de mujeres apasionadas por la programación y las tecnologías.">
+  <meta name="robots" content="all" >
+  <%= auto_discovery_link_tag(:atom, '/blog.xml') %>
+  <%= auto_discovery_link_tag(:rss, '/blog.rss') %>
+  <%= favicon_link_tag "favicon-#{ENV['THEME'].downcase}.ico" %>
+  <%= stylesheet_link_tag "codificadas" %>
+  <%= javascript_include_tag "codificadas" %>
+</head>
+<body>
+<header>
+  <div class="container">
+    <div class="banner">
+      <span class="logo"><%= link_to image_tag("railsmx-mini.png", border: 0),main_app.root_path %></span>
+      <ul class="menu">
+        <li><%= link_to t('.menu-events').upcase, main_app.events_path %></li>
+        <li><%= link_to t('.menu-blog').upcase, crowdblog.root_path %></li>
+      </ul>
+    </div>
+    <div class="welcome">
+      <%= display_login_link do %>
+            <span class="user-info">
+              <%= t('.welcome', user: current_identity.try(:username))  %>
+              <% if current_identity.email.present? %>
+                <%= gravatar_image_tag(current_identity.email.gsub('spam', current_identity.username), alt: current_identity.username) %>
+              <% else %>
+                <%= gravatar_image_tag('junk', alt: 'Github Default Gravatar') %>
+              <% end %>
+            </span>
+          <%= link_to t('.sign_out'), main_app.signout_path, class: "sign-out zocial secondary", style: "font-size: .8em;" %>
+      <% end %>
+    </div>
+  </div>
+</header>
+<%= display_warden_message_tag %>
+<div class="container <%= controller.controller_name %>">
+  <%= yield %>
+</div>
+<div class="container social">
+  <%= render partial: 'shared/socialite' %>
+</div>
+
+<footer style="background-color: #c61b66">
+  <div class="container">
+    <div class="four">
+      <ul class="submenu">
+        <li><%= link_to t('.who_we_are'), "/acerca" %></li>
+        <li><%= link_to t('.contact'), main_app.contact_form_new_path %></li>
+        <li><%= link_to t('.privacy'), "/privacidad" %></li>
+      </ul>
+    </div>
+    <div class="three">
+      <!--<span class="logo"><%= link_to (image_tag "railsmx.png"), root_path %></span>-->
+    </div>
+  </div>
+</footer>
+<%= render partial: '/shared/ga' if Rails.env.production? %>
+</body>
+</html>

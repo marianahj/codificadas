@@ -1,0 +1,83 @@
+.home {
+  .hero {
+    @include size(1024px 300px);
+    background: image-url('hero-image.png') no-repeat;
+
+    .welcome-text {
+      margin: ($margin * 2) 0 0 $margin;
+
+      h3, h2, h4 {
+        margin-bottom: 0;
+        margin-top: 0;
+        color: #fff;
+        font-weight: normal;
+      }
+
+      h1 {
+        margin-top: 0;
+        font-size: 3em;
+        margin-bottom: 0;
+        color: $red;
+      }
+
+      &.button { margin-top: $margin; }
+    }
+
+    .btn-large {
+      @include button(pill, $red);
+      color: white;
+      margin-top: $margin;
+      font-size: 1.2em;
+    }
+  }
+
+  .content {
+    p { text-align: justify; }
+
+    h1, h2, h3, h4, h5, h6 { color: $red; }
+  }
+
+  .home-index {
+    sidebar { padding-top: ($padding * 3.5) !important; }
+
+    .image-left {
+      float: left;
+      margin: 0 ($margin /2) ($margin /2) 0;
+    }
+
+    .image-right {
+      float: right;
+      margin-left: ($margin / 2);
+    }
+
+    .image { padding: ($padding * 1.5); }
+  }
+
+  .notice, .alert { margin-top: $margin; }
+}
+
+.about, .contact, .privacy {
+  sidebar { padding-top: ($padding * 4.5) !important; }
+}
+
+.contact_form {
+  h1 { color: $red; }
+
+  .contact {
+    .form-contact {
+      @extend .form-event;
+      padding-left: 0;
+
+      input[type="text"], input[type="email"] { @include size(300px 30px); }
+
+      textarea {
+        font-size: .9em;
+        @include size(300px 150px);
+      }
+
+      div label { width: 24%; }
+
+      .submit { padding-left: ($padding * 9); }
+    }
+  }
+}

@@ -1,0 +1,204 @@
+es:
+  warden:
+    strategies:
+      unauthorized_identity: 'Su cuenta ha sido suspendida'
+
+  layouts:
+    application:
+      sign_in: 'Iniciar sesión'
+      sign_out: 'Cerrar sesión'
+      menu-home: 'Inicio'
+      menu-events: 'Eventos'
+      menu-blog: 'Blog'
+      menu-contact: 'Contacto'
+      welcome: 'Bienvenido %{user}'
+      events: 'Eventos'
+      who_we_are: 'Acerca de'
+      contact: 'Contacto'
+      privacy: 'Privacidad'
+      contact_us: 'Si deseas organizar un Coderetreat o necesitas ayuda para organizarlo, ponte en contacto con nosotros.'
+      more_info: 'Más información...'
+      blog: 'BLOG'
+      twitter: 'TWITTER'
+      more: 'MÁS'
+      not_content: 'No hay contenido disponible'
+
+  home:
+    acerca:
+      who_we_are: 'Acerca de ...'
+      about_coderetreat: 'ACERCA DEL CODERETREAT'
+      history: 'HISTORIA'
+      oragnize_coderetreat: 'ORGANIZA TU CODERETREAT'
+    privacidad:
+      privacy: 'Privacidad'
+    index:
+      sign_in: 'Iniciar sesión'
+      not_content: 'No hay contenido disponible'
+      intense_practice: 'Práctica intensiva'
+      practice_descrip: 'Todo un día de práctica en el diseño modular de la programación orientada a objectos, con el objectivo de desarrollar código que minimize los costos de los cambios.'
+      focused_fundamentals: 'Enfocado a los fundamentos'
+      fundamentals_descrip: 'Una oportunidad para enfocarse en los fundamentos del diseño y desarrollo de código. Sin la presión de tener un entregable.'
+      improve_skills: 'Mejora tus habilidades'
+      skills_descrip: 'Practica todo lo que en tu trabajo diario es difícil, trabaja en par con gente desconocida y en diferentes lenguajes de programación.'
+      more_information: 'Más información...'
+
+  shared:
+    sidebar:
+      coming_events: 'Próximos Eventos'
+      blog: 'Blog'
+      not_content: 'No hay contenido disponible'
+      social: 'Social'
+    post:
+      details: 'Ver detalles...'
+    event:
+      organizer: 'Organizado por %{organize}'
+      details: 'Ver detalles ...'
+    event_show:
+      event_not_available: 'Evento no disponible'
+
+  contact_form:
+    new:
+      send: 'Enviar'
+      contact: 'Contacto'
+      name: 'Nombre:'
+      email: 'Correo electrónico:'
+      description: 'Descripción:'
+    create:
+      message_sent: 'Su mensaje de contacto se ha enviado'
+
+  mail_form:
+    errors:
+      models:
+        contact_form:
+          attributes:
+            name:
+              blank: 'Campo vacío'
+            email:
+              invalid: 'Correo electrónico inválido'
+            message:
+              blank: 'Mensaje vacío'
+    models:
+      contact_form: 'Forma para contactar'
+      name: 'Nombre'
+    attributes:
+      contact_form:
+        email: 'E-mail'
+        message: 'Mensaje enviado'
+        name: 'Nombre'
+
+  crowdblog:
+    posts:
+      index:
+        blog: 'Blog'
+        coming_events: 'Próximos Eventos'
+        not_content: 'No hay contenido disponible'
+        social: 'Social'
+    admin:
+      posts:
+        index:
+          not_logged: 'Usuario no registrado'
+
+  events:
+    new:
+      create_event: 'Crear evento'
+      new_event_title: 'Registrar un evento'
+    form:
+      event_name: 'Evento:'
+      address: 'Dirección:'
+      place: 'Lugar:'
+      date: 'Cuando:'
+      organizer: 'Organiza:'
+      contact: 'Contacto:'
+      description: 'Descripción:'
+      ph_place: 'Dirección completa'
+      ph_contact: 'email, URL o teléfono de contacto'
+      ph_organizer: 'Persona o empresa que organiza'
+      register_event: 'Registrar'
+      back: 'regresar'
+
+    index:
+      not_content: 'No hay contenido disponible'
+      not_recent_events: 'No hay eventos recientes'
+      not_upcoming_events: 'No hay eventos próximos a realizarse'
+      recent_events: 'Eventos recientes'
+      text_current_events: 'Consulta los eventos que ocurren alrededor de la comunidad. Si estas organizando un evento y deseas darle promoción, registralo.'
+      text_past_events: 'Estos son los eventos de la comunidad que ya se llevaron acabo.'
+      events: 'Eventos'
+      blog: 'Blog'
+      add_event: 'Registrar evento'
+      create_event: 'Su evento ha sido creado'
+      edit: 'Modificar'
+      social: 'Social'
+    edit:
+      update_event: 'Actualizar evento'
+      edit_event_title: 'Actualizar un evento'
+    show:
+      event_not_found: 'Evento no encontrado'
+      where_when: 'Dónde y cuándo'
+      organizer: 'Organizado por %{organize}'
+      contact: 'Contacto: %{contact}'
+    create:
+      invalid_event: 'Por favor revise la información del evento'
+      event_created: 'Su evento ha sido creado'
+    update:
+      event_not_found: 'Evento no encontrado'
+      event_updated: 'Su evento ha sido actualizado'
+      invalid_event: 'Evento invalido'
+    destroy:
+      event_deleted: 'Evento eliminado'
+      event_not_found: 'Evento no encontrado'
+    event:
+      create_event: 'Crear evento'
+      organizer: 'Organizado por %{organize}'
+      edit_event: 'editar'
+
+  subject_mail: 'Correo de contacto de %{app}'
+
+  activerecord:
+    errors:
+      messages:
+        invalid: 'Fecha invalida'
+      models:
+        event:
+          attributes:
+            name:
+              blank: 'campo requerido'
+            address:
+              blank: 'campo requerido'
+            location:
+              blank: 'campo requerido'
+            date:
+              blank: 'campo requerido'
+            contact:
+              blank: 'campo requerido'
+
+  date:
+    formats:
+      default: '%Y-%m-%d'
+      short: '%b %d'
+      long: '%B %d, %Y'
+      long_date: 'El %d de %B de %Y'
+      month_name: '%B'
+      day_name: '%A'
+      custom_short: '%A %d de %B'
+
+    day_names: [Domingo, Lunes, Martes, Miercoles, Jueves, Viernes, Sabado]
+    abbr_day_names: [Dom, Lun, Mar, Vie, Jue, Vie, Sab]
+
+    month_names: [~, Enero, Febrero, Marzo, Abril, Mayo, Junio, Julio, Agosto, Septiembre, Octubre, Noviembre, Diciembre]
+    abbr_month_names: [~, Ene, Feb, Mar, Abr, May, Jun, Jul, Ago, Sep, Oct, Nov, Dic]
+
+    order:
+      - year
+      - month
+      - day
+
+  time:
+    formats:
+      default: '%a, %d %b %Y %H:%M:%S %z'
+      short: '%d %b %H:%M'
+      long: '%B %d, %Y %H:%M'
+      short_time: '%l:%M %p'
+
+    am: 'AM'
+    pm: 'PM'

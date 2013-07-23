@@ -1,0 +1,21 @@
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: community_development
+  pool: 5
+  host: localhost
+
+test:
+  adapter: postgresql
+  encoding: unicode
+  database: community_test
+  pool: 5
+  host: localhost
+  username: <%= ENV['TRAVIS'] ? 'postgres' : '' %>
+
+production:
+  adapter: postgresql
+  encoding: unicode
+  database: community_production
+  pool: 5
+  host: localhost

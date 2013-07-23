@@ -1,0 +1,1294 @@
+[32mDEBUG[0m   [1m[36m (107.9ms)[0m  [1mDROP DATABASE IF EXISTS "community_test"[0m
+[32mDEBUG[0m   [1m[35m (232.1ms)[0m  CREATE DATABASE "community_test" ENCODING = 'unicode'
+[32mDEBUG[0m   [1m[36mSQL (1.7ms)[0m  [1mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+[32mDEBUG[0m   [1m[35m (4.7ms)[0m  CREATE TABLE "crowdblog_assets" ("id" serial primary key, "post_id" integer, "attachment" character varying(255), "created_at" timestamp, "updated_at" timestamp) 
+[32mDEBUG[0m   [1m[36m (2.9ms)[0m  [1mCREATE TABLE "crowdblog_posts" ("id" serial primary key, "title" character varying(255), "body" text, "permalink" character varying(255), "published_at" timestamp, "author_id" integer, "state" character varying(255), "publisher_id" integer, "ready_for_review" boolean, "marked_for_review_at" timestamp, "created_at" timestamp, "updated_at" timestamp) [0m
+[32mDEBUG[0m   [1m[35m (2.4ms)[0m  CREATE TABLE "crowdblog_users" ("id" serial primary key, "email" character varying(255), "name" character varying(255)) 
+[32mDEBUG[0m   [1m[36m (2.8ms)[0m  [1mCREATE TABLE "events" ("id" serial primary key, "name" character varying(255) NOT NULL, "description" text NOT NULL, "date" timestamp NOT NULL, "location" character varying(255) NOT NULL, "contact" character varying(255) NOT NULL, "organizer" character varying(255), "identity_id" integer, "created_at" timestamp, "updated_at" timestamp, "address" character varying(255), "latitude" float, "longitude" float, "slug" character varying(255)) [0m
+[32mDEBUG[0m   [1m[35m (0.8ms)[0m  CREATE INDEX "index_events_on_identity_id" ON "events" USING btree ("identity_id")
+[32mDEBUG[0m   [1m[36m (0.9ms)[0m  [1mCREATE UNIQUE INDEX "index_events_on_slug" ON "events" USING btree ("slug")[0m
+[32mDEBUG[0m   [1m[35m (2.7ms)[0m  CREATE TABLE "identities" ("id" serial primary key, "provider" character varying(255) NOT NULL, "uid" character varying(255) NOT NULL, "username" character varying(255) NOT NULL, "email" character varying(255), "blocked" boolean DEFAULT 'f', "created_at" timestamp, "updated_at" timestamp) 
+[32mDEBUG[0m   [1m[36m (0.6ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" character varying(255) NOT NULL) [0m
+[32mDEBUG[0m   [1m[35m (0.7ms)[0m  CREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")
+[32mDEBUG[0m   [1m[36m (0.2ms)[0m  [1mSELECT version FROM "schema_migrations"[0m
+[32mDEBUG[0m   [1m[35m (0.4ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20130624200153')
+[32mDEBUG[0m   [1m[36m (0.3ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20130211233027')[0m
+[32mDEBUG[0m   [1m[35m (0.3ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20130306220950')
+[32mDEBUG[0m   [1m[36m (0.3ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20130406092758')[0m
+[32mDEBUG[0m   [1m[35m (0.3ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20130423181244')
+[32mDEBUG[0m   [1m[36m (0.3ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20130423181245')[0m
+[32mDEBUG[0m   [1m[35m (0.3ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20130507142525')
+[32mDEBUG[0m   [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+[32mDEBUG[0m   [1m[36m (1.4ms)[0m  [1mALTER TABLE "crowdblog_assets" DISABLE TRIGGER ALL;ALTER TABLE "crowdblog_posts" DISABLE TRIGGER ALL;ALTER TABLE "crowdblog_users" DISABLE TRIGGER ALL;ALTER TABLE "events" DISABLE TRIGGER ALL;ALTER TABLE "identities" DISABLE TRIGGER ALL;ALTER TABLE "schema_migrations" DISABLE TRIGGER ALL[0m
+[32mDEBUG[0m   [1m[35m (0.3ms)[0m  BEGIN
+[32mDEBUG[0m   [1m[36mFixture Delete (0.4ms)[0m  [1mDELETE FROM "events"[0m
+[32mDEBUG[0m   [1m[35mFixture Insert (0.8ms)[0m  INSERT INTO "events" ("name", "description", "date", "location", "contact", "organizer", "created_at", "updated_at", "id") VALUES ('MyString', 'MyText', '2013-02-11 17:30:27.000000', 'MyString', 'MyString', 'MyString', '2013-07-22 04:04:56', '2013-07-22 04:04:56', 980190962)
+[32mDEBUG[0m   [1m[36mFixture Insert (0.5ms)[0m  [1mINSERT INTO "events" ("name", "description", "date", "location", "contact", "organizer", "created_at", "updated_at", "id") VALUES ('MyString', 'MyText', '2013-02-11 17:30:27.000000', 'MyString', 'MyString', 'MyString', '2013-07-22 04:04:56', '2013-07-22 04:04:56', 298486374)[0m
+[32mDEBUG[0m   [1m[35mFixture Delete (0.4ms)[0m  DELETE FROM "identities"
+[32mDEBUG[0m   [1m[36mFixture Insert (0.5ms)[0m  [1mINSERT INTO "identities" ("id", "provider", "uid", "username", "email", "created_at", "updated_at") VALUES (100, 'github', '3345444', 'test_user', 'test@user.com', '2013-07-22 04:04:56', '2013-07-22 04:04:56')[0m
+[32mDEBUG[0m   [1m[35mFixture Insert (0.2ms)[0m  INSERT INTO "identities" ("id", "provider", "uid", "username", "email", "created_at", "updated_at") VALUES (200, 'github', '64674747', 'another_user', 'test1@user.com', '2013-07-22 04:04:56', '2013-07-22 04:04:56')
+[32mDEBUG[0m   [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+[32mDEBUG[0m   [1m[35m (0.2ms)[0m  ALTER TABLE "crowdblog_assets" ENABLE TRIGGER ALL;ALTER TABLE "crowdblog_posts" ENABLE TRIGGER ALL;ALTER TABLE "crowdblog_users" ENABLE TRIGGER ALL;ALTER TABLE "events" ENABLE TRIGGER ALL;ALTER TABLE "identities" ENABLE TRIGGER ALL;ALTER TABLE "schema_migrations" ENABLE TRIGGER ALL
+[32mDEBUG[0m   [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+[37mINFO[0m ---------------------------------------------------
+[37mINFO[0m Event: test_0001_must be invalid without attributes
+[37mINFO[0m ---------------------------------------------------
+[32mDEBUG[0m   [1m[35m (0.3ms)[0m  ROLLBACK
+[32mDEBUG[0m   [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+[37mINFO[0m -----------------------------------------------------------
+[37mINFO[0m Event: test_0002_must be invalid when date is not in future
+[37mINFO[0m -----------------------------------------------------------
+[32mDEBUG[0m   [1m[35mIdentity Load (0.8ms)[0m  SELECT "identities".* FROM "identities" ORDER BY "identities"."id" ASC LIMIT 1
+[32mDEBUG[0m   [1m[36mEvent Load (1.1ms)[0m  [1mSELECT "events".* FROM "events" WHERE ("slug" = 'magmaconf' OR "slug" LIKE 'magmaconf--%') ORDER BY LENGTH("slug") DESC, "slug" DESC LIMIT 1[0m
+[32mDEBUG[0m   [1m[35m (0.4ms)[0m  ROLLBACK
+[32mDEBUG[0m   [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+[37mINFO[0m ------------------------------
+[37mINFO[0m Event: test_0003_must be valid
+[37mINFO[0m ------------------------------
+[32mDEBUG[0m   [1m[35mIdentity Load (0.5ms)[0m  SELECT "identities".* FROM "identities" ORDER BY "identities"."id" ASC LIMIT 1
+[32mDEBUG[0m   [1m[36mEvent Load (0.5ms)[0m  [1mSELECT "events".* FROM "events" WHERE ("slug" = 'magmaconf' OR "slug" LIKE 'magmaconf--%') ORDER BY LENGTH("slug") DESC, "slug" DESC LIMIT 1[0m
+[32mDEBUG[0m   [1m[35m (0.3ms)[0m  ROLLBACK
+[32mDEBUG[0m   [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+[37mINFO[0m -------------------------------------------------------------
+[37mINFO[0m Event: test_0004_must combine date and time before validation
+[37mINFO[0m -------------------------------------------------------------
+[32mDEBUG[0m   [1m[35m (0.3ms)[0m  ROLLBACK
+[32mDEBUG[0m   [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+[37mINFO[0m ------------------------------------------------
+[37mINFO[0m Event: test_0005_must have time if date is given
+[37mINFO[0m ------------------------------------------------
+[32mDEBUG[0m   [1m[35m (0.2ms)[0m  ROLLBACK
+[32mDEBUG[0m   [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+[37mINFO[0m --------------------------------------------------
+[37mINFO[0m Event: test_0006_wont set time if no date is given
+[37mINFO[0m --------------------------------------------------
+[32mDEBUG[0m   [1m[35m (0.1ms)[0m  ROLLBACK
+[32mDEBUG[0m   [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+[37mINFO[0m -------------------------------------------------------------------------
+[37mINFO[0m Identity::Create identity: test_0001_must create identity with valid auth
+[37mINFO[0m -------------------------------------------------------------------------
+[32mDEBUG[0m   [1m[35m (0.3ms)[0m  SAVEPOINT active_record_1
+[32mDEBUG[0m   [1m[36mSQL (1.3ms)[0m  [1mINSERT INTO "identities" ("created_at", "email", "provider", "uid", "updated_at", "username") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["created_at", Mon, 22 Jul 2013 04:04:57 UTC +00:00], ["email", "test@user.com"], ["provider", "github"], ["uid", "3345444"], ["updated_at", Mon, 22 Jul 2013 04:04:57 UTC +00:00], ["username", "test_user"]]
+[32mDEBUG[0m   [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+[32mDEBUG[0m   [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+[32mDEBUG[0m   [1m[35m (0.1ms)[0m  BEGIN
+[37mINFO[0m -------------------------------------------------------------------------------
+[37mINFO[0m Identity::Create identity: test_0002_must not create identity with invalid auth
+[37mINFO[0m -------------------------------------------------------------------------------
+[32mDEBUG[0m   [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+[32mDEBUG[0m   [1m[35m (0.1ms)[0m  BEGIN
+[37mINFO[0m -------------------------------------------------------------------------------------------------------
+[37mINFO[0m Identity::Publishers login validation: test_0001_must be able to login if current identity is publisher
+[37mINFO[0m -------------------------------------------------------------------------------------------------------
+[32mDEBUG[0m   [1m[36mIdentity Load (0.5ms)[0m  [1mSELECT "identities".* FROM "identities" WHERE "identities"."uid" = '3345444' LIMIT 1[0m
+[32mDEBUG[0m   [1m[35m (0.2ms)[0m  ROLLBACK
+[32mDEBUG[0m   [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+[37mINFO[0m --------------------------------------------------------------------------------------------------------------
+[37mINFO[0m Identity::Publishers login validation: test_0002_must not be able to login if current identity isn't publisher
+[37mINFO[0m --------------------------------------------------------------------------------------------------------------
+[32mDEBUG[0m   [1m[35m (0.1ms)[0m  ROLLBACK
+[32mDEBUG[0m   [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+[37mINFO[0m ----------------------------------------------
+[37mINFO[0m Identity::Validations: test_0001_must be valid
+[37mINFO[0m ----------------------------------------------
+[32mDEBUG[0m   [1m[35mIdentity Load (0.3ms)[0m  SELECT "identities".* FROM "identities" WHERE "identities"."uid" = '3345444' LIMIT 1
+[32mDEBUG[0m   [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+[32mDEBUG[0m   [1m[35m (0.1ms)[0m  BEGIN
+[37mINFO[0m ------------------------------------------------
+[37mINFO[0m Identity::Validations: test_0002_must be invalid
+[37mINFO[0m ------------------------------------------------
+[32mDEBUG[0m   [1m[36m (0.3ms)[0m  [1mROLLBACK[0m
+[32mDEBUG[0m   [1m[36m (0.7ms)[0m  [1mALTER TABLE "crowdblog_assets" DISABLE TRIGGER ALL;ALTER TABLE "crowdblog_posts" DISABLE TRIGGER ALL;ALTER TABLE "crowdblog_users" DISABLE TRIGGER ALL;ALTER TABLE "events" DISABLE TRIGGER ALL;ALTER TABLE "identities" DISABLE TRIGGER ALL;ALTER TABLE "schema_migrations" DISABLE TRIGGER ALL[0m
+[32mDEBUG[0m   [1m[35m (0.3ms)[0m  BEGIN
+[32mDEBUG[0m   [1m[36mFixture Delete (0.3ms)[0m  [1mDELETE FROM "events"[0m
+[32mDEBUG[0m   [1m[35mFixture Insert (0.4ms)[0m  INSERT INTO "events" ("name", "description", "date", "location", "contact", "organizer", "created_at", "updated_at", "id") VALUES ('MyString', 'MyText', '2013-02-11 17:30:27.000000', 'MyString', 'MyString', 'MyString', '2013-07-22 04:04:59', '2013-07-22 04:04:59', 980190962)
+[32mDEBUG[0m   [1m[36mFixture Insert (0.3ms)[0m  [1mINSERT INTO "events" ("name", "description", "date", "location", "contact", "organizer", "created_at", "updated_at", "id") VALUES ('MyString', 'MyText', '2013-02-11 17:30:27.000000', 'MyString', 'MyString', 'MyString', '2013-07-22 04:04:59', '2013-07-22 04:04:59', 298486374)[0m
+[32mDEBUG[0m   [1m[35mFixture Delete (0.2ms)[0m  DELETE FROM "identities"
+[32mDEBUG[0m   [1m[36mFixture Insert (0.2ms)[0m  [1mINSERT INTO "identities" ("id", "provider", "uid", "username", "email", "created_at", "updated_at") VALUES (100, 'github', '3345444', 'test_user', 'test@user.com', '2013-07-22 04:04:59', '2013-07-22 04:04:59')[0m
+[32mDEBUG[0m   [1m[35mFixture Insert (0.2ms)[0m  INSERT INTO "identities" ("id", "provider", "uid", "username", "email", "created_at", "updated_at") VALUES (200, 'github', '64674747', 'another_user', 'test1@user.com', '2013-07-22 04:04:59', '2013-07-22 04:04:59')
+[32mDEBUG[0m   [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+[32mDEBUG[0m   [1m[35m (0.2ms)[0m  ALTER TABLE "crowdblog_assets" ENABLE TRIGGER ALL;ALTER TABLE "crowdblog_posts" ENABLE TRIGGER ALL;ALTER TABLE "crowdblog_users" ENABLE TRIGGER ALL;ALTER TABLE "events" ENABLE TRIGGER ALL;ALTER TABLE "identities" ENABLE TRIGGER ALL;ALTER TABLE "schema_migrations" ENABLE TRIGGER ALL
+[32mDEBUG[0m   [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+[37mINFO[0m -----------------------------------------------
+[37mINFO[0m ContactFormController: test_0001_should get new
+[37mINFO[0m -----------------------------------------------
+[37mINFO[0m Processing by ContactFormController#new as HTML
+[32mDEBUG[0m   [1m[35m (0.7ms)[0m  SELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM "events" WHERE (date > '2013-07-22 04:05:00') LIMIT 2) subquery_for_count
+[32mDEBUG[0m   [1m[36m (0.9ms)[0m  [1mSELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM "crowdblog_posts" WHERE "crowdblog_posts"."state" = 'published' LIMIT 3) subquery_for_count[0m
+[37mINFO[0m   Rendered railsmx/shared/_sidebar.html.erb (6.3ms)
+[37mINFO[0m   Rendered railsmx/contact_form/new.html.erb within layouts/application (27.0ms)
+[37mINFO[0m   Rendered railsmx/shared/_socialite.html.erb (2.0ms)
+[37mINFO[0m Completed 200 OK in 2745ms (Views: 2716.0ms | ActiveRecord: 3.1ms)
+[32mDEBUG[0m   [1m[35m (0.4ms)[0m  ROLLBACK
+[32mDEBUG[0m   [1m[36m (0.4ms)[0m  [1mBEGIN[0m
+[37mINFO[0m -------------------------------------------------------------------------------
+[37mINFO[0m ContactFormController::post create: test_0001_should redirect with valid fields
+[37mINFO[0m -------------------------------------------------------------------------------
+[37mINFO[0m Processing by ContactFormController#create as HTML
+[37mINFO[0m   Parameters: {"contact_form"=>{"name"=>"hce", "email"=>"xhce911@gmail.com", "message"=>"testing"}}
+[37mINFO[0m Redirected to http://test.host/
+[37mINFO[0m Completed 302 Found in 2ms (ActiveRecord: 0.0ms)
+[32mDEBUG[0m   [1m[35m (0.3ms)[0m  ROLLBACK
+[32mDEBUG[0m   [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+[37mINFO[0m ----------------------------------------------------------------------------------------
+[37mINFO[0m ContactFormController::post create: test_0002_should render new form with invalid fields
+[37mINFO[0m ----------------------------------------------------------------------------------------
+[37mINFO[0m Processing by ContactFormController#create as HTML
+[37mINFO[0m   Parameters: {"contact_form"=>{"name"=>"", "email"=>"", "message"=>""}}
+[32mDEBUG[0m   [1m[35m (0.6ms)[0m  SELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM "events" WHERE (date > '2013-07-22 04:05:02') LIMIT 2) subquery_for_count
+[32mDEBUG[0m   [1m[36m (0.2ms)[0m  [1mSELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM "crowdblog_posts" WHERE "crowdblog_posts"."state" = 'published' LIMIT 3) subquery_for_count[0m
+[37mINFO[0m   Rendered railsmx/shared/_sidebar.html.erb (2.9ms)
+[37mINFO[0m   Rendered railsmx/shared/_socialite.html.erb (0.7ms)
+[37mINFO[0m Completed 200 OK in 12ms (Views: 9.0ms | ActiveRecord: 0.8ms)
+[32mDEBUG[0m   [1m[35m (0.3ms)[0m  ROLLBACK
+[32mDEBUG[0m   [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+[37mINFO[0m --------------------------------------------------------------------------------------------
+[37mINFO[0m EventsController::create: test_0001_should create new event for logged user and post a tweet
+[37mINFO[0m --------------------------------------------------------------------------------------------
+[32mDEBUG[0m   [1m[35mIdentity Load (1.2ms)[0m  SELECT "identities".* FROM "identities" WHERE "identities"."id" = $1 LIMIT 1  [["id", 100]]
+[37mINFO[0m Processing by EventsController#create as HTML
+[37mINFO[0m   Parameters: {"event"=>{"name"=>"MagmaConf", "address"=>"Carretera Manzanillo-Cihuatlán kilómetro 20,Manzanillo, Colima", "location"=>"Manzanillo", "description"=>"Cool conf", "contact"=>"mg@crowdint.com", "organizer"=>"Crowdint", "date"=>"28/2/2015", "time"=>"5:05 pm"}}
+[32mDEBUG[0m   [1m[36m (0.2ms)[0m  [1mSAVEPOINT active_record_1[0m
+[32mDEBUG[0m   [1m[35mEvent Load (1.0ms)[0m  SELECT "events".* FROM "events" WHERE ("slug" = 'magmaconf' OR "slug" LIKE 'magmaconf--%') ORDER BY LENGTH("slug") DESC, "slug" DESC LIMIT 1
+[32mDEBUG[0m   [1m[36mSQL (1.2ms)[0m  [1mINSERT INTO "events" ("address", "contact", "created_at", "date", "description", "identity_id", "latitude", "location", "longitude", "name", "organizer", "slug", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING "id"[0m  [["address", "Carretera Manzanillo-Cihuatlán kilómetro 20,Manzanillo, Colima"], ["contact", "mg@crowdint.com"], ["created_at", Mon, 22 Jul 2013 04:05:03 UTC +00:00], ["date", Sat, 28 Feb 2015 17:05:00 UTC +00:00], ["description", "Cool conf"], ["identity_id", 100], ["latitude", 19.1246832], ["location", "Manzanillo"], ["longitude", -104.4001794], ["name", "MagmaConf"], ["organizer", "Crowdint"], ["slug", "magmaconf"], ["updated_at", Mon, 22 Jul 2013 04:05:03 UTC +00:00]]
+[32mDEBUG[0m   [1m[35m (0.2ms)[0m  RELEASE SAVEPOINT active_record_1
+[32mDEBUG[0m Sending Tweet MagmaConf http://test.host/eventos/magmaconf
+[37mINFO[0m Redirected to http://test.host/eventos
+[37mINFO[0m Completed 302 Found in 329ms (ActiveRecord: 2.7ms)
+[32mDEBUG[0m   [1m[36m (0.3ms)[0m  [1mROLLBACK[0m
+[32mDEBUG[0m   [1m[35m (0.2ms)[0m  BEGIN
+[37mINFO[0m ------------------------------------------------------------------------------------
+[37mINFO[0m EventsController::create: test_0002_should not create new event when not logged user
+[37mINFO[0m ------------------------------------------------------------------------------------
+[37mINFO[0m Processing by EventsController#create as HTML
+[37mINFO[0m   Parameters: {"event"=>{"name"=>"MagmaConf", "address"=>"Carretera Manzanillo-Cihuatlán kilómetro 20,Manzanillo, Colima", "location"=>"Manzanillo", "description"=>"Cool conf", "contact"=>"mg@crowdint.com", "organizer"=>"Crowdint", "date"=>"28/2/2015", "time"=>"5:05 pm"}}
+[37mINFO[0m Redirected to http://test.host/
+[37mINFO[0m Filter chain halted as :authenticate! rendered or redirected
+[37mINFO[0m Completed 302 Found in 1ms (ActiveRecord: 0.0ms)
+[32mDEBUG[0m   [1m[36m (0.3ms)[0m  [1mROLLBACK[0m
+[32mDEBUG[0m   [1m[35m (0.1ms)[0m  BEGIN
+[37mINFO[0m ---------------------------------------------------------------------------------------
+[37mINFO[0m EventsController::create: test_0003_should not create new event when params are invalid
+[37mINFO[0m ---------------------------------------------------------------------------------------
+[32mDEBUG[0m   [1m[36mIdentity Load (0.4ms)[0m  [1mSELECT "identities".* FROM "identities" WHERE "identities"."id" = $1 LIMIT 1[0m  [["id", 100]]
+[37mINFO[0m Processing by EventsController#create as HTML
+[37mINFO[0m   Parameters: {"event"=>{"name"=>"", "address"=>"Carretera Manzanillo-Cihuatlán kilómetro 20,Manzanillo, Colima", "location"=>"Manzanillo", "description"=>"Cool conf", "contact"=>"mg@crowdint.com", "organizer"=>"Crowdint", "date"=>"28/2/2015", "time"=>"5:05 pm"}}
+[32mDEBUG[0m   [1m[35m (0.3ms)[0m  SAVEPOINT active_record_1
+[32mDEBUG[0m   [1m[36mEvent Load (0.5ms)[0m  [1mSELECT "events".* FROM "events" WHERE ("slug" = '' OR "slug" LIKE '--%') ORDER BY LENGTH("slug") DESC, "slug" DESC LIMIT 1[0m
+[32mDEBUG[0m   [1m[35m (0.3ms)[0m  ROLLBACK TO SAVEPOINT active_record_1
+[32mDEBUG[0m   [1m[36m (0.6ms)[0m  [1mSELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM "events" WHERE (date > '2013-07-22 04:05:03') LIMIT 2) subquery_for_count[0m
+[32mDEBUG[0m   [1m[35m (0.4ms)[0m  SELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM "crowdblog_posts" WHERE "crowdblog_posts"."state" = 'published' LIMIT 3) subquery_for_count
+[37mINFO[0m   Rendered railsmx/shared/_sidebar.html.erb (3.8ms)
+[37mINFO[0m   Rendered railsmx/events/_form.html.erb (5.2ms)
+[37mINFO[0m   Rendered railsmx/shared/_socialite.html.erb (1.1ms)
+[37mINFO[0m Completed 200 OK in 210ms (Views: 19.8ms | ActiveRecord: 2.2ms)
+[32mDEBUG[0m   [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+[32mDEBUG[0m   [1m[35m (0.3ms)[0m  BEGIN
+[37mINFO[0m ------------------------------------------------------------------------
+[37mINFO[0m EventsController::destroy: test_0001_should be able to destroy my events
+[37mINFO[0m ------------------------------------------------------------------------
+[32mDEBUG[0m   [1m[36mIdentity Load (0.5ms)[0m  [1mSELECT "identities".* FROM "identities" WHERE "identities"."id" = $1 LIMIT 1[0m  [["id", 100]]
+[32mDEBUG[0m   [1m[35m (0.5ms)[0m  SAVEPOINT active_record_1
+[32mDEBUG[0m   [1m[36mEvent Load (0.4ms)[0m  [1mSELECT "events".* FROM "events" WHERE ("slug" = 'magmaconf' OR "slug" LIKE 'magmaconf--%') ORDER BY LENGTH("slug") DESC, "slug" DESC LIMIT 1[0m
+[32mDEBUG[0m   [1m[35mSQL (0.8ms)[0m  INSERT INTO "events" ("address", "contact", "created_at", "date", "description", "identity_id", "latitude", "location", "longitude", "name", "organizer", "slug", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING "id"  [["address", "Carretera Manzanillo-Cihuatlán kilómetro 20,Manzanillo, Colima"], ["contact", "mg@crowdint.com"], ["created_at", Mon, 22 Jul 2013 04:05:03 UTC +00:00], ["date", Wed, 31 Jul 2013 00:00:00 UTC +00:00], ["description", "Cool conf"], ["identity_id", 100], ["latitude", 19.1246832], ["location", "Manzanillo"], ["longitude", -104.4001794], ["name", "MagmaConf"], ["organizer", "Crowdint"], ["slug", "magmaconf"], ["updated_at", Mon, 22 Jul 2013 04:05:03 UTC +00:00]]
+[32mDEBUG[0m   [1m[36m (0.2ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+[37mINFO[0m Processing by EventsController#destroy as HTML
+[37mINFO[0m   Parameters: {"id"=>"980190964"}
+[32mDEBUG[0m   [1m[35mEvent Load (0.7ms)[0m  SELECT "events".* FROM "events" WHERE "events"."identity_id" = 100 AND "events"."slug" = '980190964' ORDER BY "events"."id" ASC LIMIT 1
+[32mDEBUG[0m   [1m[36mEvent Load (0.7ms)[0m  [1mSELECT "events".* FROM "events" WHERE "events"."identity_id" = 100 AND "events"."id" = $1 LIMIT 1[0m  [["id", "980190964"]]
+[32mDEBUG[0m   [1m[35m (0.3ms)[0m  SAVEPOINT active_record_1
+[32mDEBUG[0m   [1m[36mSQL (0.6ms)[0m  [1mDELETE FROM "events" WHERE "events"."id" = $1[0m  [["id", 980190964]]
+[32mDEBUG[0m   [1m[35m (0.2ms)[0m  RELEASE SAVEPOINT active_record_1
+[37mINFO[0m Redirected to http://test.host/eventos
+[37mINFO[0m Completed 302 Found in 7ms (ActiveRecord: 2.4ms)
+[32mDEBUG[0m   [1m[36m (0.3ms)[0m  [1mROLLBACK[0m
+[32mDEBUG[0m   [1m[35m (0.2ms)[0m  BEGIN
+[37mINFO[0m ----------------------------------------------------------------------------
+[37mINFO[0m EventsController::destroy: test_0002_should not destroy when not event owner
+[37mINFO[0m ----------------------------------------------------------------------------
+[32mDEBUG[0m   [1m[36mIdentity Load (0.5ms)[0m  [1mSELECT "identities".* FROM "identities" WHERE "identities"."id" = $1 LIMIT 1[0m  [["id", 200]]
+[32mDEBUG[0m   [1m[35m (0.3ms)[0m  SAVEPOINT active_record_1
+[32mDEBUG[0m   [1m[36mEvent Load (0.4ms)[0m  [1mSELECT "events".* FROM "events" WHERE ("slug" = 'magmaconf' OR "slug" LIKE 'magmaconf--%') ORDER BY LENGTH("slug") DESC, "slug" DESC LIMIT 1[0m
+[32mDEBUG[0m   [1m[35mSQL (0.8ms)[0m  INSERT INTO "events" ("address", "contact", "created_at", "date", "description", "identity_id", "latitude", "location", "longitude", "name", "organizer", "slug", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING "id"  [["address", "Carretera Manzanillo-Cihuatlán kilómetro 20,Manzanillo, Colima"], ["contact", "mg@crowdint.com"], ["created_at", Mon, 22 Jul 2013 04:05:03 UTC +00:00], ["date", Wed, 31 Jul 2013 00:00:00 UTC +00:00], ["description", "Cool conf"], ["identity_id", 100], ["latitude", 19.1246832], ["location", "Manzanillo"], ["longitude", -104.4001794], ["name", "MagmaConf"], ["organizer", "Crowdint"], ["slug", "magmaconf"], ["updated_at", Mon, 22 Jul 2013 04:05:03 UTC +00:00]]
+[32mDEBUG[0m   [1m[36m (0.2ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+[37mINFO[0m Processing by EventsController#destroy as HTML
+[37mINFO[0m   Parameters: {"id"=>"980190965"}
+[32mDEBUG[0m   [1m[35mEvent Load (0.6ms)[0m  SELECT "events".* FROM "events" WHERE "events"."identity_id" = 200 AND "events"."slug" = '980190965' ORDER BY "events"."id" ASC LIMIT 1
+[32mDEBUG[0m   [1m[36mEvent Load (0.6ms)[0m  [1mSELECT "events".* FROM "events" WHERE "events"."identity_id" = 200 AND "events"."id" = $1 LIMIT 1[0m  [["id", "980190965"]]
+[37mINFO[0m Redirected to http://test.host/eventos
+[37mINFO[0m Completed 302 Found in 4ms (ActiveRecord: 1.2ms)
+[32mDEBUG[0m   [1m[35m (0.3ms)[0m  ROLLBACK
+[32mDEBUG[0m   [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+[37mINFO[0m -----------------------------------------------------------------------------------
+[37mINFO[0m EventsController::destroy: test_0003_should redirect to events when not event found
+[37mINFO[0m -----------------------------------------------------------------------------------
+[32mDEBUG[0m   [1m[35mIdentity Load (0.3ms)[0m  SELECT "identities".* FROM "identities" WHERE "identities"."id" = $1 LIMIT 1  [["id", 100]]
+[37mINFO[0m Processing by EventsController#destroy as HTML
+[37mINFO[0m   Parameters: {"id"=>"10"}
+[32mDEBUG[0m   [1m[36mEvent Load (0.4ms)[0m  [1mSELECT "events".* FROM "events" WHERE "events"."identity_id" = 100 AND "events"."slug" = '10' ORDER BY "events"."id" ASC LIMIT 1[0m
+[32mDEBUG[0m   [1m[35mEvent Load (0.7ms)[0m  SELECT "events".* FROM "events" WHERE "events"."identity_id" = 100 AND "events"."id" = $1 LIMIT 1  [["id", "10"]]
+[37mINFO[0m Redirected to http://test.host/eventos
+[37mINFO[0m Completed 302 Found in 3ms (ActiveRecord: 1.1ms)
+[32mDEBUG[0m   [1m[36m (0.3ms)[0m  [1mROLLBACK[0m
+[32mDEBUG[0m   [1m[35m (0.1ms)[0m  BEGIN
+[37mINFO[0m -----------------------------------------------------------------------------------
+[37mINFO[0m EventsController::destroy: test_0004_should redirect to events when not logged user
+[37mINFO[0m -----------------------------------------------------------------------------------
+[32mDEBUG[0m   [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+[32mDEBUG[0m   [1m[35mEvent Load (0.4ms)[0m  SELECT "events".* FROM "events" WHERE ("slug" = 'magmaconf' OR "slug" LIKE 'magmaconf--%') ORDER BY LENGTH("slug") DESC, "slug" DESC LIMIT 1
+[32mDEBUG[0m   [1m[36mSQL (0.8ms)[0m  [1mINSERT INTO "events" ("address", "contact", "created_at", "date", "description", "identity_id", "latitude", "location", "longitude", "name", "organizer", "slug", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING "id"[0m  [["address", "Carretera Manzanillo-Cihuatlán kilómetro 20,Manzanillo, Colima"], ["contact", "mg@crowdint.com"], ["created_at", Mon, 22 Jul 2013 04:05:03 UTC +00:00], ["date", Wed, 31 Jul 2013 00:00:00 UTC +00:00], ["description", "Cool conf"], ["identity_id", 100], ["latitude", 19.1246832], ["location", "Manzanillo"], ["longitude", -104.4001794], ["name", "MagmaConf"], ["organizer", "Crowdint"], ["slug", "magmaconf"], ["updated_at", Mon, 22 Jul 2013 04:05:03 UTC +00:00]]
+[32mDEBUG[0m   [1m[35m (0.3ms)[0m  RELEASE SAVEPOINT active_record_1
+[37mINFO[0m Processing by EventsController#destroy as HTML
+[37mINFO[0m   Parameters: {"id"=>"980190966"}
+[37mINFO[0m Redirected to http://test.host/
+[37mINFO[0m Filter chain halted as :authenticate! rendered or redirected
+[37mINFO[0m Completed 302 Found in 1ms (ActiveRecord: 0.0ms)
+[32mDEBUG[0m   [1m[36m (0.3ms)[0m  [1mROLLBACK[0m
+[32mDEBUG[0m   [1m[35m (0.1ms)[0m  BEGIN
+[37mINFO[0m ------------------------------------------------------------------
+[37mINFO[0m EventsController::edit: test_0001_should be able to edit my events
+[37mINFO[0m ------------------------------------------------------------------
+[32mDEBUG[0m   [1m[36mIdentity Load (0.6ms)[0m  [1mSELECT "identities".* FROM "identities" WHERE "identities"."id" = $1 LIMIT 1[0m  [["id", 100]]
+[32mDEBUG[0m   [1m[35m (0.3ms)[0m  SAVEPOINT active_record_1
+[32mDEBUG[0m   [1m[36mEvent Load (0.6ms)[0m  [1mSELECT "events".* FROM "events" WHERE ("slug" = 'magmaconf' OR "slug" LIKE 'magmaconf--%') ORDER BY LENGTH("slug") DESC, "slug" DESC LIMIT 1[0m
+[32mDEBUG[0m   [1m[35mSQL (0.6ms)[0m  INSERT INTO "events" ("address", "contact", "created_at", "date", "description", "identity_id", "latitude", "location", "longitude", "name", "organizer", "slug", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING "id"  [["address", "Carretera Manzanillo-Cihuatlán kilómetro 20,Manzanillo, Colima"], ["contact", "mg@crowdint.com"], ["created_at", Mon, 22 Jul 2013 04:05:04 UTC +00:00], ["date", Wed, 31 Jul 2013 00:00:00 UTC +00:00], ["description", "Cool conf"], ["identity_id", 100], ["latitude", 19.1246832], ["location", "Manzanillo"], ["longitude", -104.4001794], ["name", "MagmaConf"], ["organizer", "Crowdint"], ["slug", "magmaconf"], ["updated_at", Mon, 22 Jul 2013 04:05:04 UTC +00:00]]
+[32mDEBUG[0m   [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+[37mINFO[0m Processing by EventsController#edit as HTML
+[37mINFO[0m   Parameters: {"id"=>"980190967"}
+[32mDEBUG[0m   [1m[35mEvent Load (0.5ms)[0m  SELECT "events".* FROM "events" WHERE "events"."identity_id" = 100 AND "events"."slug" = '980190967' ORDER BY "events"."id" ASC LIMIT 1
+[32mDEBUG[0m   [1m[36mEvent Load (0.4ms)[0m  [1mSELECT "events".* FROM "events" WHERE "events"."identity_id" = 100 AND "events"."id" = $1 LIMIT 1[0m  [["id", "980190967"]]
+[32mDEBUG[0m   [1m[35m (0.5ms)[0m  SELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM "events" WHERE (date > '2013-07-22 04:05:04') LIMIT 2) subquery_for_count
+[32mDEBUG[0m   [1m[36mEvent Load (0.6ms)[0m  [1mSELECT "events".* FROM "events" WHERE (date > '2013-07-22 04:05:04') ORDER BY date ASC LIMIT 2[0m
+[37mINFO[0m   Rendered railsmx/shared/_event.html.erb (1.6ms)
+[32mDEBUG[0m   [1m[35m (0.4ms)[0m  SELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM "crowdblog_posts" WHERE "crowdblog_posts"."state" = 'published' LIMIT 3) subquery_for_count
+[37mINFO[0m   Rendered railsmx/shared/_sidebar.html.erb (6.4ms)
+[37mINFO[0m   Rendered railsmx/events/_form.html.erb (2.7ms)
+[37mINFO[0m   Rendered railsmx/shared/_socialite.html.erb (0.9ms)
+[37mINFO[0m Completed 200 OK in 19ms (Views: 14.1ms | ActiveRecord: 2.4ms)
+[32mDEBUG[0m   [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+[32mDEBUG[0m   [1m[35m (0.1ms)[0m  BEGIN
+[37mINFO[0m --------------------------------------------------------------------------------
+[37mINFO[0m EventsController::edit: test_0002_should redirect to events when event not found
+[37mINFO[0m --------------------------------------------------------------------------------
+[32mDEBUG[0m   [1m[36mIdentity Load (0.3ms)[0m  [1mSELECT "identities".* FROM "identities" WHERE "identities"."id" = $1 LIMIT 1[0m  [["id", 100]]
+[37mINFO[0m Processing by EventsController#edit as HTML
+[37mINFO[0m   Parameters: {"id"=>"10"}
+[32mDEBUG[0m   [1m[35mEvent Load (0.6ms)[0m  SELECT "events".* FROM "events" WHERE "events"."identity_id" = 100 AND "events"."slug" = '10' ORDER BY "events"."id" ASC LIMIT 1
+[32mDEBUG[0m   [1m[36mEvent Load (0.4ms)[0m  [1mSELECT "events".* FROM "events" WHERE "events"."identity_id" = 100 AND "events"."id" = $1 LIMIT 1[0m  [["id", "10"]]
+[37mINFO[0m Redirected to http://test.host/eventos
+[37mINFO[0m Completed 302 Found in 3ms (ActiveRecord: 0.9ms)
+[32mDEBUG[0m   [1m[35m (0.1ms)[0m  ROLLBACK
+[32mDEBUG[0m   [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+[37mINFO[0m --------------------------------------------------------------------------------
+[37mINFO[0m EventsController::edit: test_0003_should redirect to events when not event owner
+[37mINFO[0m --------------------------------------------------------------------------------
+[32mDEBUG[0m   [1m[35mIdentity Load (0.3ms)[0m  SELECT "identities".* FROM "identities" WHERE "identities"."id" = $1 LIMIT 1  [["id", 200]]
+[32mDEBUG[0m   [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+[32mDEBUG[0m   [1m[35mEvent Load (0.5ms)[0m  SELECT "events".* FROM "events" WHERE ("slug" = 'magmaconf' OR "slug" LIKE 'magmaconf--%') ORDER BY LENGTH("slug") DESC, "slug" DESC LIMIT 1
+[32mDEBUG[0m   [1m[36mSQL (0.8ms)[0m  [1mINSERT INTO "events" ("address", "contact", "created_at", "date", "description", "identity_id", "latitude", "location", "longitude", "name", "organizer", "slug", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING "id"[0m  [["address", "Carretera Manzanillo-Cihuatlán kilómetro 20,Manzanillo, Colima"], ["contact", "mg@crowdint.com"], ["created_at", Mon, 22 Jul 2013 04:05:04 UTC +00:00], ["date", Wed, 31 Jul 2013 00:00:00 UTC +00:00], ["description", "Cool conf"], ["identity_id", 100], ["latitude", 19.1246832], ["location", "Manzanillo"], ["longitude", -104.4001794], ["name", "MagmaConf"], ["organizer", "Crowdint"], ["slug", "magmaconf"], ["updated_at", Mon, 22 Jul 2013 04:05:04 UTC +00:00]]
+[32mDEBUG[0m   [1m[35m (0.3ms)[0m  RELEASE SAVEPOINT active_record_1
+[37mINFO[0m Processing by EventsController#edit as HTML
+[37mINFO[0m   Parameters: {"id"=>"980190968"}
+[32mDEBUG[0m   [1m[36mEvent Load (0.7ms)[0m  [1mSELECT "events".* FROM "events" WHERE "events"."identity_id" = 200 AND "events"."slug" = '980190968' ORDER BY "events"."id" ASC LIMIT 1[0m
+[32mDEBUG[0m   [1m[35mEvent Load (0.4ms)[0m  SELECT "events".* FROM "events" WHERE "events"."identity_id" = 200 AND "events"."id" = $1 LIMIT 1  [["id", "980190968"]]
+[37mINFO[0m Redirected to http://test.host/eventos
+[37mINFO[0m Completed 302 Found in 4ms (ActiveRecord: 1.1ms)
+[32mDEBUG[0m   [1m[36m (0.3ms)[0m  [1mROLLBACK[0m
+[32mDEBUG[0m   [1m[35m (0.3ms)[0m  BEGIN
+[37mINFO[0m --------------------------------------------------------------------------------
+[37mINFO[0m EventsController::edit: test_0004_should redirect to events when not logged user
+[37mINFO[0m --------------------------------------------------------------------------------
+[37mINFO[0m Processing by EventsController#edit as HTML
+[37mINFO[0m   Parameters: {"id"=>"10"}
+[37mINFO[0m Redirected to http://test.host/
+[37mINFO[0m Filter chain halted as :authenticate! rendered or redirected
+[37mINFO[0m Completed 302 Found in 1ms (ActiveRecord: 0.0ms)
+[32mDEBUG[0m   [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+[32mDEBUG[0m   [1m[35m (0.2ms)[0m  BEGIN
+[37mINFO[0m ------------------------------------------------------------------------------------------
+[37mINFO[0m EventsController::index: test_0001_display first 4 upcoming event and 3 last passed events
+[37mINFO[0m ------------------------------------------------------------------------------------------
+[32mDEBUG[0m   [1m[36m (0.3ms)[0m  [1mSAVEPOINT active_record_1[0m
+[32mDEBUG[0m   [1m[35mEvent Load (0.5ms)[0m  SELECT "events".* FROM "events" WHERE ("slug" = 'upcomming-0' OR "slug" LIKE 'upcomming-0--%') ORDER BY LENGTH("slug") DESC, "slug" DESC LIMIT 1
+[32mDEBUG[0m   [1m[36mSQL (0.8ms)[0m  [1mINSERT INTO "events" ("address", "contact", "created_at", "date", "description", "identity_id", "latitude", "location", "longitude", "name", "organizer", "slug", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING "id"[0m  [["address", "Carretera Manzanillo-Cihuatlán kilómetro 20,Manzanillo, Colima"], ["contact", "mg@crowdint.com"], ["created_at", Mon, 22 Jul 2013 04:05:04 UTC +00:00], ["date", Wed, 31 Jul 2013 00:00:00 UTC +00:00], ["description", "Cool conf"], ["identity_id", 100], ["latitude", 19.1246832], ["location", "Manzanillo"], ["longitude", -104.4001794], ["name", "Upcomming 0"], ["organizer", "Crowdint"], ["slug", "upcomming-0"], ["updated_at", Mon, 22 Jul 2013 04:05:04 UTC +00:00]]
+[32mDEBUG[0m   [1m[35m (0.3ms)[0m  RELEASE SAVEPOINT active_record_1
+[32mDEBUG[0m   [1m[36m (0.3ms)[0m  [1mSAVEPOINT active_record_1[0m
+[32mDEBUG[0m   [1m[35mSQL (0.8ms)[0m  INSERT INTO "events" ("address", "contact", "created_at", "date", "description", "identity_id", "location", "name", "organizer", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING "id"  [["address", "Carretera Manzanillo-Cihuatlán kilómetro 20,Manzanillo, Colima"], ["contact", "mg@crowdint.com"], ["created_at", Mon, 22 Jul 2013 04:05:04 UTC +00:00], ["date", Thu, 11 Jul 2013 00:00:00 UTC +00:00], ["description", "Cool conf"], ["identity_id", 100], ["location", "Manzanillo"], ["name", "Past 0"], ["organizer", "Crowdint"], ["updated_at", Mon, 22 Jul 2013 04:05:04 UTC +00:00]]
+[32mDEBUG[0m   [1m[36m (0.2ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+[32mDEBUG[0m   [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+[32mDEBUG[0m   [1m[36mEvent Load (0.5ms)[0m  [1mSELECT "events".* FROM "events" WHERE ("slug" = 'upcomming-1' OR "slug" LIKE 'upcomming-1--%') ORDER BY LENGTH("slug") DESC, "slug" DESC LIMIT 1[0m
+[32mDEBUG[0m   [1m[35mSQL (0.6ms)[0m  INSERT INTO "events" ("address", "contact", "created_at", "date", "description", "identity_id", "latitude", "location", "longitude", "name", "organizer", "slug", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING "id"  [["address", "Carretera Manzanillo-Cihuatlán kilómetro 20,Manzanillo, Colima"], ["contact", "mg@crowdint.com"], ["created_at", Mon, 22 Jul 2013 04:05:04 UTC +00:00], ["date", Sat, 10 Aug 2013 00:00:00 UTC +00:00], ["description", "Cool conf"], ["identity_id", 100], ["latitude", 19.1246832], ["location", "Manzanillo"], ["longitude", -104.4001794], ["name", "Upcomming 1"], ["organizer", "Crowdint"], ["slug", "upcomming-1"], ["updated_at", Mon, 22 Jul 2013 04:05:04 UTC +00:00]]
+[32mDEBUG[0m   [1m[36m (0.3ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+[32mDEBUG[0m   [1m[35m (0.3ms)[0m  SAVEPOINT active_record_1
+[32mDEBUG[0m   [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "events" ("address", "contact", "created_at", "date", "description", "identity_id", "location", "name", "organizer", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING "id"[0m  [["address", "Carretera Manzanillo-Cihuatlán kilómetro 20,Manzanillo, Colima"], ["contact", "mg@crowdint.com"], ["created_at", Mon, 22 Jul 2013 04:05:04 UTC +00:00], ["date", Mon, 01 Jul 2013 00:00:00 UTC +00:00], ["description", "Cool conf"], ["identity_id", 100], ["location", "Manzanillo"], ["name", "Past 1"], ["organizer", "Crowdint"], ["updated_at", Mon, 22 Jul 2013 04:05:04 UTC +00:00]]
+[32mDEBUG[0m   [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+[32mDEBUG[0m   [1m[36m (0.2ms)[0m  [1mSAVEPOINT active_record_1[0m
+[32mDEBUG[0m   [1m[35mEvent Load (0.5ms)[0m  SELECT "events".* FROM "events" WHERE ("slug" = 'upcomming-2' OR "slug" LIKE 'upcomming-2--%') ORDER BY LENGTH("slug") DESC, "slug" DESC LIMIT 1
+[32mDEBUG[0m   [1m[36mSQL (0.6ms)[0m  [1mINSERT INTO "events" ("address", "contact", "created_at", "date", "description", "identity_id", "latitude", "location", "longitude", "name", "organizer", "slug", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING "id"[0m  [["address", "Carretera Manzanillo-Cihuatlán kilómetro 20,Manzanillo, Colima"], ["contact", "mg@crowdint.com"], ["created_at", Mon, 22 Jul 2013 04:05:04 UTC +00:00], ["date", Tue, 20 Aug 2013 00:00:00 UTC +00:00], ["description", "Cool conf"], ["identity_id", 100], ["latitude", 19.1246832], ["location", "Manzanillo"], ["longitude", -104.4001794], ["name", "Upcomming 2"], ["organizer", "Crowdint"], ["slug", "upcomming-2"], ["updated_at", Mon, 22 Jul 2013 04:05:04 UTC +00:00]]
+[32mDEBUG[0m   [1m[35m (0.2ms)[0m  RELEASE SAVEPOINT active_record_1
+[32mDEBUG[0m   [1m[36m (0.3ms)[0m  [1mSAVEPOINT active_record_1[0m
+[32mDEBUG[0m   [1m[35mSQL (0.6ms)[0m  INSERT INTO "events" ("address", "contact", "created_at", "date", "description", "identity_id", "location", "name", "organizer", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING "id"  [["address", "Carretera Manzanillo-Cihuatlán kilómetro 20,Manzanillo, Colima"], ["contact", "mg@crowdint.com"], ["created_at", Mon, 22 Jul 2013 04:05:04 UTC +00:00], ["date", Fri, 21 Jun 2013 00:00:00 UTC +00:00], ["description", "Cool conf"], ["identity_id", 100], ["location", "Manzanillo"], ["name", "Past 2"], ["organizer", "Crowdint"], ["updated_at", Mon, 22 Jul 2013 04:05:04 UTC +00:00]]
+[32mDEBUG[0m   [1m[36m (0.2ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+[32mDEBUG[0m   [1m[35m (0.2ms)[0m  SAVEPOINT active_record_1
+[32mDEBUG[0m   [1m[36mEvent Load (0.6ms)[0m  [1mSELECT "events".* FROM "events" WHERE ("slug" = 'upcomming-3' OR "slug" LIKE 'upcomming-3--%') ORDER BY LENGTH("slug") DESC, "slug" DESC LIMIT 1[0m
+[32mDEBUG[0m   [1m[35mSQL (0.5ms)[0m  INSERT INTO "events" ("address", "contact", "created_at", "date", "description", "identity_id", "latitude", "location", "longitude", "name", "organizer", "slug", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING "id"  [["address", "Carretera Manzanillo-Cihuatlán kilómetro 20,Manzanillo, Colima"], ["contact", "mg@crowdint.com"], ["created_at", Mon, 22 Jul 2013 04:05:05 UTC +00:00], ["date", Fri, 30 Aug 2013 00:00:00 UTC +00:00], ["description", "Cool conf"], ["identity_id", 100], ["latitude", 19.1246832], ["location", "Manzanillo"], ["longitude", -104.4001794], ["name", "Upcomming 3"], ["organizer", "Crowdint"], ["slug", "upcomming-3"], ["updated_at", Mon, 22 Jul 2013 04:05:05 UTC +00:00]]
+[32mDEBUG[0m   [1m[36m (0.3ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+[32mDEBUG[0m   [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+[32mDEBUG[0m   [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "events" ("address", "contact", "created_at", "date", "description", "identity_id", "location", "name", "organizer", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING "id"[0m  [["address", "Carretera Manzanillo-Cihuatlán kilómetro 20,Manzanillo, Colima"], ["contact", "mg@crowdint.com"], ["created_at", Mon, 22 Jul 2013 04:05:05 UTC +00:00], ["date", Tue, 11 Jun 2013 00:00:00 UTC +00:00], ["description", "Cool conf"], ["identity_id", 100], ["location", "Manzanillo"], ["name", "Past 3"], ["organizer", "Crowdint"], ["updated_at", Mon, 22 Jul 2013 04:05:05 UTC +00:00]]
+[32mDEBUG[0m   [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+[32mDEBUG[0m   [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+[32mDEBUG[0m   [1m[35mEvent Load (0.5ms)[0m  SELECT "events".* FROM "events" WHERE ("slug" = 'upcomming-4' OR "slug" LIKE 'upcomming-4--%') ORDER BY LENGTH("slug") DESC, "slug" DESC LIMIT 1
+[32mDEBUG[0m   [1m[36mSQL (0.7ms)[0m  [1mINSERT INTO "events" ("address", "contact", "created_at", "date", "description", "identity_id", "latitude", "location", "longitude", "name", "organizer", "slug", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING "id"[0m  [["address", "Carretera Manzanillo-Cihuatlán kilómetro 20,Manzanillo, Colima"], ["contact", "mg@crowdint.com"], ["created_at", Mon, 22 Jul 2013 04:05:05 UTC +00:00], ["date", Mon, 09 Sep 2013 00:00:00 UTC +00:00], ["description", "Cool conf"], ["identity_id", 100], ["latitude", 19.1246832], ["location", "Manzanillo"], ["longitude", -104.4001794], ["name", "Upcomming 4"], ["organizer", "Crowdint"], ["slug", "upcomming-4"], ["updated_at", Mon, 22 Jul 2013 04:05:05 UTC +00:00]]
+[32mDEBUG[0m   [1m[35m (0.2ms)[0m  RELEASE SAVEPOINT active_record_1
+[32mDEBUG[0m   [1m[36m (0.2ms)[0m  [1mSAVEPOINT active_record_1[0m
+[32mDEBUG[0m   [1m[35mSQL (0.5ms)[0m  INSERT INTO "events" ("address", "contact", "created_at", "date", "description", "identity_id", "location", "name", "organizer", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING "id"  [["address", "Carretera Manzanillo-Cihuatlán kilómetro 20,Manzanillo, Colima"], ["contact", "mg@crowdint.com"], ["created_at", Mon, 22 Jul 2013 04:05:05 UTC +00:00], ["date", Sat, 01 Jun 2013 00:00:00 UTC +00:00], ["description", "Cool conf"], ["identity_id", 100], ["location", "Manzanillo"], ["name", "Past 4"], ["organizer", "Crowdint"], ["updated_at", Mon, 22 Jul 2013 04:05:05 UTC +00:00]]
+[32mDEBUG[0m   [1m[36m (0.2ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+[32mDEBUG[0m   [1m[35m (0.2ms)[0m  SAVEPOINT active_record_1
+[32mDEBUG[0m   [1m[36mEvent Load (0.4ms)[0m  [1mSELECT "events".* FROM "events" WHERE ("slug" = 'upcomming-5' OR "slug" LIKE 'upcomming-5--%') ORDER BY LENGTH("slug") DESC, "slug" DESC LIMIT 1[0m
+[32mDEBUG[0m   [1m[35mSQL (0.5ms)[0m  INSERT INTO "events" ("address", "contact", "created_at", "date", "description", "identity_id", "latitude", "location", "longitude", "name", "organizer", "slug", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING "id"  [["address", "Carretera Manzanillo-Cihuatlán kilómetro 20,Manzanillo, Colima"], ["contact", "mg@crowdint.com"], ["created_at", Mon, 22 Jul 2013 04:05:05 UTC +00:00], ["date", Thu, 19 Sep 2013 00:00:00 UTC +00:00], ["description", "Cool conf"], ["identity_id", 100], ["latitude", 19.1246832], ["location", "Manzanillo"], ["longitude", -104.4001794], ["name", "Upcomming 5"], ["organizer", "Crowdint"], ["slug", "upcomming-5"], ["updated_at", Mon, 22 Jul 2013 04:05:05 UTC +00:00]]
+[32mDEBUG[0m   [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+[32mDEBUG[0m   [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+[32mDEBUG[0m   [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "events" ("address", "contact", "created_at", "date", "description", "identity_id", "location", "name", "organizer", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING "id"[0m  [["address", "Carretera Manzanillo-Cihuatlán kilómetro 20,Manzanillo, Colima"], ["contact", "mg@crowdint.com"], ["created_at", Mon, 22 Jul 2013 04:05:05 UTC +00:00], ["date", Wed, 22 May 2013 00:00:00 UTC +00:00], ["description", "Cool conf"], ["identity_id", 100], ["location", "Manzanillo"], ["name", "Past 5"], ["organizer", "Crowdint"], ["updated_at", Mon, 22 Jul 2013 04:05:05 UTC +00:00]]
+[32mDEBUG[0m   [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+[37mINFO[0m Processing by EventsController#index as HTML
+[32mDEBUG[0m   [1m[36m (0.4ms)[0m  [1mSELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM "crowdblog_posts" WHERE "crowdblog_posts"."state" = 'published' LIMIT 3) subquery_for_count[0m
+[32mDEBUG[0m   [1m[35m (0.3ms)[0m  SELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM "events" WHERE (date > '2013-07-22 04:05:05') LIMIT 4) subquery_for_count
+[32mDEBUG[0m   [1m[36mEvent Load (0.4ms)[0m  [1mSELECT "events".* FROM "events" WHERE (date > '2013-07-22 04:05:05') ORDER BY date ASC LIMIT 4[0m
+[32mDEBUG[0m   [1m[35mIdentity Load (0.7ms)[0m  SELECT "identities".* FROM "identities" WHERE "identities"."id" = $1 ORDER BY "identities"."id" ASC LIMIT 1  [["id", 100]]
+[32mDEBUG[0m   [1m[36mIdentity Load (0.4ms)[0m  [1mSELECT "identities".* FROM "identities" WHERE "identities"."id" = $1 ORDER BY "identities"."id" ASC LIMIT 1[0m  [["id", 100]]
+[32mDEBUG[0m   [1m[35mIdentity Load (0.3ms)[0m  SELECT "identities".* FROM "identities" WHERE "identities"."id" = $1 ORDER BY "identities"."id" ASC LIMIT 1  [["id", 100]]
+[32mDEBUG[0m   [1m[36mIdentity Load (0.3ms)[0m  [1mSELECT "identities".* FROM "identities" WHERE "identities"."id" = $1 ORDER BY "identities"."id" ASC LIMIT 1[0m  [["id", 100]]
+[37mINFO[0m   Rendered railsmx/events/_event.html.erb (21.9ms)
+[32mDEBUG[0m   [1m[35m (0.3ms)[0m  SELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM "events" WHERE (date <= '2013-07-22 04:05:05') LIMIT 3) subquery_for_count
+[32mDEBUG[0m   [1m[36mEvent Load (0.3ms)[0m  [1mSELECT "events".* FROM "events" WHERE (date <= '2013-07-22 04:05:05') ORDER BY date DESC LIMIT 3[0m
+[37mINFO[0m   Rendered railsmx/events/_event.html.erb (2.3ms)
+[37mINFO[0m   Rendered railsmx/shared/_socialite.html.erb (0.7ms)
+[37mINFO[0m Completed 200 OK in 37ms (Views: 32.5ms | ActiveRecord: 3.5ms)
+[32mDEBUG[0m   [1m[35m (0.2ms)[0m  ROLLBACK
+[32mDEBUG[0m   [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+[37mINFO[0m ------------------------------------------------------------------------
+[37mINFO[0m EventsController::new: test_0001_should display new form for logged user
+[37mINFO[0m ------------------------------------------------------------------------
+[32mDEBUG[0m   [1m[35mIdentity Load (0.3ms)[0m  SELECT "identities".* FROM "identities" WHERE "identities"."id" = $1 LIMIT 1  [["id", 100]]
+[37mINFO[0m Processing by EventsController#new as HTML
+[32mDEBUG[0m   [1m[36m (0.5ms)[0m  [1mSELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM "events" WHERE (date > '2013-07-22 04:05:05') LIMIT 2) subquery_for_count[0m
+[32mDEBUG[0m   [1m[35m (0.4ms)[0m  SELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM "crowdblog_posts" WHERE "crowdblog_posts"."state" = 'published' LIMIT 3) subquery_for_count
+[37mINFO[0m   Rendered railsmx/shared/_sidebar.html.erb (2.8ms)
+[37mINFO[0m   Rendered railsmx/events/_form.html.erb (2.4ms)
+[37mINFO[0m   Rendered railsmx/shared/_socialite.html.erb (0.6ms)
+[37mINFO[0m Completed 200 OK in 11ms (Views: 8.9ms | ActiveRecord: 0.9ms)
+[32mDEBUG[0m   [1m[36m (0.3ms)[0m  [1mROLLBACK[0m
+[32mDEBUG[0m   [1m[35m (0.1ms)[0m  BEGIN
+[37mINFO[0m -------------------------------------------------------------------------------
+[37mINFO[0m EventsController::new: test_0002_should redirect to events when not logged user
+[37mINFO[0m -------------------------------------------------------------------------------
+[37mINFO[0m Processing by EventsController#new as HTML
+[37mINFO[0m Redirected to http://test.host/
+[37mINFO[0m Filter chain halted as :authenticate! rendered or redirected
+[37mINFO[0m Completed 302 Found in 0ms (ActiveRecord: 0.0ms)
+[32mDEBUG[0m   [1m[36m (0.1ms)[0m  [1mROLLBACK[0m
+[32mDEBUG[0m   [1m[35m (0.1ms)[0m  BEGIN
+[37mINFO[0m ------------------------------------------------------------------
+[37mINFO[0m EventsController::show: test_0001_should display an existing event
+[37mINFO[0m ------------------------------------------------------------------
+[32mDEBUG[0m   [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+[32mDEBUG[0m   [1m[35mEvent Load (0.5ms)[0m  SELECT "events".* FROM "events" WHERE ("slug" = 'magmaconf' OR "slug" LIKE 'magmaconf--%') ORDER BY LENGTH("slug") DESC, "slug" DESC LIMIT 1
+[32mDEBUG[0m   [1m[36mSQL (0.8ms)[0m  [1mINSERT INTO "events" ("address", "contact", "created_at", "date", "description", "identity_id", "latitude", "location", "longitude", "name", "organizer", "slug", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING "id"[0m  [["address", "Carretera Manzanillo-Cihuatlán kilómetro 20,Manzanillo, Colima"], ["contact", "mg@crowdint.com"], ["created_at", Mon, 22 Jul 2013 04:05:05 UTC +00:00], ["date", Wed, 31 Jul 2013 00:00:00 UTC +00:00], ["description", "Cool conf"], ["identity_id", 100], ["latitude", 19.1246832], ["location", "Manzanillo"], ["longitude", -104.4001794], ["name", "MagmaConf"], ["organizer", "Crowdint"], ["slug", "magmaconf"], ["updated_at", Mon, 22 Jul 2013 04:05:05 UTC +00:00]]
+[32mDEBUG[0m   [1m[35m (0.3ms)[0m  RELEASE SAVEPOINT active_record_1
+[37mINFO[0m Processing by EventsController#show as HTML
+[37mINFO[0m   Parameters: {"id"=>"980190981"}
+[32mDEBUG[0m   [1m[36mEvent Load (0.6ms)[0m  [1mSELECT "events".* FROM "events" WHERE "events"."slug" = '980190981' ORDER BY "events"."id" ASC LIMIT 1[0m
+[32mDEBUG[0m   [1m[35mEvent Load (0.6ms)[0m  SELECT "events".* FROM "events" WHERE "events"."id" = $1 LIMIT 1  [["id", "980190981"]]
+[32mDEBUG[0m   [1m[36m (0.5ms)[0m  [1mSELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM "events" WHERE (date > '2013-07-22 04:05:05') LIMIT 2) subquery_for_count[0m
+[32mDEBUG[0m   [1m[35mEvent Load (0.5ms)[0m  SELECT "events".* FROM "events" WHERE (date > '2013-07-22 04:05:05') ORDER BY date ASC LIMIT 2
+[37mINFO[0m   Rendered railsmx/shared/_event.html.erb (0.9ms)
+[32mDEBUG[0m   [1m[36m (0.4ms)[0m  [1mSELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM "crowdblog_posts" WHERE "crowdblog_posts"."state" = 'published' LIMIT 3) subquery_for_count[0m
+[37mINFO[0m   Rendered railsmx/shared/_sidebar.html.erb (4.4ms)
+[37mINFO[0m   Rendered railsmx/shared/_socialite.html.erb (0.7ms)
+[37mINFO[0m Completed 200 OK in 15ms (Views: 10.1ms | ActiveRecord: 2.6ms)
+[32mDEBUG[0m   [1m[35m (0.3ms)[0m  ROLLBACK
+[32mDEBUG[0m   [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+[37mINFO[0m ----------------------------------------------------------------------
+[37mINFO[0m EventsController::update: test_0001_should be able to update my events
+[37mINFO[0m ----------------------------------------------------------------------
+[32mDEBUG[0m   [1m[35mIdentity Load (0.5ms)[0m  SELECT "identities".* FROM "identities" WHERE "identities"."id" = $1 LIMIT 1  [["id", 100]]
+[32mDEBUG[0m   [1m[36m (0.3ms)[0m  [1mSAVEPOINT active_record_1[0m
+[32mDEBUG[0m   [1m[35mEvent Load (0.4ms)[0m  SELECT "events".* FROM "events" WHERE ("slug" = 'magmaconf' OR "slug" LIKE 'magmaconf--%') ORDER BY LENGTH("slug") DESC, "slug" DESC LIMIT 1
+[32mDEBUG[0m   [1m[36mSQL (0.6ms)[0m  [1mINSERT INTO "events" ("address", "contact", "created_at", "date", "description", "identity_id", "latitude", "location", "longitude", "name", "organizer", "slug", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING "id"[0m  [["address", "Carretera Manzanillo-Cihuatlán kilómetro 20,Manzanillo, Colima"], ["contact", "mg@crowdint.com"], ["created_at", Mon, 22 Jul 2013 04:05:05 UTC +00:00], ["date", Wed, 31 Jul 2013 00:00:00 UTC +00:00], ["description", "Cool conf"], ["identity_id", 100], ["latitude", 19.1246832], ["location", "Manzanillo"], ["longitude", -104.4001794], ["name", "MagmaConf"], ["organizer", "Crowdint"], ["slug", "magmaconf"], ["updated_at", Mon, 22 Jul 2013 04:05:05 UTC +00:00]]
+[32mDEBUG[0m   [1m[35m (0.3ms)[0m  RELEASE SAVEPOINT active_record_1
+[37mINFO[0m Processing by EventsController#update as HTML
+[37mINFO[0m   Parameters: {"event"=>{"name"=>"MagmaConf", "address"=>"Carretera Manzanillo-Cihuatlán kilómetro 20,Manzanillo, Colima", "location"=>"Manzanillo", "description"=>"Cool conf", "contact"=>"mg@crowdint.com", "organizer"=>"Crowdint", "date"=>"28/2/2015", "time"=>"5:05 pm"}, "id"=>"980190982"}
+[32mDEBUG[0m   [1m[36mEvent Load (0.6ms)[0m  [1mSELECT "events".* FROM "events" WHERE "events"."identity_id" = 100 AND "events"."slug" = '980190982' ORDER BY "events"."id" ASC LIMIT 1[0m
+[32mDEBUG[0m   [1m[35mEvent Load (0.5ms)[0m  SELECT "events".* FROM "events" WHERE "events"."identity_id" = 100 AND "events"."id" = $1 LIMIT 1  [["id", "980190982"]]
+[32mDEBUG[0m   [1m[36m (0.2ms)[0m  [1mSAVEPOINT active_record_1[0m
+[32mDEBUG[0m   [1m[35mSQL (0.9ms)[0m  UPDATE "events" SET "date" = $1, "updated_at" = $2 WHERE "events"."id" = 980190982  [["date", Sat, 28 Feb 2015 17:05:00 UTC +00:00], ["updated_at", Mon, 22 Jul 2013 04:05:05 UTC +00:00]]
+[32mDEBUG[0m   [1m[36m (0.3ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+[37mINFO[0m Redirected to http://test.host/eventos
+[37mINFO[0m Completed 302 Found in 9ms (ActiveRecord: 2.6ms)
+[32mDEBUG[0m   [1m[35m (0.4ms)[0m  ROLLBACK
+[32mDEBUG[0m   [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+[37mINFO[0m ----------------------------------------------------------------------------------
+[37mINFO[0m EventsController::update: test_0002_should redirect to events when event not found
+[37mINFO[0m ----------------------------------------------------------------------------------
+[32mDEBUG[0m   [1m[35mIdentity Load (0.4ms)[0m  SELECT "identities".* FROM "identities" WHERE "identities"."id" = $1 LIMIT 1  [["id", 100]]
+[37mINFO[0m Processing by EventsController#update as HTML
+[37mINFO[0m   Parameters: {"event"=>{"name"=>"MagmaConf", "address"=>"Carretera Manzanillo-Cihuatlán kilómetro 20,Manzanillo, Colima", "location"=>"Manzanillo", "description"=>"Cool conf", "contact"=>"mg@crowdint.com", "organizer"=>"Crowdint", "date"=>"28/2/2015", "time"=>"5:05 pm"}, "id"=>"10"}
+[32mDEBUG[0m   [1m[36mEvent Load (0.6ms)[0m  [1mSELECT "events".* FROM "events" WHERE "events"."identity_id" = 100 AND "events"."slug" = '10' ORDER BY "events"."id" ASC LIMIT 1[0m
+[32mDEBUG[0m   [1m[35mEvent Load (0.4ms)[0m  SELECT "events".* FROM "events" WHERE "events"."identity_id" = 100 AND "events"."id" = $1 LIMIT 1  [["id", "10"]]
+[37mINFO[0m Redirected to http://test.host/eventos
+[37mINFO[0m Completed 302 Found in 3ms (ActiveRecord: 1.0ms)
+[32mDEBUG[0m   [1m[36m (0.3ms)[0m  [1mROLLBACK[0m
+[32mDEBUG[0m   [1m[35m (0.1ms)[0m  BEGIN
+[37mINFO[0m ----------------------------------------------------------------------------------
+[37mINFO[0m EventsController::update: test_0003_should redirect to events when not event owner
+[37mINFO[0m ----------------------------------------------------------------------------------
+[32mDEBUG[0m   [1m[36mIdentity Load (0.3ms)[0m  [1mSELECT "identities".* FROM "identities" WHERE "identities"."id" = $1 LIMIT 1[0m  [["id", 200]]
+[32mDEBUG[0m   [1m[35m (0.2ms)[0m  SAVEPOINT active_record_1
+[32mDEBUG[0m   [1m[36mEvent Load (0.5ms)[0m  [1mSELECT "events".* FROM "events" WHERE ("slug" = 'magmaconf' OR "slug" LIKE 'magmaconf--%') ORDER BY LENGTH("slug") DESC, "slug" DESC LIMIT 1[0m
+[32mDEBUG[0m   [1m[35mSQL (0.8ms)[0m  INSERT INTO "events" ("address", "contact", "created_at", "date", "description", "identity_id", "latitude", "location", "longitude", "name", "organizer", "slug", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING "id"  [["address", "Carretera Manzanillo-Cihuatlán kilómetro 20,Manzanillo, Colima"], ["contact", "mg@crowdint.com"], ["created_at", Mon, 22 Jul 2013 04:05:06 UTC +00:00], ["date", Wed, 31 Jul 2013 00:00:00 UTC +00:00], ["description", "Cool conf"], ["identity_id", 100], ["latitude", 19.1246832], ["location", "Manzanillo"], ["longitude", -104.4001794], ["name", "MagmaConf"], ["organizer", "Crowdint"], ["slug", "magmaconf"], ["updated_at", Mon, 22 Jul 2013 04:05:06 UTC +00:00]]
+[32mDEBUG[0m   [1m[36m (0.3ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+[37mINFO[0m Processing by EventsController#update as HTML
+[37mINFO[0m   Parameters: {"event"=>{"name"=>"MagmaConf", "address"=>"Carretera Manzanillo-Cihuatlán kilómetro 20,Manzanillo, Colima", "location"=>"Manzanillo", "description"=>"Cool conf", "contact"=>"mg@crowdint.com", "organizer"=>"Crowdint", "date"=>"28/2/2015", "time"=>"5:05 pm"}, "id"=>"980190983"}
+[32mDEBUG[0m   [1m[35mEvent Load (0.6ms)[0m  SELECT "events".* FROM "events" WHERE "events"."identity_id" = 200 AND "events"."slug" = '980190983' ORDER BY "events"."id" ASC LIMIT 1
+[32mDEBUG[0m   [1m[36mEvent Load (0.5ms)[0m  [1mSELECT "events".* FROM "events" WHERE "events"."identity_id" = 200 AND "events"."id" = $1 LIMIT 1[0m  [["id", "980190983"]]
+[37mINFO[0m Redirected to http://test.host/eventos
+[37mINFO[0m Completed 302 Found in 4ms (ActiveRecord: 1.1ms)
+[32mDEBUG[0m   [1m[35m (0.2ms)[0m  ROLLBACK
+[32mDEBUG[0m   [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+[37mINFO[0m ----------------------------------------------------------------------------------
+[37mINFO[0m EventsController::update: test_0004_should redirect to events when not logged user
+[37mINFO[0m ----------------------------------------------------------------------------------
+[37mINFO[0m Processing by EventsController#update as HTML
+[37mINFO[0m   Parameters: {"event"=>{"name"=>"MagmaConf", "address"=>"Carretera Manzanillo-Cihuatlán kilómetro 20,Manzanillo, Colima", "location"=>"Manzanillo", "description"=>"Cool conf", "contact"=>"mg@crowdint.com", "organizer"=>"Crowdint", "date"=>"28/2/2015", "time"=>"5:05 pm"}, "id"=>"10"}
+[37mINFO[0m Redirected to http://test.host/
+[37mINFO[0m Filter chain halted as :authenticate! rendered or redirected
+[37mINFO[0m Completed 302 Found in 1ms (ActiveRecord: 0.0ms)
+[32mDEBUG[0m   [1m[35m (0.2ms)[0m  ROLLBACK
+[32mDEBUG[0m   [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+[37mINFO[0m -----------------------------------------------------------------------------------
+[37mINFO[0m EventsController::update: test_0005_render edit view when update params are invalid
+[37mINFO[0m -----------------------------------------------------------------------------------
+[32mDEBUG[0m   [1m[35mIdentity Load (0.3ms)[0m  SELECT "identities".* FROM "identities" WHERE "identities"."id" = $1 LIMIT 1  [["id", 100]]
+[32mDEBUG[0m   [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+[32mDEBUG[0m   [1m[35mEvent Load (0.5ms)[0m  SELECT "events".* FROM "events" WHERE ("slug" = 'magmaconf' OR "slug" LIKE 'magmaconf--%') ORDER BY LENGTH("slug") DESC, "slug" DESC LIMIT 1
+[32mDEBUG[0m   [1m[36mSQL (0.8ms)[0m  [1mINSERT INTO "events" ("address", "contact", "created_at", "date", "description", "identity_id", "latitude", "location", "longitude", "name", "organizer", "slug", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING "id"[0m  [["address", "Carretera Manzanillo-Cihuatlán kilómetro 20,Manzanillo, Colima"], ["contact", "mg@crowdint.com"], ["created_at", Mon, 22 Jul 2013 04:05:06 UTC +00:00], ["date", Wed, 31 Jul 2013 00:00:00 UTC +00:00], ["description", "Cool conf"], ["identity_id", 100], ["latitude", 19.1246832], ["location", "Manzanillo"], ["longitude", -104.4001794], ["name", "MagmaConf"], ["organizer", "Crowdint"], ["slug", "magmaconf"], ["updated_at", Mon, 22 Jul 2013 04:05:06 UTC +00:00]]
+[32mDEBUG[0m   [1m[35m (0.2ms)[0m  RELEASE SAVEPOINT active_record_1
+[37mINFO[0m Processing by EventsController#update as HTML
+[37mINFO[0m   Parameters: {"event"=>{"name"=>"", "address"=>"Carretera Manzanillo-Cihuatlán kilómetro 20,Manzanillo, Colima", "location"=>"Manzanillo", "description"=>"Cool conf", "contact"=>"mg@crowdint.com", "organizer"=>"Crowdint", "date"=>"28/2/2015", "time"=>"5:05 pm"}, "id"=>"980190984"}
+[32mDEBUG[0m   [1m[36mEvent Load (0.6ms)[0m  [1mSELECT "events".* FROM "events" WHERE "events"."identity_id" = 100 AND "events"."slug" = '980190984' ORDER BY "events"."id" ASC LIMIT 1[0m
+[32mDEBUG[0m   [1m[35mEvent Load (0.2ms)[0m  SELECT "events".* FROM "events" WHERE "events"."identity_id" = 100 AND "events"."id" = $1 LIMIT 1  [["id", "980190984"]]
+[32mDEBUG[0m   [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+[32mDEBUG[0m   [1m[35mEvent Load (0.5ms)[0m  SELECT "events".* FROM "events" WHERE ("slug" = '' OR "slug" LIKE '--%') AND (id <> 980190984) ORDER BY LENGTH("slug") DESC, "slug" DESC LIMIT 1
+[32mDEBUG[0m   [1m[36m (0.3ms)[0m  [1mROLLBACK TO SAVEPOINT active_record_1[0m
+[32mDEBUG[0m   [1m[35m (0.5ms)[0m  SELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM "events" WHERE (date > '2013-07-22 04:05:06') LIMIT 2) subquery_for_count
+[32mDEBUG[0m   [1m[36mEvent Load (0.3ms)[0m  [1mSELECT "events".* FROM "events" WHERE (date > '2013-07-22 04:05:06') ORDER BY date ASC LIMIT 2[0m
+[37mINFO[0m   Rendered railsmx/shared/_event.html.erb (0.6ms)
+[32mDEBUG[0m   [1m[35m (0.4ms)[0m  SELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM "crowdblog_posts" WHERE "crowdblog_posts"."state" = 'published' LIMIT 3) subquery_for_count
+[37mINFO[0m   Rendered railsmx/shared/_sidebar.html.erb (3.7ms)
+[37mINFO[0m   Rendered railsmx/events/_form.html.erb (2.2ms)
+[37mINFO[0m   Rendered railsmx/shared/_socialite.html.erb (0.7ms)
+[37mINFO[0m Completed 200 OK in 17ms (Views: 8.9ms | ActiveRecord: 2.9ms)
+[32mDEBUG[0m   [1m[36m (0.3ms)[0m  [1mROLLBACK[0m
+[32mDEBUG[0m   [1m[35m (0.3ms)[0m  BEGIN
+[37mINFO[0m ---------------------------------------------------------------
+[37mINFO[0m FeedsController::using rss as format: test_0001_should get show
+[37mINFO[0m ---------------------------------------------------------------
+[37mINFO[0m Processing by FeedsController#show as RSS
+[32mDEBUG[0m   [1m[36mCrowdblog::Post Load (0.4ms)[0m  [1mSELECT "crowdblog_posts".* FROM "crowdblog_posts" WHERE "crowdblog_posts"."state" = 'published' ORDER BY published_at DESC, created_at DESC, id DESC LIMIT 15[0m
+[32mDEBUG[0m   [1m[35mEvent Load (0.2ms)[0m  SELECT "events".* FROM "events" LIMIT 15
+[37mINFO[0m Completed 200 OK in 16ms (Views: 9.7ms | ActiveRecord: 0.6ms)
+[32mDEBUG[0m   [1m[36m (0.3ms)[0m  [1mROLLBACK[0m
+[32mDEBUG[0m   [1m[35m (0.1ms)[0m  BEGIN
+[37mINFO[0m -----------------------------------------------------------------
+[37mINFO[0m FeedsController::using rss as format: test_0002_should render rss
+[37mINFO[0m -----------------------------------------------------------------
+[37mINFO[0m Processing by FeedsController#show as RSS
+[32mDEBUG[0m   [1m[36mCrowdblog::Post Load (0.6ms)[0m  [1mSELECT "crowdblog_posts".* FROM "crowdblog_posts" WHERE "crowdblog_posts"."state" = 'published' ORDER BY published_at DESC, created_at DESC, id DESC LIMIT 15[0m
+[32mDEBUG[0m   [1m[35mEvent Load (0.4ms)[0m  SELECT "events".* FROM "events" LIMIT 15
+[37mINFO[0m Completed 200 OK in 4ms (Views: 1.1ms | ActiveRecord: 0.9ms)
+[32mDEBUG[0m   [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+[32mDEBUG[0m   [1m[35m (0.2ms)[0m  BEGIN
+[37mINFO[0m ---------------------------------------------------------------
+[37mINFO[0m FeedsController::using xml as format: test_0001_should get show
+[37mINFO[0m ---------------------------------------------------------------
+[37mINFO[0m Processing by FeedsController#show as XML
+[32mDEBUG[0m   [1m[36mCrowdblog::Post Load (0.3ms)[0m  [1mSELECT "crowdblog_posts".* FROM "crowdblog_posts" WHERE "crowdblog_posts"."state" = 'published' ORDER BY published_at DESC, created_at DESC, id DESC LIMIT 15[0m
+[32mDEBUG[0m   [1m[35mEvent Load (0.3ms)[0m  SELECT "events".* FROM "events" LIMIT 15
+[37mINFO[0m Completed 200 OK in 6ms (Views: 3.6ms | ActiveRecord: 0.6ms)
+[32mDEBUG[0m   [1m[36m (0.3ms)[0m  [1mROLLBACK[0m
+[32mDEBUG[0m   [1m[35m (0.1ms)[0m  BEGIN
+[37mINFO[0m -----------------------------------------------------------------
+[37mINFO[0m FeedsController::using xml as format: test_0002_should render xml
+[37mINFO[0m -----------------------------------------------------------------
+[37mINFO[0m Processing by FeedsController#show as XML
+[32mDEBUG[0m   [1m[36mCrowdblog::Post Load (0.6ms)[0m  [1mSELECT "crowdblog_posts".* FROM "crowdblog_posts" WHERE "crowdblog_posts"."state" = 'published' ORDER BY published_at DESC, created_at DESC, id DESC LIMIT 15[0m
+[32mDEBUG[0m   [1m[35mEvent Load (0.2ms)[0m  SELECT "events".* FROM "events" LIMIT 15
+[37mINFO[0m Completed 200 OK in 5ms (Views: 2.3ms | ActiveRecord: 0.8ms)
+[32mDEBUG[0m   [1m[36m (0.3ms)[0m  [1mROLLBACK[0m
+[32mDEBUG[0m   [1m[35m (0.1ms)[0m  BEGIN
+[37mINFO[0m ------------------------------------------
+[37mINFO[0m HomeController: test_0001_should get index
+[37mINFO[0m ------------------------------------------
+[37mINFO[0m Processing by HomeController#index as HTML
+[32mDEBUG[0m   [1m[36m (0.5ms)[0m  [1mSELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM "events" WHERE (date > '2013-07-22 04:05:06') LIMIT 2) subquery_for_count[0m
+[32mDEBUG[0m   [1m[35m (0.3ms)[0m  SELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM "crowdblog_posts" WHERE "crowdblog_posts"."state" = 'published' LIMIT 3) subquery_for_count
+[37mINFO[0m   Rendered railsmx/shared/_sidebar.html.erb (2.3ms)
+[37mINFO[0m   Rendered railsmx/shared/_socialite.html.erb (0.7ms)
+[37mINFO[0m Completed 200 OK in 14ms (Views: 12.1ms | ActiveRecord: 0.8ms)
+[32mDEBUG[0m   [1m[36m (0.5ms)[0m  [1mROLLBACK[0m
+[32mDEBUG[0m   [1m[35m (0.1ms)[0m  BEGIN
+[37mINFO[0m -----------------------------------------------------------------
+[37mINFO[0m HomeController: test_0002_should get show with 'acerca' parameter
+[37mINFO[0m -----------------------------------------------------------------
+[37mINFO[0m Processing by HomeController#show as HTML
+[37mINFO[0m   Parameters: {"id"=>"acerca"}
+[32mDEBUG[0m   [1m[36m (0.6ms)[0m  [1mSELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM "events" WHERE (date > '2013-07-22 04:05:06') LIMIT 2) subquery_for_count[0m
+[32mDEBUG[0m   [1m[35m (0.4ms)[0m  SELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM "crowdblog_posts" WHERE "crowdblog_posts"."state" = 'published' LIMIT 3) subquery_for_count
+[37mINFO[0m   Rendered railsmx/shared/_sidebar.html.erb (2.6ms)
+[37mINFO[0m   Rendered railsmx/shared/_socialite.html.erb (0.7ms)
+[37mINFO[0m Completed 200 OK in 11ms (Views: 9.3ms | ActiveRecord: 0.9ms)
+[32mDEBUG[0m   [1m[36m (0.3ms)[0m  [1mROLLBACK[0m
+[32mDEBUG[0m   [1m[35m (0.2ms)[0m  BEGIN
+[37mINFO[0m ---------------------------------------------------------------------
+[37mINFO[0m HomeController: test_0003_should get show with 'privacidad' parameter
+[37mINFO[0m ---------------------------------------------------------------------
+[37mINFO[0m Processing by HomeController#show as HTML
+[37mINFO[0m   Parameters: {"id"=>"privacidad"}
+[32mDEBUG[0m   [1m[36m (0.5ms)[0m  [1mSELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM "events" WHERE (date > '2013-07-22 04:05:06') LIMIT 2) subquery_for_count[0m
+[32mDEBUG[0m   [1m[35m (0.4ms)[0m  SELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM "crowdblog_posts" WHERE "crowdblog_posts"."state" = 'published' LIMIT 3) subquery_for_count
+[37mINFO[0m   Rendered railsmx/shared/_sidebar.html.erb (2.5ms)
+[37mINFO[0m   Rendered railsmx/shared/_socialite.html.erb (0.8ms)
+[37mINFO[0m Completed 200 OK in 8ms (Views: 6.8ms | ActiveRecord: 1.0ms)
+[32mDEBUG[0m   [1m[36m (0.3ms)[0m  [1mROLLBACK[0m
+[32mDEBUG[0m   [1m[35m (0.3ms)[0m  BEGIN
+[37mINFO[0m ----------------------------------------------------------------------------
+[37mINFO[0m SessionsController::create: test_0001_success authentication first time user
+[37mINFO[0m ----------------------------------------------------------------------------
+[37mINFO[0m Processing by SessionsController#create as HTML
+[32mDEBUG[0m   [1m[36mIdentity Load (0.6ms)[0m  [1mSELECT "identities".* FROM "identities" WHERE "identities"."uid" = '11223344' AND "identities"."provider" = 'github' ORDER BY "identities"."id" DESC LIMIT 1[0m
+[32mDEBUG[0m   [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+[32mDEBUG[0m   [1m[36mSQL (0.6ms)[0m  [1mINSERT INTO "identities" ("created_at", "email", "provider", "uid", "updated_at", "username") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["created_at", Mon, 22 Jul 2013 04:05:06 UTC +00:00], ["email", "test@user.com"], ["provider", "github"], ["uid", "11223344"], ["updated_at", Mon, 22 Jul 2013 04:05:06 UTC +00:00], ["username", "Test user"]]
+[32mDEBUG[0m   [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+[37mINFO[0m Redirected to http://test.host/
+[37mINFO[0m Completed 302 Found in 5ms (ActiveRecord: 1.5ms)
+[32mDEBUG[0m   [1m[36m (0.5ms)[0m  [1mSELECT COUNT(*) FROM "identities" WHERE "identities"."uid" = '11223344' AND "identities"."provider" = 'github'[0m
+[32mDEBUG[0m   [1m[35m (0.1ms)[0m  ROLLBACK
+[32mDEBUG[0m   [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+[37mINFO[0m -------------------------------------------------------------------------------
+[37mINFO[0m SessionsController::create: test_0002_success authentication for returning user
+[37mINFO[0m -------------------------------------------------------------------------------
+[32mDEBUG[0m   [1m[35m (0.2ms)[0m  SAVEPOINT active_record_1
+[32mDEBUG[0m   [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "identities" ("created_at", "email", "provider", "uid", "updated_at", "username") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["created_at", Mon, 22 Jul 2013 04:05:06 UTC +00:00], ["email", "test@user.com"], ["provider", "github"], ["uid", "11223344"], ["updated_at", Mon, 22 Jul 2013 04:05:06 UTC +00:00], ["username", "Test user"]]
+[32mDEBUG[0m   [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+[37mINFO[0m Processing by SessionsController#create as HTML
+[32mDEBUG[0m   [1m[36mIdentity Load (0.5ms)[0m  [1mSELECT "identities".* FROM "identities" WHERE "identities"."uid" = '11223344' AND "identities"."provider" = 'github' ORDER BY "identities"."id" DESC LIMIT 1[0m
+[37mINFO[0m Redirected to http://test.host/
+[37mINFO[0m Completed 302 Found in 2ms (ActiveRecord: 0.5ms)
+[32mDEBUG[0m   [1m[35m (0.3ms)[0m  ROLLBACK
+[32mDEBUG[0m   [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+[37mINFO[0m -------------------------------------------------------------
+[37mINFO[0m SessionsController::create: test_0003_rejected authentication
+[37mINFO[0m -------------------------------------------------------------
+[32mDEBUG[0m   [1m[35m (0.3ms)[0m  SAVEPOINT active_record_1
+[32mDEBUG[0m   [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "identities" ("created_at", "email", "provider", "uid", "updated_at", "username") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["created_at", Mon, 22 Jul 2013 04:05:06 UTC +00:00], ["email", "test@user.com"], ["provider", "github"], ["uid", "11223344"], ["updated_at", Mon, 22 Jul 2013 04:05:06 UTC +00:00], ["username", "Test user"]]
+[32mDEBUG[0m   [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+[32mDEBUG[0m   [1m[36m (0.2ms)[0m  [1mSAVEPOINT active_record_1[0m
+[32mDEBUG[0m   [1m[35mSQL (0.5ms)[0m  UPDATE "identities" SET "blocked" = $1, "updated_at" = $2 WHERE "identities"."id" = 203  [["blocked", true], ["updated_at", Mon, 22 Jul 2013 04:05:06 UTC +00:00]]
+[32mDEBUG[0m   [1m[36m (0.2ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+[37mINFO[0m Processing by SessionsController#create as HTML
+[32mDEBUG[0m   [1m[35mIdentity Load (0.5ms)[0m  SELECT "identities".* FROM "identities" WHERE "identities"."uid" = '11223344' AND "identities"."provider" = 'github' ORDER BY "identities"."id" DESC LIMIT 1
+[37mINFO[0m Completed 500 Internal Server Error in 2ms
+[32mDEBUG[0m   [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+[32mDEBUG[0m   [1m[35m (0.1ms)[0m  BEGIN
+[37mINFO[0m -----------------------------------------------------
+[37mINFO[0m SessionsController::destroy: test_0001_success logout
+[37mINFO[0m -----------------------------------------------------
+[37mINFO[0m Processing by SessionsController#destroy as HTML
+[37mINFO[0m Redirected to http://test.host/
+[37mINFO[0m Completed 302 Found in 0ms (ActiveRecord: 0.0ms)
+[32mDEBUG[0m   [1m[36m (0.3ms)[0m  [1mROLLBACK[0m
+[32mDEBUG[0m   [1m[36m (0.9ms)[0m  [1mALTER TABLE "crowdblog_assets" DISABLE TRIGGER ALL;ALTER TABLE "crowdblog_posts" DISABLE TRIGGER ALL;ALTER TABLE "crowdblog_users" DISABLE TRIGGER ALL;ALTER TABLE "events" DISABLE TRIGGER ALL;ALTER TABLE "identities" DISABLE TRIGGER ALL;ALTER TABLE "schema_migrations" DISABLE TRIGGER ALL[0m
+[32mDEBUG[0m   [1m[35m (0.3ms)[0m  BEGIN
+[32mDEBUG[0m   [1m[36mFixture Delete (0.4ms)[0m  [1mDELETE FROM "events"[0m
+[32mDEBUG[0m   [1m[35mFixture Insert (0.4ms)[0m  INSERT INTO "events" ("name", "description", "date", "location", "contact", "organizer", "created_at", "updated_at", "id") VALUES ('MyString', 'MyText', '2013-02-11 17:30:27.000000', 'MyString', 'MyString', 'MyString', '2013-07-22 04:05:08', '2013-07-22 04:05:08', 980190962)
+[32mDEBUG[0m   [1m[36mFixture Insert (0.2ms)[0m  [1mINSERT INTO "events" ("name", "description", "date", "location", "contact", "organizer", "created_at", "updated_at", "id") VALUES ('MyString', 'MyText', '2013-02-11 17:30:27.000000', 'MyString', 'MyString', 'MyString', '2013-07-22 04:05:08', '2013-07-22 04:05:08', 298486374)[0m
+[32mDEBUG[0m   [1m[35mFixture Delete (0.3ms)[0m  DELETE FROM "identities"
+[32mDEBUG[0m   [1m[36mFixture Insert (0.2ms)[0m  [1mINSERT INTO "identities" ("id", "provider", "uid", "username", "email", "created_at", "updated_at") VALUES (100, 'github', '3345444', 'test_user', 'test@user.com', '2013-07-22 04:05:08', '2013-07-22 04:05:08')[0m
+[32mDEBUG[0m   [1m[35mFixture Insert (0.2ms)[0m  INSERT INTO "identities" ("id", "provider", "uid", "username", "email", "created_at", "updated_at") VALUES (200, 'github', '64674747', 'another_user', 'test1@user.com', '2013-07-22 04:05:08', '2013-07-22 04:05:08')
+[32mDEBUG[0m   [1m[36m (1.7ms)[0m  [1mCOMMIT[0m
+[32mDEBUG[0m   [1m[35m (0.2ms)[0m  ALTER TABLE "crowdblog_assets" ENABLE TRIGGER ALL;ALTER TABLE "crowdblog_posts" ENABLE TRIGGER ALL;ALTER TABLE "crowdblog_users" ENABLE TRIGGER ALL;ALTER TABLE "events" ENABLE TRIGGER ALL;ALTER TABLE "identities" ENABLE TRIGGER ALL;ALTER TABLE "schema_migrations" ENABLE TRIGGER ALL
+[32mDEBUG[0m   [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+[37mINFO[0m ---------------------------------------------------------------------
+[37mINFO[0m BlogManagement Feature Test: test_0001_when current user is publisher
+[37mINFO[0m ---------------------------------------------------------------------
+[32mDEBUG[0m   [1m[35mIdentity Load (0.3ms)[0m  SELECT "identities".* FROM "identities"
+[32mDEBUG[0m   [1m[36m (0.2ms)[0m  [1mSAVEPOINT active_record_1[0m
+[32mDEBUG[0m   [1m[35mSQL (0.7ms)[0m  DELETE FROM "identities" WHERE "identities"."id" = $1  [["id", 100]]
+[32mDEBUG[0m   [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+[32mDEBUG[0m   [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+[32mDEBUG[0m   [1m[36mSQL (0.2ms)[0m  [1mDELETE FROM "identities" WHERE "identities"."id" = $1[0m  [["id", 200]]
+[32mDEBUG[0m   [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+[32mDEBUG[0m   [1m[36mEvent Load (0.2ms)[0m  [1mSELECT "events".* FROM "events"[0m
+[32mDEBUG[0m   [1m[35m (0.2ms)[0m  SAVEPOINT active_record_1
+[32mDEBUG[0m   [1m[36mSQL (0.5ms)[0m  [1mDELETE FROM "events" WHERE "events"."id" = $1[0m  [["id", 980190962]]
+[32mDEBUG[0m   [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+[32mDEBUG[0m   [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+[32mDEBUG[0m   [1m[35mSQL (0.2ms)[0m  DELETE FROM "events" WHERE "events"."id" = $1  [["id", 298486374]]
+[32mDEBUG[0m   [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+[37mINFO[0m Started GET "/" for 127.0.0.1 at 2013-07-21 21:05:08 -0700
+[37mINFO[0m Processing by HomeController#index as HTML
+[32mDEBUG[0m   [1m[35m (0.6ms)[0m  SELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM "events" WHERE (date > '2013-07-22 04:05:08') LIMIT 2) subquery_for_count
+[32mDEBUG[0m   [1m[36m (0.7ms)[0m  [1mSELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM "crowdblog_posts" WHERE "crowdblog_posts"."state" = 'published' LIMIT 3) subquery_for_count[0m
+[37mINFO[0m   Rendered railsmx/shared/_sidebar.html.erb (5.8ms)
+[37mINFO[0m   Rendered railsmx/home/index.html.erb within layouts/application (22.8ms)
+[37mINFO[0m   Rendered railsmx/shared/_socialite.html.erb (1.3ms)
+[37mINFO[0m Completed 200 OK in 95ms (Views: 56.2ms | ActiveRecord: 2.8ms)
+[37mINFO[0m Started GET "/auth/github" for 127.0.0.1 at 2013-07-21 21:05:08 -0700
+[37mINFO[0m Started GET "/auth/github/callback" for 127.0.0.1 at 2013-07-21 21:05:08 -0700
+[37mINFO[0m Processing by SessionsController#create as HTML
+[37mINFO[0m   Parameters: {"provider"=>"github"}
+[32mDEBUG[0m   [1m[35mIdentity Load (0.7ms)[0m  SELECT "identities".* FROM "identities" WHERE "identities"."uid" = '12334' AND "identities"."provider" = 'github' ORDER BY "identities"."id" DESC LIMIT 1
+[32mDEBUG[0m   [1m[36m (0.2ms)[0m  [1mSAVEPOINT active_record_1[0m
+[32mDEBUG[0m   [1m[35mSQL (2.0ms)[0m  INSERT INTO "identities" ("created_at", "email", "provider", "uid", "updated_at", "username") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["created_at", Mon, 22 Jul 2013 04:05:08 UTC +00:00], ["email", "test@user.com"], ["provider", "github"], ["uid", "12334"], ["updated_at", Mon, 22 Jul 2013 04:05:08 UTC +00:00], ["username", "Test user"]]
+[32mDEBUG[0m   [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+[37mINFO[0m Redirected to http://www.example.com/
+[37mINFO[0m Completed 302 Found in 9ms (ActiveRecord: 3.0ms)
+[37mINFO[0m Started GET "/" for 127.0.0.1 at 2013-07-21 21:05:08 -0700
+[37mINFO[0m Processing by HomeController#index as HTML
+[32mDEBUG[0m   [1m[35mIdentity Load (0.6ms)[0m  SELECT "identities".* FROM "identities" WHERE "identities"."id" = $1 LIMIT 1  [["id", 201]]
+[32mDEBUG[0m   [1m[36m (0.3ms)[0m  [1mSELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM "events" WHERE (date > '2013-07-22 04:05:08') LIMIT 2) subquery_for_count[0m
+[32mDEBUG[0m   [1m[35m (0.2ms)[0m  SELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM "crowdblog_posts" WHERE "crowdblog_posts"."state" = 'published' LIMIT 3) subquery_for_count
+[37mINFO[0m   Rendered railsmx/shared/_sidebar.html.erb (1.9ms)
+[37mINFO[0m   Rendered railsmx/home/index.html.erb within layouts/application (3.7ms)
+[37mINFO[0m   Rendered railsmx/shared/_socialite.html.erb (0.6ms)
+[37mINFO[0m Completed 200 OK in 8ms (Views: 6.4ms | ActiveRecord: 1.2ms)
+[37mINFO[0m Started GET "/blog/admin" for 127.0.0.1 at 2013-07-21 21:05:08 -0700
+[37mINFO[0m Processing by Crowdblog::Admin::PostsController#index as HTML
+[32mDEBUG[0m   [1m[36mIdentity Load (0.7ms)[0m  [1mSELECT "identities".* FROM "identities" WHERE "identities"."id" = $1 LIMIT 1[0m  [["id", 201]]
+[32mDEBUG[0m   [1m[35mCrowdblog::Post Load (0.8ms)[0m  SELECT "crowdblog_posts".* FROM "crowdblog_posts" ORDER BY published_at DESC, created_at DESC, id DESC, "crowdblog_posts".state ASC
+[37mINFO[0m   Rendered railsmx/crowdblog/admin/posts/_post.html.slim (0.0ms)
+[37mINFO[0m   Rendered railsmx/crowdblog/admin/posts/index.html.slim within layouts/crowdblog/admin/base (18.6ms)
+[37mINFO[0m   Rendered railsmx/crowdblog/application/_navbar.html.slim (5.3ms)
+[37mINFO[0m   Rendered railsmx/crowdblog/application/_notices.html.slim (3.1ms)
+[37mINFO[0m Completed 200 OK in 1567ms (Views: 1563.6ms | ActiveRecord: 1.5ms)
+[32mDEBUG[0m   [1m[36m (0.4ms)[0m  [1mROLLBACK[0m
+[32mDEBUG[0m   [1m[35m (0.2ms)[0m  BEGIN
+[37mINFO[0m ------------------------------------------------------------------------
+[37mINFO[0m BlogManagement Feature Test: test_0002_when current user isn't publisher
+[37mINFO[0m ------------------------------------------------------------------------
+[32mDEBUG[0m   [1m[36mIdentity Load (0.5ms)[0m  [1mSELECT "identities".* FROM "identities"[0m
+[32mDEBUG[0m   [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+[32mDEBUG[0m   [1m[36mSQL (0.3ms)[0m  [1mDELETE FROM "identities" WHERE "identities"."id" = $1[0m  [["id", 100]]
+[32mDEBUG[0m   [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+[32mDEBUG[0m   [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+[32mDEBUG[0m   [1m[35mSQL (0.2ms)[0m  DELETE FROM "identities" WHERE "identities"."id" = $1  [["id", 200]]
+[32mDEBUG[0m   [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+[32mDEBUG[0m   [1m[35mEvent Load (0.2ms)[0m  SELECT "events".* FROM "events"
+[32mDEBUG[0m   [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+[32mDEBUG[0m   [1m[35mSQL (0.2ms)[0m  DELETE FROM "events" WHERE "events"."id" = $1  [["id", 980190962]]
+[32mDEBUG[0m   [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+[32mDEBUG[0m   [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+[32mDEBUG[0m   [1m[36mSQL (0.2ms)[0m  [1mDELETE FROM "events" WHERE "events"."id" = $1[0m  [["id", 298486374]]
+[32mDEBUG[0m   [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+[37mINFO[0m Started GET "/" for 127.0.0.1 at 2013-07-21 21:05:10 -0700
+[37mINFO[0m Processing by HomeController#index as HTML
+[32mDEBUG[0m   [1m[36m (0.5ms)[0m  [1mSELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM "events" WHERE (date > '2013-07-22 04:05:10') LIMIT 2) subquery_for_count[0m
+[32mDEBUG[0m   [1m[35m (0.3ms)[0m  SELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM "crowdblog_posts" WHERE "crowdblog_posts"."state" = 'published' LIMIT 3) subquery_for_count
+[37mINFO[0m   Rendered railsmx/shared/_sidebar.html.erb (3.1ms)
+[37mINFO[0m   Rendered railsmx/home/index.html.erb within layouts/application (4.2ms)
+[37mINFO[0m   Rendered railsmx/shared/_socialite.html.erb (0.8ms)
+[37mINFO[0m Completed 200 OK in 10ms (Views: 7.9ms | ActiveRecord: 0.8ms)
+[37mINFO[0m Started GET "/auth/github" for 127.0.0.1 at 2013-07-21 21:05:10 -0700
+[37mINFO[0m Started GET "/auth/github/callback" for 127.0.0.1 at 2013-07-21 21:05:10 -0700
+[37mINFO[0m Processing by SessionsController#create as HTML
+[37mINFO[0m   Parameters: {"provider"=>"github"}
+[32mDEBUG[0m   [1m[36mIdentity Load (0.4ms)[0m  [1mSELECT "identities".* FROM "identities" WHERE "identities"."uid" = '12263' AND "identities"."provider" = 'github' ORDER BY "identities"."id" DESC LIMIT 1[0m
+[32mDEBUG[0m   [1m[35m (0.2ms)[0m  SAVEPOINT active_record_1
+[32mDEBUG[0m   [1m[36mSQL (0.6ms)[0m  [1mINSERT INTO "identities" ("created_at", "email", "provider", "uid", "updated_at", "username") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["created_at", Mon, 22 Jul 2013 04:05:10 UTC +00:00], ["email", "test2@user.com"], ["provider", "github"], ["uid", "12263"], ["updated_at", Mon, 22 Jul 2013 04:05:10 UTC +00:00], ["username", "Test user"]]
+[32mDEBUG[0m   [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+[37mINFO[0m Redirected to http://www.example.com/
+[37mINFO[0m Completed 302 Found in 4ms (ActiveRecord: 1.4ms)
+[37mINFO[0m Started GET "/" for 127.0.0.1 at 2013-07-21 21:05:10 -0700
+[37mINFO[0m Processing by HomeController#index as HTML
+[32mDEBUG[0m   [1m[36mIdentity Load (0.4ms)[0m  [1mSELECT "identities".* FROM "identities" WHERE "identities"."id" = $1 LIMIT 1[0m  [["id", 202]]
+[32mDEBUG[0m   [1m[35m (0.5ms)[0m  SELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM "events" WHERE (date > '2013-07-22 04:05:10') LIMIT 2) subquery_for_count
+[32mDEBUG[0m   [1m[36m (0.3ms)[0m  [1mSELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM "crowdblog_posts" WHERE "crowdblog_posts"."state" = 'published' LIMIT 3) subquery_for_count[0m
+[37mINFO[0m   Rendered railsmx/shared/_sidebar.html.erb (2.3ms)
+[37mINFO[0m   Rendered railsmx/home/index.html.erb within layouts/application (3.8ms)
+[37mINFO[0m   Rendered railsmx/shared/_socialite.html.erb (0.7ms)
+[37mINFO[0m Completed 200 OK in 9ms (Views: 7.4ms | ActiveRecord: 1.1ms)
+[37mINFO[0m Started GET "/blog/admin" for 127.0.0.1 at 2013-07-21 21:05:10 -0700
+[37mINFO[0m Processing by Crowdblog::Admin::PostsController#index as HTML
+[32mDEBUG[0m   [1m[35mIdentity Load (0.4ms)[0m  SELECT "identities".* FROM "identities" WHERE "identities"."id" = $1 LIMIT 1  [["id", 202]]
+[37mINFO[0m Redirected to http://www.example.com/blog/
+[37mINFO[0m Filter chain halted as :crowdblog_authenticate_user! rendered or redirected
+[37mINFO[0m Completed 302 Found in 2ms (ActiveRecord: 0.4ms)
+[37mINFO[0m Started GET "/blog/" for 127.0.0.1 at 2013-07-21 21:05:10 -0700
+[37mINFO[0m Processing by Crowdblog::PostsController#index as HTML
+[32mDEBUG[0m   [1m[36mCrowdblog::Post Load (0.6ms)[0m  [1mSELECT "crowdblog_posts".* FROM "crowdblog_posts" WHERE "crowdblog_posts"."state" = 'published' ORDER BY published_at DESC, created_at DESC, id DESC LIMIT 13[0m
+[32mDEBUG[0m   [1m[35mCrowdblog::Post Load (0.2ms)[0m  SELECT "crowdblog_posts".* FROM "crowdblog_posts" WHERE "crowdblog_posts"."state" = 'published' ORDER BY published_at DESC, created_at DESC, id DESC
+[32mDEBUG[0m   [1m[36m (0.5ms)[0m  [1mSELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM "events" WHERE (date > '2013-07-22 04:05:10') LIMIT 2) subquery_for_count[0m
+[37mINFO[0m   Rendered collection (0.0ms)
+[37mINFO[0m   Rendered railsmx/crowdblog/posts/index.html.erb within layouts/application (2.7ms)
+[32mDEBUG[0m   [1m[35mIdentity Load (0.4ms)[0m  SELECT "identities".* FROM "identities" WHERE "identities"."id" = $1 LIMIT 1  [["id", 202]]
+[37mINFO[0m   Rendered railsmx/shared/_socialite.html.erb (1.0ms)
+[37mINFO[0m Completed 200 OK in 13ms (Views: 8.4ms | ActiveRecord: 1.7ms)
+[32mDEBUG[0m   [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+[32mDEBUG[0m   [1m[35m (0.3ms)[0m  BEGIN
+[37mINFO[0m -------------------------------------------------------------------------------------------
+[37mINFO[0m EventsManagement Feature Test: test_0001_As logged user I should be able to create an event
+[37mINFO[0m -------------------------------------------------------------------------------------------
+[32mDEBUG[0m   [1m[36mIdentity Load (0.3ms)[0m  [1mSELECT "identities".* FROM "identities"[0m
+[32mDEBUG[0m   [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+[32mDEBUG[0m   [1m[36mSQL (0.3ms)[0m  [1mDELETE FROM "identities" WHERE "identities"."id" = $1[0m  [["id", 100]]
+[32mDEBUG[0m   [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+[32mDEBUG[0m   [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+[32mDEBUG[0m   [1m[35mSQL (0.2ms)[0m  DELETE FROM "identities" WHERE "identities"."id" = $1  [["id", 200]]
+[32mDEBUG[0m   [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+[32mDEBUG[0m   [1m[35mEvent Load (0.4ms)[0m  SELECT "events".* FROM "events"
+[32mDEBUG[0m   [1m[36m (0.2ms)[0m  [1mSAVEPOINT active_record_1[0m
+[32mDEBUG[0m   [1m[35mSQL (0.2ms)[0m  DELETE FROM "events" WHERE "events"."id" = $1  [["id", 980190962]]
+[32mDEBUG[0m   [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+[32mDEBUG[0m   [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+[32mDEBUG[0m   [1m[36mSQL (0.2ms)[0m  [1mDELETE FROM "events" WHERE "events"."id" = $1[0m  [["id", 298486374]]
+[32mDEBUG[0m   [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+[37mINFO[0m Started GET "/" for 127.0.0.1 at 2013-07-21 21:05:10 -0700
+[37mINFO[0m Processing by HomeController#index as HTML
+[32mDEBUG[0m   [1m[36m (0.5ms)[0m  [1mSELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM "events" WHERE (date > '2013-07-22 04:05:10') LIMIT 2) subquery_for_count[0m
+[32mDEBUG[0m   [1m[35m (0.5ms)[0m  SELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM "crowdblog_posts" WHERE "crowdblog_posts"."state" = 'published' LIMIT 3) subquery_for_count
+[37mINFO[0m   Rendered railsmx/shared/_sidebar.html.erb (2.7ms)
+[37mINFO[0m   Rendered railsmx/home/index.html.erb within layouts/application (3.7ms)
+[37mINFO[0m   Rendered railsmx/shared/_socialite.html.erb (1.0ms)
+[37mINFO[0m Completed 200 OK in 10ms (Views: 8.0ms | ActiveRecord: 0.9ms)
+[37mINFO[0m Started GET "/auth/github" for 127.0.0.1 at 2013-07-21 21:05:10 -0700
+[37mINFO[0m Started GET "/auth/github/callback" for 127.0.0.1 at 2013-07-21 21:05:10 -0700
+[37mINFO[0m Processing by SessionsController#create as HTML
+[37mINFO[0m   Parameters: {"provider"=>"github"}
+[32mDEBUG[0m   [1m[36mIdentity Load (0.7ms)[0m  [1mSELECT "identities".* FROM "identities" WHERE "identities"."uid" = '12334' AND "identities"."provider" = 'github' ORDER BY "identities"."id" DESC LIMIT 1[0m
+[32mDEBUG[0m   [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+[32mDEBUG[0m   [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "identities" ("created_at", "email", "provider", "uid", "updated_at", "username") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["created_at", Mon, 22 Jul 2013 04:05:10 UTC +00:00], ["email", "test@user.com"], ["provider", "github"], ["uid", "12334"], ["updated_at", Mon, 22 Jul 2013 04:05:10 UTC +00:00], ["username", "Test user"]]
+[32mDEBUG[0m   [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+[37mINFO[0m Redirected to http://www.example.com/
+[37mINFO[0m Completed 302 Found in 4ms (ActiveRecord: 1.5ms)
+[37mINFO[0m Started GET "/" for 127.0.0.1 at 2013-07-21 21:05:10 -0700
+[37mINFO[0m Processing by HomeController#index as HTML
+[32mDEBUG[0m   [1m[36mIdentity Load (0.3ms)[0m  [1mSELECT "identities".* FROM "identities" WHERE "identities"."id" = $1 LIMIT 1[0m  [["id", 203]]
+[32mDEBUG[0m   [1m[35m (0.5ms)[0m  SELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM "events" WHERE (date > '2013-07-22 04:05:10') LIMIT 2) subquery_for_count
+[32mDEBUG[0m   [1m[36m (0.4ms)[0m  [1mSELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM "crowdblog_posts" WHERE "crowdblog_posts"."state" = 'published' LIMIT 3) subquery_for_count[0m
+[37mINFO[0m   Rendered railsmx/shared/_sidebar.html.erb (2.6ms)
+[37mINFO[0m   Rendered railsmx/home/index.html.erb within layouts/application (4.1ms)
+[37mINFO[0m   Rendered railsmx/shared/_socialite.html.erb (0.6ms)
+[37mINFO[0m Completed 200 OK in 9ms (Views: 6.6ms | ActiveRecord: 1.3ms)
+[37mINFO[0m Started GET "/eventos" for 127.0.0.1 at 2013-07-21 21:05:10 -0700
+[37mINFO[0m Processing by EventsController#index as HTML
+[32mDEBUG[0m   [1m[35m (0.5ms)[0m  SELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM "crowdblog_posts" WHERE "crowdblog_posts"."state" = 'published' LIMIT 3) subquery_for_count
+[32mDEBUG[0m   [1m[36mIdentity Load (0.3ms)[0m  [1mSELECT "identities".* FROM "identities" WHERE "identities"."id" = $1 LIMIT 1[0m  [["id", 203]]
+[32mDEBUG[0m   [1m[35m (0.4ms)[0m  SELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM "events" WHERE (date > '2013-07-22 04:05:10') LIMIT 4) subquery_for_count
+[32mDEBUG[0m   [1m[36m (0.5ms)[0m  [1mSELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM "events" WHERE (date <= '2013-07-22 04:05:10') LIMIT 3) subquery_for_count[0m
+[37mINFO[0m   Rendered railsmx/events/index.html.erb within layouts/application (6.3ms)
+[37mINFO[0m   Rendered railsmx/shared/_socialite.html.erb (0.8ms)
+[37mINFO[0m Completed 200 OK in 14ms (Views: 11.0ms | ActiveRecord: 1.6ms)
+[37mINFO[0m Started GET "/eventos/new" for 127.0.0.1 at 2013-07-21 21:05:10 -0700
+[37mINFO[0m Processing by EventsController#new as HTML
+[32mDEBUG[0m   [1m[35mIdentity Load (0.4ms)[0m  SELECT "identities".* FROM "identities" WHERE "identities"."id" = $1 LIMIT 1  [["id", 203]]
+[32mDEBUG[0m   [1m[36m (0.5ms)[0m  [1mSELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM "events" WHERE (date > '2013-07-22 04:05:10') LIMIT 2) subquery_for_count[0m
+[32mDEBUG[0m   [1m[35m (0.4ms)[0m  SELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM "crowdblog_posts" WHERE "crowdblog_posts"."state" = 'published' LIMIT 3) subquery_for_count
+[37mINFO[0m   Rendered railsmx/shared/_sidebar.html.erb (2.6ms)
+[37mINFO[0m   Rendered railsmx/events/_form.html.erb (7.7ms)
+[37mINFO[0m   Rendered railsmx/events/new.html.erb within layouts/application (11.9ms)
+[37mINFO[0m   Rendered railsmx/shared/_socialite.html.erb (0.8ms)
+[37mINFO[0m Completed 200 OK in 19ms (Views: 15.6ms | ActiveRecord: 1.4ms)
+[37mINFO[0m Started POST "/eventos" for 127.0.0.1 at 2013-07-21 21:05:10 -0700
+[37mINFO[0m Processing by EventsController#create as HTML
+[37mINFO[0m   Parameters: {"utf8"=>"✓", "event"=>{"name"=>"MagmaConf 2013", "location"=>"Manzanillo, Colima", "address"=>"Carretera Manzanillo-Cihuatlán kilómetro 20, Manzanillo, Colima", "date"=>"06/06/2015", "time"=>"18:00", "organizer"=>"Crowd Interactive", "contact"=>"http://magmaconf.com", "description"=>"Conferencias"}, "commit"=>"Crear evento"}
+[32mDEBUG[0m   [1m[36mIdentity Load (0.4ms)[0m  [1mSELECT "identities".* FROM "identities" WHERE "identities"."id" = $1 LIMIT 1[0m  [["id", 203]]
+[32mDEBUG[0m   [1m[35m (0.3ms)[0m  SAVEPOINT active_record_1
+[32mDEBUG[0m   [1m[36mEvent Load (0.8ms)[0m  [1mSELECT "events".* FROM "events" WHERE ("slug" = 'magmaconf-2013' OR "slug" LIKE 'magmaconf-2013--%') ORDER BY LENGTH("slug") DESC, "slug" DESC LIMIT 1[0m
+[32mDEBUG[0m   [1m[35mSQL (1.2ms)[0m  INSERT INTO "events" ("address", "contact", "created_at", "date", "description", "identity_id", "latitude", "location", "longitude", "name", "organizer", "slug", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING "id"  [["address", "Carretera Manzanillo-Cihuatlán kilómetro 20, Manzanillo, Colima"], ["contact", "http://magmaconf.com"], ["created_at", Mon, 22 Jul 2013 04:05:11 UTC +00:00], ["date", Sat, 06 Jun 2015 18:00:00 UTC +00:00], ["description", "Conferencias"], ["identity_id", 203], ["latitude", 19.1246832], ["location", "Manzanillo, Colima"], ["longitude", -104.4001794], ["name", "MagmaConf 2013"], ["organizer", "Crowd Interactive"], ["slug", "magmaconf-2013"], ["updated_at", Mon, 22 Jul 2013 04:05:11 UTC +00:00]]
+[32mDEBUG[0m   [1m[36m (0.2ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+[32mDEBUG[0m Sending Tweet MagmaConf 2013 http://www.example.com/eventos/magmaconf-2013
+[37mINFO[0m Redirected to http://www.example.com/eventos
+[37mINFO[0m Completed 302 Found in 297ms (ActiveRecord: 3.0ms)
+[37mINFO[0m Started GET "/eventos" for 127.0.0.1 at 2013-07-21 21:05:11 -0700
+[37mINFO[0m Processing by EventsController#index as HTML
+[32mDEBUG[0m   [1m[35m (0.6ms)[0m  SELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM "crowdblog_posts" WHERE "crowdblog_posts"."state" = 'published' LIMIT 3) subquery_for_count
+[32mDEBUG[0m   [1m[36mIdentity Load (0.3ms)[0m  [1mSELECT "identities".* FROM "identities" WHERE "identities"."id" = $1 LIMIT 1[0m  [["id", 203]]
+[32mDEBUG[0m   [1m[35m (0.5ms)[0m  SELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM "events" WHERE (date > '2013-07-22 04:05:11') LIMIT 4) subquery_for_count
+[32mDEBUG[0m   [1m[36mEvent Load (0.5ms)[0m  [1mSELECT "events".* FROM "events" WHERE (date > '2013-07-22 04:05:11') ORDER BY date ASC LIMIT 4[0m
+[32mDEBUG[0m   [1m[35mIdentity Load (0.8ms)[0m  SELECT "identities".* FROM "identities" WHERE "identities"."id" = $1 ORDER BY "identities"."id" ASC LIMIT 1  [["id", 203]]
+[37mINFO[0m   Rendered railsmx/events/_event.html.erb (15.6ms)
+[32mDEBUG[0m   [1m[36m (0.6ms)[0m  [1mSELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM "events" WHERE (date <= '2013-07-22 04:05:11') LIMIT 3) subquery_for_count[0m
+[37mINFO[0m   Rendered railsmx/events/index.html.erb within layouts/application (23.8ms)
+[37mINFO[0m   Rendered railsmx/shared/_socialite.html.erb (0.7ms)
+[37mINFO[0m Completed 200 OK in 30ms (Views: 25.5ms | ActiveRecord: 3.2ms)
+[32mDEBUG[0m   [1m[35m (0.4ms)[0m  ROLLBACK
+[32mDEBUG[0m   [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+[37mINFO[0m ----------------------------------------------------------------------------------------------
+[37mINFO[0m EventsManagement Feature Test: test_0002_An event should not be created if it has invalid info
+[37mINFO[0m ----------------------------------------------------------------------------------------------
+[32mDEBUG[0m   [1m[35mIdentity Load (0.5ms)[0m  SELECT "identities".* FROM "identities"
+[32mDEBUG[0m   [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+[32mDEBUG[0m   [1m[35mSQL (0.3ms)[0m  DELETE FROM "identities" WHERE "identities"."id" = $1  [["id", 100]]
+[32mDEBUG[0m   [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+[32mDEBUG[0m   [1m[35m (0.2ms)[0m  SAVEPOINT active_record_1
+[32mDEBUG[0m   [1m[36mSQL (0.2ms)[0m  [1mDELETE FROM "identities" WHERE "identities"."id" = $1[0m  [["id", 200]]
+[32mDEBUG[0m   [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+[32mDEBUG[0m   [1m[36mEvent Load (0.2ms)[0m  [1mSELECT "events".* FROM "events"[0m
+[32mDEBUG[0m   [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+[32mDEBUG[0m   [1m[36mSQL (0.1ms)[0m  [1mDELETE FROM "events" WHERE "events"."id" = $1[0m  [["id", 980190962]]
+[32mDEBUG[0m   [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+[32mDEBUG[0m   [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+[32mDEBUG[0m   [1m[35mSQL (0.1ms)[0m  DELETE FROM "events" WHERE "events"."id" = $1  [["id", 298486374]]
+[32mDEBUG[0m   [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+[37mINFO[0m Started GET "/" for 127.0.0.1 at 2013-07-21 21:05:11 -0700
+[37mINFO[0m Processing by HomeController#index as HTML
+[32mDEBUG[0m   [1m[35m (0.4ms)[0m  SELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM "events" WHERE (date > '2013-07-22 04:05:11') LIMIT 2) subquery_for_count
+[32mDEBUG[0m   [1m[36m (0.4ms)[0m  [1mSELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM "crowdblog_posts" WHERE "crowdblog_posts"."state" = 'published' LIMIT 3) subquery_for_count[0m
+[37mINFO[0m   Rendered railsmx/shared/_sidebar.html.erb (2.2ms)
+[37mINFO[0m   Rendered railsmx/home/index.html.erb within layouts/application (3.0ms)
+[37mINFO[0m   Rendered railsmx/shared/_socialite.html.erb (0.7ms)
+[37mINFO[0m Completed 200 OK in 7ms (Views: 5.9ms | ActiveRecord: 0.8ms)
+[37mINFO[0m Started GET "/auth/github" for 127.0.0.1 at 2013-07-21 21:05:11 -0700
+[37mINFO[0m Started GET "/auth/github/callback" for 127.0.0.1 at 2013-07-21 21:05:11 -0700
+[37mINFO[0m Processing by SessionsController#create as HTML
+[37mINFO[0m   Parameters: {"provider"=>"github"}
+[32mDEBUG[0m   [1m[35mIdentity Load (0.7ms)[0m  SELECT "identities".* FROM "identities" WHERE "identities"."uid" = '12334' AND "identities"."provider" = 'github' ORDER BY "identities"."id" DESC LIMIT 1
+[32mDEBUG[0m   [1m[36m (0.3ms)[0m  [1mSAVEPOINT active_record_1[0m
+[32mDEBUG[0m   [1m[35mSQL (0.5ms)[0m  INSERT INTO "identities" ("created_at", "email", "provider", "uid", "updated_at", "username") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["created_at", Mon, 22 Jul 2013 04:05:11 UTC +00:00], ["email", "test@user.com"], ["provider", "github"], ["uid", "12334"], ["updated_at", Mon, 22 Jul 2013 04:05:11 UTC +00:00], ["username", "Test user"]]
+[32mDEBUG[0m   [1m[36m (0.3ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+[37mINFO[0m Redirected to http://www.example.com/
+[37mINFO[0m Completed 302 Found in 4ms (ActiveRecord: 1.6ms)
+[37mINFO[0m Started GET "/" for 127.0.0.1 at 2013-07-21 21:05:11 -0700
+[37mINFO[0m Processing by HomeController#index as HTML
+[32mDEBUG[0m   [1m[35mIdentity Load (0.3ms)[0m  SELECT "identities".* FROM "identities" WHERE "identities"."id" = $1 LIMIT 1  [["id", 204]]
+[32mDEBUG[0m   [1m[36m (0.3ms)[0m  [1mSELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM "events" WHERE (date > '2013-07-22 04:05:11') LIMIT 2) subquery_for_count[0m
+[32mDEBUG[0m   [1m[35m (0.3ms)[0m  SELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM "crowdblog_posts" WHERE "crowdblog_posts"."state" = 'published' LIMIT 3) subquery_for_count
+[37mINFO[0m   Rendered railsmx/shared/_sidebar.html.erb (1.9ms)
+[37mINFO[0m   Rendered railsmx/home/index.html.erb within layouts/application (3.2ms)
+[37mINFO[0m   Rendered railsmx/shared/_socialite.html.erb (0.6ms)
+[37mINFO[0m Completed 200 OK in 8ms (Views: 6.0ms | ActiveRecord: 1.0ms)
+[37mINFO[0m Started GET "/eventos" for 127.0.0.1 at 2013-07-21 21:05:11 -0700
+[37mINFO[0m Processing by EventsController#index as HTML
+[32mDEBUG[0m   [1m[36m (0.5ms)[0m  [1mSELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM "crowdblog_posts" WHERE "crowdblog_posts"."state" = 'published' LIMIT 3) subquery_for_count[0m
+[32mDEBUG[0m   [1m[35mIdentity Load (0.3ms)[0m  SELECT "identities".* FROM "identities" WHERE "identities"."id" = $1 LIMIT 1  [["id", 204]]
+[32mDEBUG[0m   [1m[36m (0.3ms)[0m  [1mSELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM "events" WHERE (date > '2013-07-22 04:05:11') LIMIT 4) subquery_for_count[0m
+[32mDEBUG[0m   [1m[35m (0.3ms)[0m  SELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM "events" WHERE (date <= '2013-07-22 04:05:11') LIMIT 3) subquery_for_count
+[37mINFO[0m   Rendered railsmx/events/index.html.erb within layouts/application (4.1ms)
+[37mINFO[0m   Rendered railsmx/shared/_socialite.html.erb (0.7ms)
+[37mINFO[0m Completed 200 OK in 9ms (Views: 6.8ms | ActiveRecord: 1.5ms)
+[37mINFO[0m Started GET "/eventos/new" for 127.0.0.1 at 2013-07-21 21:05:11 -0700
+[37mINFO[0m Processing by EventsController#new as HTML
+[32mDEBUG[0m   [1m[36mIdentity Load (0.5ms)[0m  [1mSELECT "identities".* FROM "identities" WHERE "identities"."id" = $1 LIMIT 1[0m  [["id", 204]]
+[32mDEBUG[0m   [1m[35m (0.5ms)[0m  SELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM "events" WHERE (date > '2013-07-22 04:05:11') LIMIT 2) subquery_for_count
+[32mDEBUG[0m   [1m[36m (0.4ms)[0m  [1mSELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM "crowdblog_posts" WHERE "crowdblog_posts"."state" = 'published' LIMIT 3) subquery_for_count[0m
+[37mINFO[0m   Rendered railsmx/shared/_sidebar.html.erb (2.1ms)
+[37mINFO[0m   Rendered railsmx/events/_form.html.erb (2.1ms)
+[37mINFO[0m   Rendered railsmx/events/new.html.erb within layouts/application (4.8ms)
+[37mINFO[0m   Rendered railsmx/shared/_socialite.html.erb (0.6ms)
+[37mINFO[0m Completed 200 OK in 10ms (Views: 7.6ms | ActiveRecord: 1.3ms)
+[37mINFO[0m Started POST "/eventos" for 127.0.0.1 at 2013-07-21 21:05:11 -0700
+[37mINFO[0m Processing by EventsController#create as HTML
+[37mINFO[0m   Parameters: {"utf8"=>"✓", "event"=>{"name"=>"", "location"=>"", "address"=>"", "date"=>"", "time"=>"", "organizer"=>"", "contact"=>"", "description"=>""}, "commit"=>"Crear evento"}
+[32mDEBUG[0m   [1m[35mIdentity Load (0.4ms)[0m  SELECT "identities".* FROM "identities" WHERE "identities"."id" = $1 LIMIT 1  [["id", 204]]
+[32mDEBUG[0m   [1m[36m (0.2ms)[0m  [1mSAVEPOINT active_record_1[0m
+[32mDEBUG[0m   [1m[35mEvent Load (0.3ms)[0m  SELECT "events".* FROM "events" WHERE ("slug" = '' OR "slug" LIKE '--%') ORDER BY LENGTH("slug") DESC, "slug" DESC LIMIT 1
+[32mDEBUG[0m   [1m[36m (0.2ms)[0m  [1mROLLBACK TO SAVEPOINT active_record_1[0m
+[32mDEBUG[0m   [1m[35m (0.3ms)[0m  SELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM "events" WHERE (date > '2013-07-22 04:05:11') LIMIT 2) subquery_for_count
+[32mDEBUG[0m   [1m[36m (0.4ms)[0m  [1mSELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM "crowdblog_posts" WHERE "crowdblog_posts"."state" = 'published' LIMIT 3) subquery_for_count[0m
+[37mINFO[0m   Rendered railsmx/shared/_sidebar.html.erb (2.0ms)
+[37mINFO[0m   Rendered railsmx/events/_form.html.erb (2.2ms)
+[37mINFO[0m   Rendered railsmx/events/new.html.erb within layouts/application (4.7ms)
+[37mINFO[0m   Rendered railsmx/shared/_socialite.html.erb (0.7ms)
+[37mINFO[0m Completed 200 OK in 17ms (Views: 7.7ms | ActiveRecord: 1.9ms)
+[32mDEBUG[0m   [1m[35m (0.3ms)[0m  ROLLBACK
+[32mDEBUG[0m   [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+[37mINFO[0m ---------------------------------------------------------------------------------------------------
+[37mINFO[0m EventsManagement Feature Test: test_0003_As not logged user I should not be able to create an event
+[37mINFO[0m ---------------------------------------------------------------------------------------------------
+[32mDEBUG[0m   [1m[35mIdentity Load (0.2ms)[0m  SELECT "identities".* FROM "identities"
+[32mDEBUG[0m   [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+[32mDEBUG[0m   [1m[35mSQL (0.2ms)[0m  DELETE FROM "identities" WHERE "identities"."id" = $1  [["id", 100]]
+[32mDEBUG[0m   [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+[32mDEBUG[0m   [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+[32mDEBUG[0m   [1m[36mSQL (0.1ms)[0m  [1mDELETE FROM "identities" WHERE "identities"."id" = $1[0m  [["id", 200]]
+[32mDEBUG[0m   [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+[32mDEBUG[0m   [1m[36mEvent Load (0.2ms)[0m  [1mSELECT "events".* FROM "events"[0m
+[32mDEBUG[0m   [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+[32mDEBUG[0m   [1m[36mSQL (0.1ms)[0m  [1mDELETE FROM "events" WHERE "events"."id" = $1[0m  [["id", 980190962]]
+[32mDEBUG[0m   [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+[32mDEBUG[0m   [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+[32mDEBUG[0m   [1m[35mSQL (0.1ms)[0m  DELETE FROM "events" WHERE "events"."id" = $1  [["id", 298486374]]
+[32mDEBUG[0m   [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+[37mINFO[0m Started GET "/" for 127.0.0.1 at 2013-07-21 21:05:11 -0700
+[37mINFO[0m Processing by HomeController#index as HTML
+[32mDEBUG[0m   [1m[35m (0.5ms)[0m  SELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM "events" WHERE (date > '2013-07-22 04:05:11') LIMIT 2) subquery_for_count
+[32mDEBUG[0m   [1m[36m (0.3ms)[0m  [1mSELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM "crowdblog_posts" WHERE "crowdblog_posts"."state" = 'published' LIMIT 3) subquery_for_count[0m
+[37mINFO[0m   Rendered railsmx/shared/_sidebar.html.erb (2.1ms)
+[37mINFO[0m   Rendered railsmx/home/index.html.erb within layouts/application (2.7ms)
+[37mINFO[0m   Rendered railsmx/shared/_socialite.html.erb (0.7ms)
+[37mINFO[0m Completed 200 OK in 8ms (Views: 6.6ms | ActiveRecord: 0.7ms)
+[37mINFO[0m Started GET "/eventos" for 127.0.0.1 at 2013-07-21 21:05:11 -0700
+[37mINFO[0m Processing by EventsController#index as HTML
+[32mDEBUG[0m   [1m[35m (0.6ms)[0m  SELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM "crowdblog_posts" WHERE "crowdblog_posts"."state" = 'published' LIMIT 3) subquery_for_count
+[32mDEBUG[0m   [1m[36m (0.4ms)[0m  [1mSELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM "events" WHERE (date > '2013-07-22 04:05:11') LIMIT 4) subquery_for_count[0m
+[32mDEBUG[0m   [1m[35m (0.4ms)[0m  SELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM "events" WHERE (date <= '2013-07-22 04:05:11') LIMIT 3) subquery_for_count
+[37mINFO[0m   Rendered railsmx/events/index.html.erb within layouts/application (3.8ms)
+[37mINFO[0m   Rendered railsmx/shared/_socialite.html.erb (0.6ms)
+[37mINFO[0m Completed 200 OK in 8ms (Views: 6.2ms | ActiveRecord: 1.4ms)
+[32mDEBUG[0m   [1m[36m (0.2ms)[0m  [1mROLLBACK[0m
+[32mDEBUG[0m   [1m[35m (0.1ms)[0m  BEGIN
+[37mINFO[0m ------------------------------------------------------------------------------------------
+[37mINFO[0m EventsManagement Feature Test: test_0004_As event owner I should be able to edit the event
+[37mINFO[0m ------------------------------------------------------------------------------------------
+[32mDEBUG[0m   [1m[36mIdentity Load (0.2ms)[0m  [1mSELECT "identities".* FROM "identities"[0m
+[32mDEBUG[0m   [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+[32mDEBUG[0m   [1m[36mSQL (0.2ms)[0m  [1mDELETE FROM "identities" WHERE "identities"."id" = $1[0m  [["id", 100]]
+[32mDEBUG[0m   [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+[32mDEBUG[0m   [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+[32mDEBUG[0m   [1m[35mSQL (0.3ms)[0m  DELETE FROM "identities" WHERE "identities"."id" = $1  [["id", 200]]
+[32mDEBUG[0m   [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+[32mDEBUG[0m   [1m[35mEvent Load (0.3ms)[0m  SELECT "events".* FROM "events"
+[32mDEBUG[0m   [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+[32mDEBUG[0m   [1m[35mSQL (0.3ms)[0m  DELETE FROM "events" WHERE "events"."id" = $1  [["id", 980190962]]
+[32mDEBUG[0m   [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+[32mDEBUG[0m   [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+[32mDEBUG[0m   [1m[36mSQL (0.2ms)[0m  [1mDELETE FROM "events" WHERE "events"."id" = $1[0m  [["id", 298486374]]
+[32mDEBUG[0m   [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+[37mINFO[0m Started GET "/" for 127.0.0.1 at 2013-07-21 21:05:11 -0700
+[37mINFO[0m Processing by HomeController#index as HTML
+[32mDEBUG[0m   [1m[36m (0.4ms)[0m  [1mSELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM "events" WHERE (date > '2013-07-22 04:05:11') LIMIT 2) subquery_for_count[0m
+[32mDEBUG[0m   [1m[35m (0.4ms)[0m  SELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM "crowdblog_posts" WHERE "crowdblog_posts"."state" = 'published' LIMIT 3) subquery_for_count
+[37mINFO[0m   Rendered railsmx/shared/_sidebar.html.erb (2.1ms)
+[37mINFO[0m   Rendered railsmx/home/index.html.erb within layouts/application (2.8ms)
+[37mINFO[0m   Rendered railsmx/shared/_socialite.html.erb (0.8ms)
+[37mINFO[0m Completed 200 OK in 8ms (Views: 6.3ms | ActiveRecord: 0.8ms)
+[37mINFO[0m Started GET "/auth/github" for 127.0.0.1 at 2013-07-21 21:05:11 -0700
+[37mINFO[0m Started GET "/auth/github/callback" for 127.0.0.1 at 2013-07-21 21:05:11 -0700
+[37mINFO[0m Processing by SessionsController#create as HTML
+[37mINFO[0m   Parameters: {"provider"=>"github"}
+[32mDEBUG[0m   [1m[36mIdentity Load (0.5ms)[0m  [1mSELECT "identities".* FROM "identities" WHERE "identities"."uid" = '12334' AND "identities"."provider" = 'github' ORDER BY "identities"."id" DESC LIMIT 1[0m
+[32mDEBUG[0m   [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+[32mDEBUG[0m   [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "identities" ("created_at", "email", "provider", "uid", "updated_at", "username") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["created_at", Mon, 22 Jul 2013 04:05:11 UTC +00:00], ["email", "test@user.com"], ["provider", "github"], ["uid", "12334"], ["updated_at", Mon, 22 Jul 2013 04:05:11 UTC +00:00], ["username", "Test user"]]
+[32mDEBUG[0m   [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+[37mINFO[0m Redirected to http://www.example.com/
+[37mINFO[0m Completed 302 Found in 3ms (ActiveRecord: 1.1ms)
+[37mINFO[0m Started GET "/" for 127.0.0.1 at 2013-07-21 21:05:11 -0700
+[37mINFO[0m Processing by HomeController#index as HTML
+[32mDEBUG[0m   [1m[36mIdentity Load (0.4ms)[0m  [1mSELECT "identities".* FROM "identities" WHERE "identities"."id" = $1 LIMIT 1[0m  [["id", 205]]
+[32mDEBUG[0m   [1m[35m (0.3ms)[0m  SELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM "events" WHERE (date > '2013-07-22 04:05:11') LIMIT 2) subquery_for_count
+[32mDEBUG[0m   [1m[36m (0.3ms)[0m  [1mSELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM "crowdblog_posts" WHERE "crowdblog_posts"."state" = 'published' LIMIT 3) subquery_for_count[0m
+[37mINFO[0m   Rendered railsmx/shared/_sidebar.html.erb (1.9ms)
+[37mINFO[0m   Rendered railsmx/home/index.html.erb within layouts/application (3.1ms)
+[37mINFO[0m   Rendered railsmx/shared/_socialite.html.erb (0.6ms)
+[37mINFO[0m Completed 200 OK in 7ms (Views: 5.7ms | ActiveRecord: 1.0ms)
+[32mDEBUG[0m   [1m[35mIdentity Load (0.6ms)[0m  SELECT "identities".* FROM "identities" ORDER BY "identities"."id" DESC LIMIT 1
+[32mDEBUG[0m   [1m[36m (0.2ms)[0m  [1mSELECT COUNT(*) FROM "events"[0m
+[32mDEBUG[0m   [1m[35m (0.2ms)[0m  SAVEPOINT active_record_1
+[32mDEBUG[0m   [1m[36mEvent Load (0.6ms)[0m  [1mSELECT "events".* FROM "events" WHERE ("slug" = 'magmaconf-1' OR "slug" LIKE 'magmaconf-1--%') ORDER BY LENGTH("slug") DESC, "slug" DESC LIMIT 1[0m
+[32mDEBUG[0m   [1m[35mSQL (0.7ms)[0m  INSERT INTO "events" ("address", "contact", "created_at", "date", "description", "identity_id", "latitude", "location", "longitude", "name", "organizer", "slug", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING "id"  [["address", "Carretera Manzanillo-Cihuatlán kilómetro 20, Manzanillo, Colima"], ["contact", "http://magmaconf.com"], ["created_at", Mon, 22 Jul 2013 04:05:11 UTC +00:00], ["date", Wed, 30 Oct 2013 04:05:00 UTC +00:00], ["description", "Conferencias"], ["identity_id", 205], ["latitude", 19.1246832], ["location", "Manzanillo Colima"], ["longitude", -104.4001794], ["name", "MagmaConf 1"], ["organizer", "Crowdint"], ["slug", "magmaconf-1"], ["updated_at", Mon, 22 Jul 2013 04:05:11 UTC +00:00]]
+[32mDEBUG[0m   [1m[36m (0.2ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+[37mINFO[0m Started GET "/eventos" for 127.0.0.1 at 2013-07-21 21:05:11 -0700
+[37mINFO[0m Processing by EventsController#index as HTML
+[32mDEBUG[0m   [1m[35m (0.5ms)[0m  SELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM "crowdblog_posts" WHERE "crowdblog_posts"."state" = 'published' LIMIT 3) subquery_for_count
+[32mDEBUG[0m   [1m[36mIdentity Load (0.4ms)[0m  [1mSELECT "identities".* FROM "identities" WHERE "identities"."id" = $1 LIMIT 1[0m  [["id", 205]]
+[32mDEBUG[0m   [1m[35m (0.4ms)[0m  SELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM "events" WHERE (date > '2013-07-22 04:05:11') LIMIT 4) subquery_for_count
+[32mDEBUG[0m   [1m[36mEvent Load (0.4ms)[0m  [1mSELECT "events".* FROM "events" WHERE (date > '2013-07-22 04:05:11') ORDER BY date ASC LIMIT 4[0m
+[32mDEBUG[0m   [1m[35mIdentity Load (0.4ms)[0m  SELECT "identities".* FROM "identities" WHERE "identities"."id" = $1 ORDER BY "identities"."id" ASC LIMIT 1  [["id", 205]]
+[37mINFO[0m   Rendered railsmx/events/_event.html.erb (2.8ms)
+[32mDEBUG[0m   [1m[36m (0.4ms)[0m  [1mSELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM "events" WHERE (date <= '2013-07-22 04:05:11') LIMIT 3) subquery_for_count[0m
+[37mINFO[0m   Rendered railsmx/events/index.html.erb within layouts/application (8.9ms)
+[37mINFO[0m   Rendered railsmx/shared/_socialite.html.erb (0.6ms)
+[37mINFO[0m Completed 200 OK in 14ms (Views: 10.2ms | ActiveRecord: 2.5ms)
+[37mINFO[0m Started GET "/eventos/magmaconf-1/edit" for 127.0.0.1 at 2013-07-21 21:05:11 -0700
+[37mINFO[0m Processing by EventsController#edit as HTML
+[37mINFO[0m   Parameters: {"id"=>"magmaconf-1"}
+[32mDEBUG[0m   [1m[35mIdentity Load (0.3ms)[0m  SELECT "identities".* FROM "identities" WHERE "identities"."id" = $1 LIMIT 1  [["id", 205]]
+[32mDEBUG[0m   [1m[36mEvent Load (0.6ms)[0m  [1mSELECT "events".* FROM "events" WHERE "events"."identity_id" = 205 AND "events"."slug" = 'magmaconf-1' ORDER BY "events"."id" ASC LIMIT 1[0m
+[32mDEBUG[0m   [1m[35m (0.3ms)[0m  SELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM "events" WHERE (date > '2013-07-22 04:05:11') LIMIT 2) subquery_for_count
+[32mDEBUG[0m   [1m[36mEvent Load (0.4ms)[0m  [1mSELECT "events".* FROM "events" WHERE (date > '2013-07-22 04:05:11') ORDER BY date ASC LIMIT 2[0m
+[37mINFO[0m   Rendered railsmx/shared/_event.html.erb (1.5ms)
+[32mDEBUG[0m   [1m[35m (0.5ms)[0m  SELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM "crowdblog_posts" WHERE "crowdblog_posts"."state" = 'published' LIMIT 3) subquery_for_count
+[37mINFO[0m   Rendered railsmx/shared/_sidebar.html.erb (5.6ms)
+[37mINFO[0m   Rendered railsmx/events/_form.html.erb (2.4ms)
+[37mINFO[0m   Rendered railsmx/events/edit.html.erb within layouts/application (8.9ms)
+[37mINFO[0m   Rendered railsmx/shared/_socialite.html.erb (0.7ms)
+[37mINFO[0m Completed 200 OK in 17ms (Views: 12.1ms | ActiveRecord: 2.1ms)
+[37mINFO[0m Started PATCH "/eventos/magmaconf-1" for 127.0.0.1 at 2013-07-21 21:05:11 -0700
+[37mINFO[0m Processing by EventsController#update as HTML
+[37mINFO[0m   Parameters: {"utf8"=>"✓", "event"=>{"name"=>"MagmaConf 1", "location"=>"Manzanillo Colima", "address"=>"Carretera Manzanillo-Cihuatlán kilómetro 20, Manzanillo, Colima", "date"=>"2013-10-30", "time"=>"04:05", "organizer"=>"Crowdint", "contact"=>"http://magmaconf.com", "description"=>"\nConferencias"}, "commit"=>"Actualizar evento", "id"=>"magmaconf-1"}
+[32mDEBUG[0m   [1m[36mIdentity Load (0.5ms)[0m  [1mSELECT "identities".* FROM "identities" WHERE "identities"."id" = $1 LIMIT 1[0m  [["id", 205]]
+[32mDEBUG[0m   [1m[35mEvent Load (0.5ms)[0m  SELECT "events".* FROM "events" WHERE "events"."identity_id" = 205 AND "events"."slug" = 'magmaconf-1' ORDER BY "events"."id" ASC LIMIT 1
+[32mDEBUG[0m   [1m[36m (0.2ms)[0m  [1mSAVEPOINT active_record_1[0m
+[32mDEBUG[0m   [1m[35mSQL (0.7ms)[0m  UPDATE "events" SET "description" = $1, "updated_at" = $2 WHERE "events"."id" = 980190964  [["description", "\nConferencias"], ["updated_at", Mon, 22 Jul 2013 04:05:11 UTC +00:00]]
+[32mDEBUG[0m   [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+[37mINFO[0m Redirected to http://www.example.com/eventos
+[37mINFO[0m Completed 302 Found in 7ms (ActiveRecord: 2.0ms)
+[37mINFO[0m Started GET "/eventos" for 127.0.0.1 at 2013-07-21 21:05:11 -0700
+[37mINFO[0m Processing by EventsController#index as HTML
+[32mDEBUG[0m   [1m[35m (0.5ms)[0m  SELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM "crowdblog_posts" WHERE "crowdblog_posts"."state" = 'published' LIMIT 3) subquery_for_count
+[32mDEBUG[0m   [1m[36mIdentity Load (0.4ms)[0m  [1mSELECT "identities".* FROM "identities" WHERE "identities"."id" = $1 LIMIT 1[0m  [["id", 205]]
+[32mDEBUG[0m   [1m[35m (0.5ms)[0m  SELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM "events" WHERE (date > '2013-07-22 04:05:11') LIMIT 4) subquery_for_count
+[32mDEBUG[0m   [1m[36mEvent Load (0.5ms)[0m  [1mSELECT "events".* FROM "events" WHERE (date > '2013-07-22 04:05:11') ORDER BY date ASC LIMIT 4[0m
+[32mDEBUG[0m   [1m[35mIdentity Load (0.4ms)[0m  SELECT "identities".* FROM "identities" WHERE "identities"."id" = $1 ORDER BY "identities"."id" ASC LIMIT 1  [["id", 205]]
+[37mINFO[0m   Rendered railsmx/events/_event.html.erb (2.7ms)
+[32mDEBUG[0m   [1m[36m (0.4ms)[0m  [1mSELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM "events" WHERE (date <= '2013-07-22 04:05:11') LIMIT 3) subquery_for_count[0m
+[37mINFO[0m   Rendered railsmx/events/index.html.erb within layouts/application (8.6ms)
+[37mINFO[0m   Rendered railsmx/shared/_socialite.html.erb (0.6ms)
+[37mINFO[0m Completed 200 OK in 13ms (Views: 9.7ms | ActiveRecord: 2.6ms)
+[32mDEBUG[0m   [1m[35m (0.2ms)[0m  ROLLBACK
+[32mDEBUG[0m   [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+[37mINFO[0m ----------------------------------------------------------------------------------------------
+[37mINFO[0m EventsManagement Feature Test: test_0005_I should not be able to edit an event from other user
+[37mINFO[0m ----------------------------------------------------------------------------------------------
+[32mDEBUG[0m   [1m[35mIdentity Load (0.2ms)[0m  SELECT "identities".* FROM "identities"
+[32mDEBUG[0m   [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+[32mDEBUG[0m   [1m[35mSQL (0.2ms)[0m  DELETE FROM "identities" WHERE "identities"."id" = $1  [["id", 100]]
+[32mDEBUG[0m   [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+[32mDEBUG[0m   [1m[35m (0.2ms)[0m  SAVEPOINT active_record_1
+[32mDEBUG[0m   [1m[36mSQL (0.1ms)[0m  [1mDELETE FROM "identities" WHERE "identities"."id" = $1[0m  [["id", 200]]
+[32mDEBUG[0m   [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+[32mDEBUG[0m   [1m[36mEvent Load (0.2ms)[0m  [1mSELECT "events".* FROM "events"[0m
+[32mDEBUG[0m   [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+[32mDEBUG[0m   [1m[36mSQL (0.1ms)[0m  [1mDELETE FROM "events" WHERE "events"."id" = $1[0m  [["id", 980190962]]
+[32mDEBUG[0m   [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+[32mDEBUG[0m   [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+[32mDEBUG[0m   [1m[35mSQL (0.1ms)[0m  DELETE FROM "events" WHERE "events"."id" = $1  [["id", 298486374]]
+[32mDEBUG[0m   [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+[37mINFO[0m Started GET "/" for 127.0.0.1 at 2013-07-21 21:05:11 -0700
+[37mINFO[0m Processing by HomeController#index as HTML
+[32mDEBUG[0m   [1m[35m (0.5ms)[0m  SELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM "events" WHERE (date > '2013-07-22 04:05:11') LIMIT 2) subquery_for_count
+[32mDEBUG[0m   [1m[36m (0.3ms)[0m  [1mSELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM "crowdblog_posts" WHERE "crowdblog_posts"."state" = 'published' LIMIT 3) subquery_for_count[0m
+[37mINFO[0m   Rendered railsmx/shared/_sidebar.html.erb (2.0ms)
+[37mINFO[0m   Rendered railsmx/home/index.html.erb within layouts/application (2.7ms)
+[37mINFO[0m   Rendered railsmx/shared/_socialite.html.erb (0.7ms)
+[37mINFO[0m Completed 200 OK in 7ms (Views: 5.5ms | ActiveRecord: 0.8ms)
+[37mINFO[0m Started GET "/auth/github" for 127.0.0.1 at 2013-07-21 21:05:11 -0700
+[37mINFO[0m Started GET "/auth/github/callback" for 127.0.0.1 at 2013-07-21 21:05:11 -0700
+[37mINFO[0m Processing by SessionsController#create as HTML
+[37mINFO[0m   Parameters: {"provider"=>"github"}
+[32mDEBUG[0m   [1m[35mIdentity Load (0.5ms)[0m  SELECT "identities".* FROM "identities" WHERE "identities"."uid" = '12334' AND "identities"."provider" = 'github' ORDER BY "identities"."id" DESC LIMIT 1
+[32mDEBUG[0m   [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+[32mDEBUG[0m   [1m[35mSQL (0.5ms)[0m  INSERT INTO "identities" ("created_at", "email", "provider", "uid", "updated_at", "username") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["created_at", Mon, 22 Jul 2013 04:05:11 UTC +00:00], ["email", "test@user.com"], ["provider", "github"], ["uid", "12334"], ["updated_at", Mon, 22 Jul 2013 04:05:11 UTC +00:00], ["username", "Test user"]]
+[32mDEBUG[0m   [1m[36m (0.2ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+[37mINFO[0m Redirected to http://www.example.com/
+[37mINFO[0m Completed 302 Found in 4ms (ActiveRecord: 1.3ms)
+[37mINFO[0m Started GET "/" for 127.0.0.1 at 2013-07-21 21:05:11 -0700
+[37mINFO[0m Processing by HomeController#index as HTML
+[32mDEBUG[0m   [1m[35mIdentity Load (0.3ms)[0m  SELECT "identities".* FROM "identities" WHERE "identities"."id" = $1 LIMIT 1  [["id", 206]]
+[32mDEBUG[0m   [1m[36m (0.4ms)[0m  [1mSELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM "events" WHERE (date > '2013-07-22 04:05:11') LIMIT 2) subquery_for_count[0m
+[32mDEBUG[0m   [1m[35m (0.3ms)[0m  SELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM "crowdblog_posts" WHERE "crowdblog_posts"."state" = 'published' LIMIT 3) subquery_for_count
+[37mINFO[0m   Rendered railsmx/shared/_sidebar.html.erb (2.0ms)
+[37mINFO[0m   Rendered railsmx/home/index.html.erb within layouts/application (3.3ms)
+[37mINFO[0m   Rendered railsmx/shared/_socialite.html.erb (0.6ms)
+[37mINFO[0m Completed 200 OK in 8ms (Views: 6.3ms | ActiveRecord: 1.1ms)
+[32mDEBUG[0m   [1m[36mIdentity Load (0.5ms)[0m  [1mSELECT "identities".* FROM "identities" ORDER BY "identities"."id" DESC LIMIT 1[0m
+[32mDEBUG[0m   [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+[32mDEBUG[0m   [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "identities" ("created_at", "email", "provider", "uid", "updated_at", "username") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["created_at", Mon, 22 Jul 2013 04:05:11 UTC +00:00], ["email", "second@user.com"], ["provider", "github"], ["uid", "998877"], ["updated_at", Mon, 22 Jul 2013 04:05:11 UTC +00:00], ["username", "second"]]
+[32mDEBUG[0m   [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+[32mDEBUG[0m   [1m[36m (0.2ms)[0m  [1mSELECT COUNT(*) FROM "events"[0m
+[32mDEBUG[0m   [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+[32mDEBUG[0m   [1m[36mEvent Load (0.5ms)[0m  [1mSELECT "events".* FROM "events" WHERE ("slug" = 'magmaconf-1' OR "slug" LIKE 'magmaconf-1--%') ORDER BY LENGTH("slug") DESC, "slug" DESC LIMIT 1[0m
+[32mDEBUG[0m   [1m[35mSQL (0.7ms)[0m  INSERT INTO "events" ("address", "contact", "created_at", "date", "description", "identity_id", "latitude", "location", "longitude", "name", "organizer", "slug", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING "id"  [["address", "Carretera Manzanillo-Cihuatlán kilómetro 20, Manzanillo, Colima"], ["contact", "http://magmaconf.com"], ["created_at", Mon, 22 Jul 2013 04:05:11 UTC +00:00], ["date", Wed, 30 Oct 2013 04:05:00 UTC +00:00], ["description", "Conferencias"], ["identity_id", 206], ["latitude", 19.1246832], ["location", "Manzanillo Colima"], ["longitude", -104.4001794], ["name", "MagmaConf 1"], ["organizer", "Crowdint"], ["slug", "magmaconf-1"], ["updated_at", Mon, 22 Jul 2013 04:05:11 UTC +00:00]]
+[32mDEBUG[0m   [1m[36m (0.3ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+[32mDEBUG[0m   [1m[35m (0.3ms)[0m  SELECT COUNT(*) FROM "events"
+[32mDEBUG[0m   [1m[36m (0.2ms)[0m  [1mSAVEPOINT active_record_1[0m
+[32mDEBUG[0m   [1m[35mEvent Load (0.6ms)[0m  SELECT "events".* FROM "events" WHERE ("slug" = 'magmaconf-2' OR "slug" LIKE 'magmaconf-2--%') ORDER BY LENGTH("slug") DESC, "slug" DESC LIMIT 1
+[32mDEBUG[0m   [1m[36mSQL (0.7ms)[0m  [1mINSERT INTO "events" ("address", "contact", "created_at", "date", "description", "identity_id", "latitude", "location", "longitude", "name", "organizer", "slug", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING "id"[0m  [["address", "Carretera Manzanillo-Cihuatlán kilómetro 20, Manzanillo, Colima"], ["contact", "http://magmaconf.com"], ["created_at", Mon, 22 Jul 2013 04:05:11 UTC +00:00], ["date", Wed, 30 Oct 2013 04:05:00 UTC +00:00], ["description", "Conferencias"], ["identity_id", 207], ["latitude", 19.1246832], ["location", "Manzanillo Colima"], ["longitude", -104.4001794], ["name", "MagmaConf 2"], ["organizer", "Crowdint"], ["slug", "magmaconf-2"], ["updated_at", Mon, 22 Jul 2013 04:05:11 UTC +00:00]]
+[32mDEBUG[0m   [1m[35m (0.2ms)[0m  RELEASE SAVEPOINT active_record_1
+[37mINFO[0m Started GET "/eventos" for 127.0.0.1 at 2013-07-21 21:05:11 -0700
+[37mINFO[0m Processing by EventsController#index as HTML
+[32mDEBUG[0m   [1m[36m (0.5ms)[0m  [1mSELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM "crowdblog_posts" WHERE "crowdblog_posts"."state" = 'published' LIMIT 3) subquery_for_count[0m
+[32mDEBUG[0m   [1m[35mIdentity Load (0.4ms)[0m  SELECT "identities".* FROM "identities" WHERE "identities"."id" = $1 LIMIT 1  [["id", 206]]
+[32mDEBUG[0m   [1m[36m (0.5ms)[0m  [1mSELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM "events" WHERE (date > '2013-07-22 04:05:12') LIMIT 4) subquery_for_count[0m
+[32mDEBUG[0m   [1m[35mEvent Load (0.4ms)[0m  SELECT "events".* FROM "events" WHERE (date > '2013-07-22 04:05:12') ORDER BY date ASC LIMIT 4
+[32mDEBUG[0m   [1m[36mIdentity Load (0.4ms)[0m  [1mSELECT "identities".* FROM "identities" WHERE "identities"."id" = $1 ORDER BY "identities"."id" ASC LIMIT 1[0m  [["id", 206]]
+[32mDEBUG[0m   [1m[35mIdentity Load (0.4ms)[0m  SELECT "identities".* FROM "identities" WHERE "identities"."id" = $1 ORDER BY "identities"."id" ASC LIMIT 1  [["id", 207]]
+[37mINFO[0m   Rendered railsmx/events/_event.html.erb (4.8ms)
+[32mDEBUG[0m   [1m[36m (0.5ms)[0m  [1mSELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM "events" WHERE (date <= '2013-07-22 04:05:12') LIMIT 3) subquery_for_count[0m
+[37mINFO[0m   Rendered railsmx/events/index.html.erb within layouts/application (11.1ms)
+[37mINFO[0m   Rendered railsmx/shared/_socialite.html.erb (0.7ms)
+[37mINFO[0m Completed 200 OK in 16ms (Views: 12.0ms | ActiveRecord: 3.1ms)
+[32mDEBUG[0m   [1m[35m (0.2ms)[0m  ROLLBACK
+[32mDEBUG[0m   [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+[37mINFO[0m ----------------------------------------------------------------------------------
+[37mINFO[0m EventsManagement Feature Test: test_0006_I should not be able to edit a past event
+[37mINFO[0m ----------------------------------------------------------------------------------
+[32mDEBUG[0m   [1m[35mIdentity Load (0.3ms)[0m  SELECT "identities".* FROM "identities"
+[32mDEBUG[0m   [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+[32mDEBUG[0m   [1m[35mSQL (0.2ms)[0m  DELETE FROM "identities" WHERE "identities"."id" = $1  [["id", 100]]
+[32mDEBUG[0m   [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+[32mDEBUG[0m   [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+[32mDEBUG[0m   [1m[36mSQL (0.1ms)[0m  [1mDELETE FROM "identities" WHERE "identities"."id" = $1[0m  [["id", 200]]
+[32mDEBUG[0m   [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+[32mDEBUG[0m   [1m[36mEvent Load (0.2ms)[0m  [1mSELECT "events".* FROM "events"[0m
+[32mDEBUG[0m   [1m[35m (0.2ms)[0m  SAVEPOINT active_record_1
+[32mDEBUG[0m   [1m[36mSQL (0.2ms)[0m  [1mDELETE FROM "events" WHERE "events"."id" = $1[0m  [["id", 980190962]]
+[32mDEBUG[0m   [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+[32mDEBUG[0m   [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+[32mDEBUG[0m   [1m[35mSQL (0.1ms)[0m  DELETE FROM "events" WHERE "events"."id" = $1  [["id", 298486374]]
+[32mDEBUG[0m   [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+[37mINFO[0m Started GET "/" for 127.0.0.1 at 2013-07-21 21:05:12 -0700
+[37mINFO[0m Processing by HomeController#index as HTML
+[32mDEBUG[0m   [1m[35m (0.5ms)[0m  SELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM "events" WHERE (date > '2013-07-22 04:05:12') LIMIT 2) subquery_for_count
+[32mDEBUG[0m   [1m[36m (0.3ms)[0m  [1mSELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM "crowdblog_posts" WHERE "crowdblog_posts"."state" = 'published' LIMIT 3) subquery_for_count[0m
+[37mINFO[0m   Rendered railsmx/shared/_sidebar.html.erb (2.2ms)
+[37mINFO[0m   Rendered railsmx/home/index.html.erb within layouts/application (2.8ms)
+[37mINFO[0m   Rendered railsmx/shared/_socialite.html.erb (0.6ms)
+[37mINFO[0m Completed 200 OK in 7ms (Views: 5.4ms | ActiveRecord: 0.8ms)
+[37mINFO[0m Started GET "/auth/github" for 127.0.0.1 at 2013-07-21 21:05:12 -0700
+[37mINFO[0m Started GET "/auth/github/callback" for 127.0.0.1 at 2013-07-21 21:05:12 -0700
+[37mINFO[0m Processing by SessionsController#create as HTML
+[37mINFO[0m   Parameters: {"provider"=>"github"}
+[32mDEBUG[0m   [1m[35mIdentity Load (0.5ms)[0m  SELECT "identities".* FROM "identities" WHERE "identities"."uid" = '12334' AND "identities"."provider" = 'github' ORDER BY "identities"."id" DESC LIMIT 1
+[32mDEBUG[0m   [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+[32mDEBUG[0m   [1m[35mSQL (0.4ms)[0m  INSERT INTO "identities" ("created_at", "email", "provider", "uid", "updated_at", "username") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"  [["created_at", Mon, 22 Jul 2013 04:05:12 UTC +00:00], ["email", "test@user.com"], ["provider", "github"], ["uid", "12334"], ["updated_at", Mon, 22 Jul 2013 04:05:12 UTC +00:00], ["username", "Test user"]]
+[32mDEBUG[0m   [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+[37mINFO[0m Redirected to http://www.example.com/
+[37mINFO[0m Completed 302 Found in 3ms (ActiveRecord: 1.1ms)
+[37mINFO[0m Started GET "/" for 127.0.0.1 at 2013-07-21 21:05:12 -0700
+[37mINFO[0m Processing by HomeController#index as HTML
+[32mDEBUG[0m   [1m[35mIdentity Load (0.4ms)[0m  SELECT "identities".* FROM "identities" WHERE "identities"."id" = $1 LIMIT 1  [["id", 208]]
+[32mDEBUG[0m   [1m[36m (0.3ms)[0m  [1mSELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM "events" WHERE (date > '2013-07-22 04:05:12') LIMIT 2) subquery_for_count[0m
+[32mDEBUG[0m   [1m[35m (0.3ms)[0m  SELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM "crowdblog_posts" WHERE "crowdblog_posts"."state" = 'published' LIMIT 3) subquery_for_count
+[37mINFO[0m   Rendered railsmx/shared/_sidebar.html.erb (2.0ms)
+[37mINFO[0m   Rendered railsmx/home/index.html.erb within layouts/application (3.4ms)
+[37mINFO[0m   Rendered railsmx/shared/_socialite.html.erb (0.7ms)
+[37mINFO[0m Completed 200 OK in 8ms (Views: 6.6ms | ActiveRecord: 0.9ms)
+[32mDEBUG[0m   [1m[36mIdentity Load (0.5ms)[0m  [1mSELECT "identities".* FROM "identities" ORDER BY "identities"."id" DESC LIMIT 1[0m
+[32mDEBUG[0m   [1m[35m (0.2ms)[0m  SELECT COUNT(*) FROM "events"
+[32mDEBUG[0m   [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+[32mDEBUG[0m   [1m[35mEvent Load (0.6ms)[0m  SELECT "events".* FROM "events" WHERE ("slug" = 'magmaconf-1' OR "slug" LIKE 'magmaconf-1--%') ORDER BY LENGTH("slug") DESC, "slug" DESC LIMIT 1
+[32mDEBUG[0m   [1m[36mSQL (0.8ms)[0m  [1mINSERT INTO "events" ("address", "contact", "created_at", "date", "description", "identity_id", "latitude", "location", "longitude", "name", "organizer", "slug", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING "id"[0m  [["address", "Carretera Manzanillo-Cihuatlán kilómetro 20, Manzanillo, Colima"], ["contact", "http://magmaconf.com"], ["created_at", Mon, 22 Jul 2013 04:05:12 UTC +00:00], ["date", Wed, 30 Oct 2013 04:05:00 UTC +00:00], ["description", "Conferencias"], ["identity_id", 208], ["latitude", 19.1246832], ["location", "Manzanillo Colima"], ["longitude", -104.4001794], ["name", "MagmaConf 1"], ["organizer", "Crowdint"], ["slug", "magmaconf-1"], ["updated_at", Mon, 22 Jul 2013 04:05:12 UTC +00:00]]
+[32mDEBUG[0m   [1m[35m (0.3ms)[0m  RELEASE SAVEPOINT active_record_1
+[32mDEBUG[0m   [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+[32mDEBUG[0m   [1m[35mSQL (0.8ms)[0m  UPDATE "events" SET "date" = $1, "updated_at" = $2 WHERE "events"."id" = 980190967  [["date", Sun, 21 Jul 2013 04:05:12 UTC +00:00], ["updated_at", Mon, 22 Jul 2013 04:05:12 UTC +00:00]]
+[32mDEBUG[0m   [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+[37mINFO[0m Started GET "/eventos" for 127.0.0.1 at 2013-07-21 21:05:12 -0700
+[37mINFO[0m Processing by EventsController#index as HTML
+[32mDEBUG[0m   [1m[35m (0.5ms)[0m  SELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM "crowdblog_posts" WHERE "crowdblog_posts"."state" = 'published' LIMIT 3) subquery_for_count
+[32mDEBUG[0m   [1m[36mIdentity Load (0.3ms)[0m  [1mSELECT "identities".* FROM "identities" WHERE "identities"."id" = $1 LIMIT 1[0m  [["id", 208]]
+[32mDEBUG[0m   [1m[35m (0.4ms)[0m  SELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM "events" WHERE (date > '2013-07-22 04:05:12') LIMIT 4) subquery_for_count
+[32mDEBUG[0m   [1m[36m (0.2ms)[0m  [1mSELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM "events" WHERE (date <= '2013-07-22 04:05:12') LIMIT 3) subquery_for_count[0m
+[32mDEBUG[0m   [1m[35mEvent Load (0.2ms)[0m  SELECT "events".* FROM "events" WHERE (date <= '2013-07-22 04:05:12') ORDER BY date DESC LIMIT 3
+[37mINFO[0m   Rendered railsmx/events/_event.html.erb (0.9ms)
+[37mINFO[0m   Rendered railsmx/events/index.html.erb within layouts/application (6.1ms)
+[37mINFO[0m   Rendered railsmx/shared/_socialite.html.erb (0.7ms)
+[37mINFO[0m Completed 200 OK in 11ms (Views: 8.2ms | ActiveRecord: 1.7ms)
+[32mDEBUG[0m   [1m[36m (0.3ms)[0m  [1mROLLBACK[0m
+[32mDEBUG[0m   [1m[35m (0.1ms)[0m  BEGIN
+[37mINFO[0m -------------------------------------------------
+[37mINFO[0m LoginUser Feature Test: test_0001_Not logged user
+[37mINFO[0m -------------------------------------------------
+[32mDEBUG[0m   [1m[36mIdentity Load (0.4ms)[0m  [1mSELECT "identities".* FROM "identities"[0m
+[32mDEBUG[0m   [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+[32mDEBUG[0m   [1m[36mSQL (0.2ms)[0m  [1mDELETE FROM "identities" WHERE "identities"."id" = $1[0m  [["id", 100]]
+[32mDEBUG[0m   [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+[32mDEBUG[0m   [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+[32mDEBUG[0m   [1m[35mSQL (0.1ms)[0m  DELETE FROM "identities" WHERE "identities"."id" = $1  [["id", 200]]
+[32mDEBUG[0m   [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+[32mDEBUG[0m   [1m[35mEvent Load (0.2ms)[0m  SELECT "events".* FROM "events"
+[32mDEBUG[0m   [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+[32mDEBUG[0m   [1m[35mSQL (0.2ms)[0m  DELETE FROM "events" WHERE "events"."id" = $1  [["id", 980190962]]
+[32mDEBUG[0m   [1m[36m (0.2ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+[32mDEBUG[0m   [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+[32mDEBUG[0m   [1m[36mSQL (0.2ms)[0m  [1mDELETE FROM "events" WHERE "events"."id" = $1[0m  [["id", 298486374]]
+[32mDEBUG[0m   [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+[37mINFO[0m Started GET "/" for 127.0.0.1 at 2013-07-21 21:05:12 -0700
+[37mINFO[0m Processing by HomeController#index as HTML
+[32mDEBUG[0m   [1m[36m (0.4ms)[0m  [1mSELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM "events" WHERE (date > '2013-07-22 04:05:12') LIMIT 2) subquery_for_count[0m
+[32mDEBUG[0m   [1m[35m (0.4ms)[0m  SELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM "crowdblog_posts" WHERE "crowdblog_posts"."state" = 'published' LIMIT 3) subquery_for_count
+[37mINFO[0m   Rendered railsmx/shared/_sidebar.html.erb (2.1ms)
+[37mINFO[0m   Rendered railsmx/home/index.html.erb within layouts/application (3.0ms)
+[37mINFO[0m   Rendered railsmx/shared/_socialite.html.erb (0.6ms)
+[37mINFO[0m Completed 200 OK in 7ms (Views: 6.0ms | ActiveRecord: 0.7ms)
+[32mDEBUG[0m   [1m[36m (0.3ms)[0m  [1mROLLBACK[0m
+[32mDEBUG[0m   [1m[35m (0.1ms)[0m  BEGIN
+[37mINFO[0m --------------------------------------------
+[37mINFO[0m LoginUser Feature Test: test_0002_Login user
+[37mINFO[0m --------------------------------------------
+[32mDEBUG[0m   [1m[36mIdentity Load (0.3ms)[0m  [1mSELECT "identities".* FROM "identities"[0m
+[32mDEBUG[0m   [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+[32mDEBUG[0m   [1m[36mSQL (0.3ms)[0m  [1mDELETE FROM "identities" WHERE "identities"."id" = $1[0m  [["id", 100]]
+[32mDEBUG[0m   [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+[32mDEBUG[0m   [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+[32mDEBUG[0m   [1m[35mSQL (0.2ms)[0m  DELETE FROM "identities" WHERE "identities"."id" = $1  [["id", 200]]
+[32mDEBUG[0m   [1m[36m (0.2ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+[32mDEBUG[0m   [1m[35mEvent Load (0.3ms)[0m  SELECT "events".* FROM "events"
+[32mDEBUG[0m   [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+[32mDEBUG[0m   [1m[35mSQL (0.1ms)[0m  DELETE FROM "events" WHERE "events"."id" = $1  [["id", 980190962]]
+[32mDEBUG[0m   [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+[32mDEBUG[0m   [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+[32mDEBUG[0m   [1m[36mSQL (0.2ms)[0m  [1mDELETE FROM "events" WHERE "events"."id" = $1[0m  [["id", 298486374]]
+[32mDEBUG[0m   [1m[35m (0.2ms)[0m  RELEASE SAVEPOINT active_record_1
+[37mINFO[0m Started GET "/" for 127.0.0.1 at 2013-07-21 21:05:12 -0700
+[37mINFO[0m Processing by HomeController#index as HTML
+[32mDEBUG[0m   [1m[36m (0.4ms)[0m  [1mSELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM "events" WHERE (date > '2013-07-22 04:05:12') LIMIT 2) subquery_for_count[0m
+[32mDEBUG[0m   [1m[35m (0.3ms)[0m  SELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM "crowdblog_posts" WHERE "crowdblog_posts"."state" = 'published' LIMIT 3) subquery_for_count
+[37mINFO[0m   Rendered railsmx/shared/_sidebar.html.erb (2.1ms)
+[37mINFO[0m   Rendered railsmx/home/index.html.erb within layouts/application (2.8ms)
+[37mINFO[0m   Rendered railsmx/shared/_socialite.html.erb (0.6ms)
+[37mINFO[0m Completed 200 OK in 7ms (Views: 5.4ms | ActiveRecord: 0.8ms)
+[37mINFO[0m Started GET "/auth/github" for 127.0.0.1 at 2013-07-21 21:05:12 -0700
+[37mINFO[0m Started GET "/auth/github/callback" for 127.0.0.1 at 2013-07-21 21:05:12 -0700
+[37mINFO[0m Processing by SessionsController#create as HTML
+[37mINFO[0m   Parameters: {"provider"=>"github"}
+[32mDEBUG[0m   [1m[36mIdentity Load (0.5ms)[0m  [1mSELECT "identities".* FROM "identities" WHERE "identities"."uid" = '12334' AND "identities"."provider" = 'github' ORDER BY "identities"."id" DESC LIMIT 1[0m
+[32mDEBUG[0m   [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+[32mDEBUG[0m   [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "identities" ("created_at", "email", "provider", "uid", "updated_at", "username") VALUES ($1, $2, $3, $4, $5, $6) RETURNING "id"[0m  [["created_at", Mon, 22 Jul 2013 04:05:12 UTC +00:00], ["email", "test@user.com"], ["provider", "github"], ["uid", "12334"], ["updated_at", Mon, 22 Jul 2013 04:05:12 UTC +00:00], ["username", "Test user"]]
+[32mDEBUG[0m   [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+[37mINFO[0m Redirected to http://www.example.com/
+[37mINFO[0m Completed 302 Found in 4ms (ActiveRecord: 1.1ms)
+[37mINFO[0m Started GET "/" for 127.0.0.1 at 2013-07-21 21:05:12 -0700
+[37mINFO[0m Processing by HomeController#index as HTML
+[32mDEBUG[0m   [1m[36mIdentity Load (0.4ms)[0m  [1mSELECT "identities".* FROM "identities" WHERE "identities"."id" = $1 LIMIT 1[0m  [["id", 209]]
+[32mDEBUG[0m   [1m[35m (0.4ms)[0m  SELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM "events" WHERE (date > '2013-07-22 04:05:12') LIMIT 2) subquery_for_count
+[32mDEBUG[0m   [1m[36m (0.3ms)[0m  [1mSELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM "crowdblog_posts" WHERE "crowdblog_posts"."state" = 'published' LIMIT 3) subquery_for_count[0m
+[37mINFO[0m   Rendered railsmx/shared/_sidebar.html.erb (1.9ms)
+[37mINFO[0m   Rendered railsmx/home/index.html.erb within layouts/application (3.4ms)
+[37mINFO[0m   Rendered railsmx/shared/_socialite.html.erb (0.6ms)
+[37mINFO[0m Completed 200 OK in 8ms (Views: 5.9ms | ActiveRecord: 1.0ms)
+[32mDEBUG[0m   [1m[35m (0.3ms)[0m  ROLLBACK
+[32mDEBUG[0m   [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+[37mINFO[0m -----------------------------------------------------
+[37mINFO[0m LoginUser Feature Test: test_0003_Reject blocked user
+[37mINFO[0m -----------------------------------------------------
+[32mDEBUG[0m   [1m[35mIdentity Load (0.2ms)[0m  SELECT "identities".* FROM "identities"
+[32mDEBUG[0m   [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+[32mDEBUG[0m   [1m[35mSQL (0.2ms)[0m  DELETE FROM "identities" WHERE "identities"."id" = $1  [["id", 100]]
+[32mDEBUG[0m   [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+[32mDEBUG[0m   [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+[32mDEBUG[0m   [1m[36mSQL (0.1ms)[0m  [1mDELETE FROM "identities" WHERE "identities"."id" = $1[0m  [["id", 200]]
+[32mDEBUG[0m   [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+[32mDEBUG[0m   [1m[36mEvent Load (0.2ms)[0m  [1mSELECT "events".* FROM "events"[0m
+[32mDEBUG[0m   [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+[32mDEBUG[0m   [1m[36mSQL (0.1ms)[0m  [1mDELETE FROM "events" WHERE "events"."id" = $1[0m  [["id", 980190962]]
+[32mDEBUG[0m   [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+[32mDEBUG[0m   [1m[36m (0.1ms)[0m  [1mSAVEPOINT active_record_1[0m
+[32mDEBUG[0m   [1m[35mSQL (0.1ms)[0m  DELETE FROM "events" WHERE "events"."id" = $1  [["id", 298486374]]
+[32mDEBUG[0m   [1m[36m (0.1ms)[0m  [1mRELEASE SAVEPOINT active_record_1[0m
+[32mDEBUG[0m   [1m[35m (0.1ms)[0m  SAVEPOINT active_record_1
+[32mDEBUG[0m   [1m[36mSQL (0.7ms)[0m  [1mINSERT INTO "identities" ("blocked", "created_at", "email", "provider", "uid", "updated_at", "username") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["blocked", true], ["created_at", Mon, 22 Jul 2013 04:05:12 UTC +00:00], ["email", "test@user.com"], ["provider", "github"], ["uid", "224456"], ["updated_at", Mon, 22 Jul 2013 04:05:12 UTC +00:00], ["username", "blocked"]]
+[32mDEBUG[0m   [1m[35m (0.1ms)[0m  RELEASE SAVEPOINT active_record_1
+[37mINFO[0m Started GET "/" for 127.0.0.1 at 2013-07-21 21:05:12 -0700
+[37mINFO[0m Processing by HomeController#index as HTML
+[32mDEBUG[0m   [1m[36m (0.5ms)[0m  [1mSELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM "events" WHERE (date > '2013-07-22 04:05:12') LIMIT 2) subquery_for_count[0m
+[32mDEBUG[0m   [1m[35m (0.5ms)[0m  SELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM "crowdblog_posts" WHERE "crowdblog_posts"."state" = 'published' LIMIT 3) subquery_for_count
+[37mINFO[0m   Rendered railsmx/shared/_sidebar.html.erb (2.4ms)
+[37mINFO[0m   Rendered railsmx/home/index.html.erb within layouts/application (3.2ms)
+[37mINFO[0m   Rendered railsmx/shared/_socialite.html.erb (0.6ms)
+[37mINFO[0m Completed 200 OK in 8ms (Views: 5.9ms | ActiveRecord: 0.9ms)
+[37mINFO[0m Started GET "/auth/github" for 127.0.0.1 at 2013-07-21 21:05:12 -0700
+[37mINFO[0m Started GET "/auth/github/callback" for 127.0.0.1 at 2013-07-21 21:05:12 -0700
+[37mINFO[0m Processing by SessionsController#create as HTML
+[37mINFO[0m   Parameters: {"provider"=>"github"}
+[32mDEBUG[0m   [1m[36mIdentity Load (0.5ms)[0m  [1mSELECT "identities".* FROM "identities" WHERE "identities"."uid" = '224456' AND "identities"."provider" = 'github' ORDER BY "identities"."id" DESC LIMIT 1[0m
+[37mINFO[0m Completed   in 1ms
+[37mINFO[0m Processing by HomeController#index as HTML
+[37mINFO[0m   Parameters: {"provider"=>"github"}
+[32mDEBUG[0m   [1m[35m (0.4ms)[0m  SELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM "events" WHERE (date > '2013-07-22 04:05:12') LIMIT 2) subquery_for_count
+[32mDEBUG[0m   [1m[36m (0.3ms)[0m  [1mSELECT COUNT(count_column) FROM (SELECT 1 AS count_column FROM "crowdblog_posts" WHERE "crowdblog_posts"."state" = 'published' LIMIT 3) subquery_for_count[0m
+[37mINFO[0m   Rendered railsmx/shared/_sidebar.html.erb (1.9ms)
+[37mINFO[0m   Rendered railsmx/home/index.html.erb within layouts/application (2.5ms)
+[37mINFO[0m   Rendered railsmx/shared/_socialite.html.erb (0.8ms)
+[37mINFO[0m Completed 200 OK in 6ms (Views: 5.3ms | ActiveRecord: 0.7ms)
+[32mDEBUG[0m   [1m[35m (0.3ms)[0m  ROLLBACK

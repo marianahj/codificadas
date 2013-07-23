@@ -1,0 +1,55 @@
+<% title t('.blog') %>
+<div class="content posts-index">
+  <section class="left-section">
+    <sidebar>
+      <div class="events">
+        <h4><%= t('.coming_events') %></h4>
+        <div class="sidebar-events">
+          <%= !@current_events.empty? ? (render partial: 'shared/event', collection: @current_events) : t('.not_content') %>
+        </div>
+      </div>
+      <div class="social-links">
+        <h4><%= t('.social') %></h4>
+        <ul>
+          <div class="icons icon-twitter">
+            <i><%= link_to '@railsmx', 'http://twitter.com/railsmx', target: '_blank' %></i>
+          </div>
+          <div class="icons icon-google-plus">
+            <i><%= link_to 'RailsMX', 'https://plus.google.com/communities/113995479213399624141', target: '_blank' %></i>
+          </div>
+          <div class="icons icon-microphone">
+            <i><%= link_to 'Ruby en Español', 'http://rubyen.es', target: '_blank' %></i>
+          </div>
+          <div class="icons icon-group">
+            <i><%= link_to 'Codificadas MX', 'https://www.facebook.com/Codificadas', target: '_blank' %></i>
+          </div>
+        </ul>
+      </div>
+    </sidebar>
+  </section>
+
+  <section class="right-section">
+    <div class="info">
+      <h1>Blog</h1>
+      <p>Colección de posts con temas relacionados con el lenguaje Ruby, el framework Ruby On Rails y desarrollo web en general.
+        Los posts han sido creados y publicados mediantes contribuciones de
+        la comunidad</p>
+
+        <p>Si quieres colaborar en la sección del Blog de Rails Mx, por favor revisa la <%= link_to 'guía', '/guia-blog' %> de como hacerlo.</p>
+    </div>
+    <div class="blog">
+      <% cache @posts do %>
+          <%= render @posts %>
+      <% end %>
+    </div>
+  </section>
+</div>
+<script>
+  document.addEventListener('page:change', function(){
+    new App.Utilities.Highligh
+  });
+
+  $(function(){
+    new App.Utilities.Highligh
+  });
+</script>
